@@ -1,0 +1,43 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.5.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.srkr.accounts'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+ext {
+	springCloudVersion = 'Finchley.SR1'
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa',
+	'org.springframework.boot:spring-boot-starter-data-rest',
+	'org.springframework.boot:spring-boot-starter-jersey',
+	'org.springframework.cloud:spring-cloud-starter-config:2.0.1.RELEASE',
+	'org.springframework.boot:spring-boot-starter-hateoas',
+	'org.json:json:20180130',
+	'org.springframework.boot:spring-boot-devtools',
+	'org.springframework.boot:spring-boot-starter-actuator')
+	
+	runtime('org.postgresql:postgresql')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
