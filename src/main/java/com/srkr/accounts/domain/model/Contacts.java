@@ -2,6 +2,7 @@ package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Contacts extends AssertionConcern implements Serializable {
@@ -34,15 +35,18 @@ public class Contacts extends AssertionConcern implements Serializable {
 	private String idNumber;
 	private String designation;
 
-	public Contacts() {
-
-	}
-
-	public Contacts(Long id, String supplementalId, Boolean isCompany, String companyName, String firstName,
-			String middleName, String lastName, String cellPhone, String homePhone, String officePhone,
-			String faxNumber, String emailAddress, String streetAddress, String city, State state, Country country,
-			String postalCode, String landMark, String additionalComments, String idType, String idNumber,
-			String designation) {
+	@JsonCreator
+	public Contacts(@JsonProperty("id") Long id, @JsonProperty("supplementalId") String supplementalId,
+			@JsonProperty("isCompany") Boolean isCompany, @JsonProperty("companyName") String companyName,
+			@JsonProperty("firstName") String firstName, @JsonProperty("middleName") String middleName,
+			@JsonProperty("lastName") String lastName, @JsonProperty("cellPhone") String cellPhone,
+			@JsonProperty("homePhone") String homePhone, @JsonProperty("officePhone") String officePhone,
+			@JsonProperty("faxNumber") String faxNumber, @JsonProperty("emailAddress") String emailAddress,
+			@JsonProperty("streetAddress") String streetAddress, @JsonProperty("city") String city,
+			@JsonProperty("state") String state, @JsonProperty("country") String country,
+			@JsonProperty("postalCode") String postalCode, @JsonProperty("landMark") String landMark,
+			@JsonProperty("additionalComments") String additionalComments, @JsonProperty("idType") String idType,
+			@JsonProperty("idNumber") String idNumber, @JsonProperty("designation") String designation) {
 		super();
 		this.id = id;
 		this.supplementalId = supplementalId;
@@ -58,8 +62,8 @@ public class Contacts extends AssertionConcern implements Serializable {
 		this.emailAddress = emailAddress;
 		this.streetAddress = streetAddress;
 		this.city = city;
-		this.state = state;
-		this.country = country;
+		this.state = State.valueOfAbbreviation(state);
+		this.country = Country.valueOfAbbreviation(country);
 		this.postalCode = postalCode;
 		this.landMark = landMark;
 		this.additionalComments = additionalComments;
@@ -68,112 +72,90 @@ public class Contacts extends AssertionConcern implements Serializable {
 		this.designation = designation;
 	}
 
-	@JsonProperty("id")
 	public Long id() {
 		return id;
 	}
 
-	@JsonProperty("supplementalId")
 	public String supplementalId() {
 		return supplementalId;
 	}
 
-	@JsonProperty("isCompany")
 	public Boolean isCompany() {
 		return isCompany;
 	}
 
-	@JsonProperty("companyName")
 	public String companyName() {
 		return companyName;
 	}
 
-	@JsonProperty("firstName")
 	public String firstName() {
 		return firstName;
 	}
 
-	@JsonProperty("middleName")
 	public String middleName() {
 		return middleName;
 	}
 
-	@JsonProperty("lastName")
 	public String lastName() {
 		return lastName;
 	}
 
-	@JsonProperty("cellPhone")
 	public String cellPhone() {
 		return cellPhone;
 	}
 
-	@JsonProperty("homePhone")
 	public String homePhone() {
 		return homePhone;
 	}
 
-	@JsonProperty("officePhone")
 	public String officePhone() {
 		return officePhone;
 	}
 
-	@JsonProperty("faxNumber")
 	public String faxNumber() {
 		return faxNumber;
 	}
 
-	@JsonProperty("emailAddress")
 	public String emailAddress() {
 		return emailAddress;
 	}
 
-	@JsonProperty("streetAddress")
 	public String streetAddress() {
 		return streetAddress;
 	}
 
-	@JsonProperty("city")
 	public String city() {
 		return city;
 	}
 
-	@JsonProperty("state")
 	public State state() {
 		return state;
 	}
 
-	@JsonProperty("country")
 	public Country country() {
 		return country;
 	}
 
-	@JsonProperty("postalCode")
 	public String postalCode() {
 		return postalCode;
 	}
 
-	@JsonProperty("landMark")
 	public String landMark() {
 		return landMark;
 	}
 
-	@JsonProperty("additionalComments")
 	public String additionalComments() {
 		return additionalComments;
 	}
 
-	@JsonProperty("idType")
 	public String idType() {
 		return idType;
 	}
 
-	@JsonProperty("idNumber")
 	public String idNumber() {
 		return idNumber;
 	}
 
-	@JsonProperty("designation")
 	public String designation() {
 		return designation;
 	}

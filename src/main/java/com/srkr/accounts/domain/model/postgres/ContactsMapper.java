@@ -5,9 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.srkr.accounts.domain.model.Country;
-import com.srkr.accounts.domain.model.State;
-
 @Component
 public class ContactsMapper {
 
@@ -47,8 +44,8 @@ public class ContactsMapper {
 				pgContacts.getCompanyName(), pgContacts.getFirstName(), pgContacts.getMiddleName(),
 				pgContacts.getLastName(), pgContacts.getCellPhone(), pgContacts.getHomePhone(),
 				pgContacts.getOfficePhone(), pgContacts.getFaxNumber(), pgContacts.getEmailAddress(),
-				pgContacts.getStreetAddress(), pgContacts.getCity(), State.valueOfAbbreviation(pgContacts.getState()),
-				Country.valueOfAbbreviation(pgContacts.getCountry()), pgContacts.getPostalCode(),
+				pgContacts.getStreetAddress(), pgContacts.getCity(), pgContacts.getState(),
+				pgContacts.getCountry(), pgContacts.getPostalCode(),
 				pgContacts.getLandMark(), pgContacts.getAdditionalComments(), pgContacts.getIdType(),
 				pgContacts.getIdNumber(), pgContacts.getDesignation());
 		return contacts;
