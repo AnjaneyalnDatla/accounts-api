@@ -16,6 +16,7 @@ public class TransactionsMapper {
 		Transactions pgTransactions = new Transactions();
 		pgTransactions.setUserId(transactions.user_id());
 		pgTransactions.setUserName(transactions.user_name());
+		pgTransactions.setTransaction_number(transactions.transaction_number());
 		pgTransactions.setLine_item_number(transactions.line_item_number());
 		pgTransactions.setName(transactions.name());
 		pgTransactions.setAccounts(accountsMapper.toPostgresObject(transactions.accounts()));
@@ -26,7 +27,7 @@ public class TransactionsMapper {
 	public com.srkr.accounts.domain.model.Transactions toDomainObject(Transactions pgTransactions) {
 		com.srkr.accounts.domain.model.Transactions transactions = new com.srkr.accounts.domain.model.Transactions(
 				pgTransactions.getId(), pgTransactions.getUserId(), pgTransactions.getUserName(),
-				pgTransactions.getLine_item_number(), pgTransactions.getName(),
+				pgTransactions.getTransaction_number(), pgTransactions.getLine_item_number(), pgTransactions.getName(),
 				accountsMapper.toDomainObject(pgTransactions.getAccounts()), pgTransactions.getQuantity(),
 				pgTransactions.getPrice(), pgTransactions.getAmount(),
 				headersMapper.toDomainObject(pgTransactions.getHeaders()));

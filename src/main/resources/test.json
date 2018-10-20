@@ -1,0 +1,23 @@
+{
+	"supplementalId": "06s11a1222",
+	"isCompany": "true",
+	"companyName": "ABC Constructions",
+	"firstName": "Tony",
+	"middleName": "Mark",
+	"lastName": "Stark",
+	"cellPhone": "1234567890",
+	"homePhone": "3216549870",
+	"officePhone": "7412589630",
+	"faxNumber": "0123546987",
+	"emailAddress": "test@test.com",
+	"streetAddress": "Main St 123",
+	"city": "Hyderabad",
+	"state": "Telangana",
+	"country": "India",
+	"postalCode": "500082",
+	"landMark": "Near Park avenue",
+	"additionalComments": "Construction Seller",
+	"idType": "Pan",
+	"idNumber": "12032564100",
+	"designation": "Supervisior"
+}

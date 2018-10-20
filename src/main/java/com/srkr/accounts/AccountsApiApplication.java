@@ -1,4 +1,4 @@
-package com.srkr.accounts.accountsapi;
+package com.srkr.accounts;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,3 +10,4 @@ public class AccountsApiApplication {
 		SpringApplication.run(AccountsApiApplication.class, args);
 	}
 }
+

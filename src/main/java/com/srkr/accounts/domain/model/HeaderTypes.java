@@ -1,6 +1,13 @@
 package com.srkr.accounts.domain.model;
 
-public class HeaderTypes {
+import java.io.Serializable;
+
+public class HeaderTypes extends AssertionConcern implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3418726870965527429L;
 
 	private Long id;
 

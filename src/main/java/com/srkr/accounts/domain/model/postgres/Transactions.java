@@ -24,6 +24,10 @@ public class Transactions {
 
 	@Column(name = "user_name")
 	private String userName;
+	
+	@Column(name = "transaction_number")
+	private Integer transaction_number;
+
 
 	@Column(name = "line_item_number")
 	private Integer line_item_number;
@@ -126,6 +130,14 @@ public class Transactions {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Integer getTransaction_number() {
+		return transaction_number;
+	}
+
+	public void setTransaction_number(Integer transaction_number) {
+		this.transaction_number = transaction_number;
 	}
 
 }

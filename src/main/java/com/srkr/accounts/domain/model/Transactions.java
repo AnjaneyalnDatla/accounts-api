@@ -1,10 +1,20 @@
 package com.srkr.accounts.domain.model;
 
-public class Transactions {
+import java.io.Serializable;
+
+public class Transactions extends AssertionConcern implements Serializable {
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3143036145899180010L;
 
 	private Long id;
 
 	private Integer user_id;
+
+	private Integer transaction_number;
 
 	private String user_name;
 
@@ -22,12 +32,14 @@ public class Transactions {
 
 	private Headers header;
 
-	public Transactions(Long id, Integer user_id, String user_name, Integer line_item_number, String name,
-			Accounts accounts, Integer quantity, Double price, Double amount, Headers header) {
+	public Transactions(Long id, Integer user_id, String user_name,Integer transaction_number,
+			Integer line_item_number, String name, Accounts accounts, Integer quantity, Double price, Double amount,
+			Headers header) {
 		super();
 		this.id = id;
 		this.user_id = user_id;
 		this.user_name = user_name;
+		this.transaction_number = transaction_number;
 		this.line_item_number = line_item_number;
 		this.name = name;
 		this.accounts = accounts;
@@ -37,11 +49,12 @@ public class Transactions {
 		this.header = header;
 	}
 
-	public Transactions(Integer user_id, String user_name, Integer line_item_number, String name, Accounts accounts,
-			Integer quantity, Double price, Double amount, Headers header) {
+	public Transactions(Integer user_id, String user_name, Integer transaction_number, Integer line_item_number,
+			String name, Accounts accounts, Integer quantity, Double price, Double amount, Headers header) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
+		this.transaction_number = transaction_number;
 		this.line_item_number = line_item_number;
 		this.name = name;
 		this.accounts = accounts;
@@ -61,6 +74,10 @@ public class Transactions {
 
 	public String user_name() {
 		return user_name;
+	}
+
+	public Integer transaction_number() {
+		return transaction_number;
 	}
 
 	public Integer line_item_number() {

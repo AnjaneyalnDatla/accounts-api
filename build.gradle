@@ -23,18 +23,20 @@ repositories {
 	mavenCentral()
 }
 
-
-ext {
-	springCloudVersion = 'Finchley.SR1'
-}
-
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa',
+	compile(
+	// Spring Data
+	'org.springframework.boot:spring-boot-starter-data-jpa',
 	'org.springframework.boot:spring-boot-starter-data-rest',
+	// Jersey
 	'org.springframework.boot:spring-boot-starter-jersey',
+	//Cloud
 	'org.springframework.cloud:spring-cloud-starter-config:2.0.1.RELEASE',
-	'org.springframework.boot:spring-boot-starter-hateoas',
+	// Json Mapping
 	'org.json:json:20180130',
+	// Spring Security
+	//'org.springframework.boot:spring-boot-starter-security',
+	// Spring Boot Facilitators
 	'org.springframework.boot:spring-boot-devtools',
 	'org.springframework.boot:spring-boot-starter-actuator')
 	

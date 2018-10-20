@@ -1,6 +1,12 @@
 package com.srkr.accounts.domain.model;
 
-public class AccountCategory {
+import java.io.Serializable;
+
+public class AccountCategory extends AssertionConcern implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2684990329086993917L;
 
 	private Long id;
 

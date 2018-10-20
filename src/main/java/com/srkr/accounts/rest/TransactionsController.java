@@ -27,7 +27,6 @@ public class TransactionsController {
 	private FindTransactions findTransactions;
 
 	@GET
-	@Path("/{username}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getTransactions(@PathParam("username") String user_name) {
 		log.info("Username :" + user_name);

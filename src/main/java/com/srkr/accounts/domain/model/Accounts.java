@@ -1,6 +1,13 @@
 package com.srkr.accounts.domain.model;
 
-public class Accounts {
+import java.io.Serializable;
+
+public class Accounts extends AssertionConcern implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4360389969050787176L;
 
 	private Long id;
 
@@ -17,14 +24,13 @@ public class Accounts {
 		this.account_type = account_type;
 		this.parent_account = parent_account;
 	}
-	
+
 	public Accounts(String name, AccountTypes account_type, Accounts parent_account) {
 		super();
 		this.name = name;
 		this.account_type = account_type;
 		this.parent_account = parent_account;
 	}
-
 
 	public Long id() {
 		return id;

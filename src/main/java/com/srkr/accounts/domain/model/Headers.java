@@ -1,8 +1,14 @@
 package com.srkr.accounts.domain.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Headers {
+public class Headers extends AssertionConcern implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5835995173434301348L;
 
 	private Long id;
 
