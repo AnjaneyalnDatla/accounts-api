@@ -29,5 +29,9 @@ public class FindContact {
 		}
 		throw new NameNotFoundException();
 	}
+	
+	public List<Contacts> findAllContacts() {
+			return contactsMapper.toListOfDomainObjects(postgresContactsRepository.findAll());
+	}
 
 }

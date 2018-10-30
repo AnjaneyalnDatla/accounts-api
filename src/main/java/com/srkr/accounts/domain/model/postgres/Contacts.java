@@ -21,40 +21,40 @@ public class Contacts {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "supplementalId")
+	@Column(name = "supplementalid")
 	private String supplementalId;
 
-	@Column(name = "isCompany")
+	@Column(name = "iscompany")
 	private Boolean isCompany;
 
-	@Column(name = "companyName")
+	@Column(name = "companyname")
 	private String companyName;
 
-	@Column(name = "firstName")
+	@Column(name = "firstname")
 	private String firstName;
 
-	@Column(name = "middleName")
+	@Column(name = "middlename")
 	private String middleName;
 
-	@Column(name = "lastName")
+	@Column(name = "lastname")
 	private String lastName;
 
-	@Column(name = "cellPhone")
+	@Column(name = "cellphone")
 	private String cellPhone;
 
-	@Column(name = "homePhone")
+	@Column(name = "homephone")
 	private String homePhone;
 
-	@Column(name = "officePhone")
+	@Column(name = "officephone")
 	private String officePhone;
 	
-	@Column(name = "faxNumber")
+	@Column(name = "faxnumber")
 	private String faxNumber;
 
-	@Column(name = "emailAddress")
+	@Column(name = "emailaddress")
 	private String emailAddress;
 
-	@Column(name = "streetAddress")
+	@Column(name = "streetaddress")
 	private String streetAddress;
 
 	@Column(name = "city")
@@ -66,19 +66,19 @@ public class Contacts {
 	@Column(name = "country")
 	private String country;
 
-	@Column(name = "postalCode")
+	@Column(name = "postalcode")
 	private String postalCode;
 
-	@Column(name = "landMark")
+	@Column(name = "landmark")
 	private String landMark;
 
-	@Column(name = "additionalComments")
+	@Column(name = "additionalcomments")
 	private String additionalComments;
 
-	@Column(name = "idType")
+	@Column(name = "idtype")
 	private String idType;
 
-	@Column(name = "idNumber")
+	@Column(name = "idnumber")
 	private String idNumber;
 
 	@Column(name = "designation")
