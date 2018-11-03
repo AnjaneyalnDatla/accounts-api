@@ -44,7 +44,7 @@ pipeline{
 		
 		stage("RUN"){
 			steps{
-					sh 'docker run -d --name ${JOB_NAME} -p 8082:8080 ${NEXUS_REPO_URL}/${JOB_NAME}:${BUILD_NUMBER}'
+					sh 'docker run -d --name ${JOB_NAME} -p 8082:8080 ${JOB_NAME}:${BUILD_NUMBER}'
 			}
 		}
 	}
