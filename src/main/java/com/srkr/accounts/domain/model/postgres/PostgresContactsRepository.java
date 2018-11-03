@@ -11,5 +11,7 @@ public interface PostgresContactsRepository extends Repository<Contacts, Long> {
 	List<Contacts> findByFirstName(String firstName);
 
 	List<Contacts> findByLastName(String lastName);
+	
+	List<Contacts> findAll();
 
 }

@@ -66,4 +66,18 @@ public class ContactsController {
 			return Response.status(Response.Status.UNAUTHORIZED.getStatusCode()).build();
 		}
 	}
+	
+	@GET
+	@Path("/getAllContacts")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAllContacts() {
+		//log.info("First Name : " + firstName + ", Last Name : " + lastName);
+		try {
+			return Response.status(Response.Status.OK.getStatusCode())
+					.entity(toJsonString(findContact.findAllContacts())).build();
+		} catch (IOException e) {
+			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
+		} 
+	}
 }
