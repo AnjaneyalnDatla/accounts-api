@@ -12,14 +12,28 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'base'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.srkr.accounts'
-version = '0.0.1-SNAPSHOT'
+group = 'com.srkr'
+version = '1.0.0'
 sourceCompatibility = 1.8
 
+
 repositories {
+//nexus repository
+    maven {
+      credentials {
+          username 'admin'
+          password 'admin123'
+    		    }
+      url 'http://206.189.197.225:8081/repository/a2nine-maven-jars/'
+      authentication {
+          basic(BasicAuthentication)
+      		  }
+    }
 	mavenCentral()
 }
 
@@ -42,4 +56,28 @@ dependencies {
 	
 	runtime('org.postgresql:postgresql')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+// Runnable Jar
+bootJar {
+    baseName = 'accounts-api'
+    version =  '1.0.0'
+}
+
+jar {
+	enabled =true
+	manifest {
+    	attributes 'Main-Class': 'com.srkr.identity.AccountsApiApplication'
+    	}
+}
+
+// Upload to Nexus
+uploadBootArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: "http://206.189.197.225:8081/repository/a2nine-maven-jars/") {
+				 authentication(userName: "admin", password: "admin123")
+			}
+		}
+	}
 }
