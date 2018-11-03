@@ -23,8 +23,8 @@ pipeline{
 		stage("IMAGE"){
 			steps{
 					sh 'whoami'
-					sh 'docker stop ${JOB_NAME} || true && docker rm ${JOB_NAME} || true docker rmi $(docker images |grep ${JOB_NAME}) || true'				
-					sh 'docker build -t ${JOB_NAME}:${BUILD_NUMBER} .'
+					sh 'docker stop accounts-api || true && docker rm accounts-api || true docker rmi $(docker images |grep accounts-api) || true'				
+					sh 'docker build -t accounts-api:${BUILD_NUMBER} .'
 					
 			}
 		}
@@ -44,7 +44,7 @@ pipeline{
 		
 		stage("RUN"){
 			steps{
-					sh 'docker run -d --name ${JOB_NAME} -p 8086:8080 ${JOB_NAME}:${BUILD_NUMBER}'
+					sh 'docker run -d --name accounts-api -p 8086:8080 accounts-api:${BUILD_NUMBER}'
 			}
 		}
 	}
