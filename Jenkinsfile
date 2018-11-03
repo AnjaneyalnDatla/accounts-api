@@ -44,7 +44,7 @@ pipeline{
 		
 		stage("RUN"){
 			steps{
-					sh 'docker run -d --name ${JOB_NAME} -p 8082:8080 ${JOB_NAME}:${BUILD_NUMBER}'
+					sh 'docker run -d --name ${JOB_NAME} -p 8086:8080 ${JOB_NAME}:${BUILD_NUMBER}'
 			}
 		}
 	}
