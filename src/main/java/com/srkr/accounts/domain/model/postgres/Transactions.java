@@ -29,8 +29,8 @@ public class Transactions {
 	private Integer transaction_number;
 
 
-	@Column(name = "line_item_number")
-	private Integer line_item_number;
+	@Column(name = "line_item_no")
+	private Integer line_item_no;
 
 	@Column(name = "name")
 	private String name;
@@ -61,11 +61,11 @@ public class Transactions {
 	}
 
 	public Integer getLine_item_number() {
-		return line_item_number;
+		return line_item_no;
 	}
 
-	public void setLine_item_number(Integer line_item_number) {
-		this.line_item_number = line_item_number;
+	public void setLine_item_number(Integer line_item_no) {
+		this.line_item_no = line_item_no;
 	}
 
 	public String getName() {

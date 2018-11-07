@@ -1,5 +1,8 @@
 package com.srkr.accounts.domain.model.postgres;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +34,14 @@ public class TransactionsMapper {
 				accountsMapper.toDomainObject(pgTransactions.getAccounts()), pgTransactions.getQuantity(),
 				pgTransactions.getPrice(), pgTransactions.getAmount(),
 				headersMapper.toDomainObject(pgTransactions.getHeaders()));
+		return transactions;
+	}
+	
+	public List<com.srkr.accounts.domain.model.Transactions> toListOfDomainObjects(List<Transactions> pgTransactions) {
+		List<com.srkr.accounts.domain.model.Transactions> transactions = new ArrayList<>();
+		pgTransactions.forEach(c -> {
+			transactions.add(toDomainObject(c));
+		});
 		return transactions;
 	}
 

@@ -2,9 +2,12 @@ package com.srkr.accounts.rest;
 
 import static com.srkr.accounts.util.ObjectSerializer.toJsonString;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -13,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.srkr.accounts.domain.model.Transactions;
@@ -27,6 +31,7 @@ public class TransactionsController {
 	private FindTransactions findTransactions;
 
 	@GET
+	@Path("/getTransactions")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getTransactions(@PathParam("username") String user_name) {
 		log.info("Username :" + user_name);
@@ -39,5 +44,25 @@ public class TransactionsController {
 		}
 
 	}
-
+	
+	@GET
+	@Path("/getAllTransactions")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAllTransactions() {
+		//log.info("First Name : " + firstName + ", Last Name : " + lastName);
+		try {
+			return Response.status(Response.Status.OK.getStatusCode())
+					.entity(toJsonString(findTransactions.findAllTransactions())).build();
+		} catch (IOException e) {
+			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
+		} 
+	}
+	
+	@POST
+	@Path("/saveTransaction")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public String saveTransactions(@PathParam("formData") JSONObject formData) {
+		log.info("formData :" + formData);
+		return "Transaction created successfully";
+	}
 }

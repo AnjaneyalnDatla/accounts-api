@@ -7,5 +7,6 @@ import org.springframework.data.repository.Repository;
 public interface PostgresTransactionsRepository extends Repository<Transactions, Long> {
 
 	List<Transactions> findByUserName(String userName);
+	List<Transactions> findAll();
 
 }
