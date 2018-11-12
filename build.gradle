@@ -49,7 +49,7 @@ dependencies {
 	// Json Mapping
 	'org.json:json:20180130',
 	// Spring Security
-	//'org.springframework.boot:spring-boot-starter-security',
+	'org.springframework.boot:spring-boot-starter-security',
 	// Spring Boot Facilitators
 	'org.springframework.boot:spring-boot-devtools',
 	'org.springframework.boot:spring-boot-starter-actuator')
