@@ -26,7 +26,7 @@ pipeline{
             }
             steps{
                 sh './gradlew bootJar -x test'
-                sh './gradlew uploadBootArchives -x test'
+                //sh './gradlew uploadBootArchives -x test'
                 //commenting out temporarily
                 //sh 'docker login --username $DOCKER_NEXUS_CREDS_USR --password $DOCKER_NEXUS_CREDS_PSW ${NEXUS_REPO_URL}'
 				//sh 'docker push ${NEXUS_REPO_URL}/${JOB_NAME}:${BUILD_NUMBER}'
