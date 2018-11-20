@@ -32,7 +32,7 @@ public class TransactionsController {
 	private FindTransactions findTransactions;
 
 	@GET
-	@Path("/getTransactions")
+	@Path("/name")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getTransactions(@PathParam("username") String user_name) {
 		log.info("Username :" + user_name);
@@ -47,10 +47,8 @@ public class TransactionsController {
 	}
 	
 	@GET
-	@Path("/getAllTransactions")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getAllTransactions() {
-		//log.info("First Name : " + firstName + ", Last Name : " + lastName);
 		try {
 			return Response.status(Response.Status.OK.getStatusCode())
 					.entity(toJsonString(findTransactions.findAllTransactions())).build();
@@ -60,7 +58,6 @@ public class TransactionsController {
 	}
 	
 	@POST
-	@Path("/saveTransaction")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response saveTransactions(@RequestBody String formData) {
 		log.info("formData :" + formData);

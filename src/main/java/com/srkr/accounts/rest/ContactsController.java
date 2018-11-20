@@ -36,7 +36,6 @@ public class ContactsController {
 	private FindContact findContact;
 
 	@POST
-	@Path("/saveContact")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createContact(@RequestBody String jsonBody) {
