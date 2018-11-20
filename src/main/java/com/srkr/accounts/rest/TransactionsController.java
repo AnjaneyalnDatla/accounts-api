@@ -18,6 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.srkr.accounts.domain.model.Transactions;
 import com.srkr.accounts.usecases.FindTransactions;
@@ -61,8 +62,8 @@ public class TransactionsController {
 	@POST
 	@Path("/saveTransaction")
 	@Consumes({ MediaType.APPLICATION_JSON })
-	public String saveTransactions(@PathParam("formData") JSONObject formData) {
+	public Response saveTransactions(@RequestBody String formData) {
 		log.info("formData :" + formData);
-		return "Transaction created successfully";
+		return Response.status(Response.Status.OK.getStatusCode()).build(); // "Transaction created successfully";
 	}
 }
