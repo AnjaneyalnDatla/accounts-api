@@ -41,7 +41,7 @@ pipeline{
 		}
 		stage("RUN"){
 			steps{
-					sh 'docker run -d --name accounts-api -p 8086:8080 accounts-api:${BUILD_NUMBER}'
+					sh 'docker run -d --name accounts-api -p 8086:8082 accounts-api:${BUILD_NUMBER}'
 			}
 		}
 	}
