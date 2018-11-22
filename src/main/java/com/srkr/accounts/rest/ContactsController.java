@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.srkr.accounts.domain.model.Contacts;
-import com.srkr.accounts.usecases.CreateContact;
-import com.srkr.accounts.usecases.FindContact;
+import com.srkr.accounts.usecases.FindAndSaveContacts;
 
 @Path("/contacts")
 public class ContactsController {
@@ -30,10 +29,7 @@ public class ContactsController {
 	private final Logger log = LogManager.getLogger(ContactsController.class);
 
 	@Autowired
-	private CreateContact createContactUsecase;
-
-	@Autowired
-	private FindContact findContact;
+	private FindAndSaveContacts findAndCreateContacts;
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -41,9 +37,8 @@ public class ContactsController {
 	public Response createContact(@RequestBody String jsonBody) {
 		log.info("json body:" + jsonBody);
 		try {
-			return Response.status(Response.Status.OK.getStatusCode())
-					.entity(toJsonString(
-							createContactUsecase.createContact(new ObjectMapper().readValue(jsonBody, Contacts.class))))
+			return Response.status(Response.Status.OK.getStatusCode()).entity(toJsonString(
+					findAndCreateContacts.createContact(new ObjectMapper().readValue(jsonBody, Contacts.class))))
 					.build();
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -59,24 +54,23 @@ public class ContactsController {
 		log.info("First Name : " + firstName + ", Last Name : " + lastName);
 		try {
 			return Response.status(Response.Status.OK.getStatusCode())
-					.entity(toJsonString(findContact.findContacts(firstName, lastName))).build();
+					.entity(toJsonString(findAndCreateContacts.findContacts(firstName, lastName))).build();
 		} catch (IOException e) {
 			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
 		} catch (NameNotFoundException e) {
 			return Response.status(Response.Status.UNAUTHORIZED.getStatusCode()).build();
 		}
 	}
-	
+
 	@GET
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getAllContacts() {
-		//log.info("First Name : " + firstName + ", Last Name : " + lastName);
 		try {
 			return Response.status(Response.Status.OK.getStatusCode())
-					.entity(toJsonString(findContact.findAllContacts())).build();
+					.entity(toJsonString(findAndCreateContacts.findAllContacts())).build();
 		} catch (IOException e) {
 			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
-		} 
+		}
 	}
 }

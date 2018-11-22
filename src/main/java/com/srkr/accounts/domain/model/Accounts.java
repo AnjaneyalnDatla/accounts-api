@@ -1,6 +1,10 @@
 package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Accounts extends AssertionConcern implements Serializable {
 
@@ -13,39 +17,59 @@ public class Accounts extends AssertionConcern implements Serializable {
 
 	private String name;
 
+	private String description;
+
 	private AccountTypes account_type;
 
-	private Accounts parent_account;
+	private Contacts contacts;
 
-	public Accounts(Long id, String name, AccountTypes account_type, Accounts parent_account) {
+	private List<AccountBalances> accountBalances;
+
+	public Accounts(String name,
+			String description,AccountTypes account_type,
+			Contacts contacts,
+			List<AccountBalances> accountBalances) {
+		super();
+		this.name = name;
+		this.account_type = account_type;
+		this.contacts = contacts;
+		this.accountBalances = accountBalances;
+	}
+
+	@JsonCreator
+	public Accounts(@JsonProperty("id") Long id,@JsonProperty("name") String name, @JsonProperty("description") String description,
+			@JsonProperty("accountTypes") AccountTypes account_type, @JsonProperty("contacts") Contacts contacts,
+			@JsonProperty("accountBalances") List<AccountBalances> accountBalances) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.account_type = account_type;
-		this.parent_account = parent_account;
-	}
-
-	public Accounts(String name, AccountTypes account_type, Accounts parent_account) {
-		super();
-		this.name = name;
-		this.account_type = account_type;
-		this.parent_account = parent_account;
+		this.contacts = contacts;
+		this.accountBalances = accountBalances;
 	}
 
 	public Long id() {
-		return id;
+		return this.id;
 	}
 
 	public String name() {
-		return name;
+		return this.name;
+	}
+
+	public String description() {
+		return this.description;
 	}
 
 	public AccountTypes account_type() {
-		return account_type;
+		return this.account_type;
 	}
 
-	public Accounts parent_account() {
-		return parent_account;
+	public Contacts contacts() {
+		return this.contacts;
+	}
+
+	public List<AccountBalances> account_balances() {
+		return this.accountBalances;
 	}
 
 }

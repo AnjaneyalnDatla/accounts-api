@@ -16,12 +16,11 @@ import javax.ws.rs.core.Response;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.srkr.accounts.domain.model.Transactions;
-import com.srkr.accounts.usecases.FindTransactions;
+import com.srkr.accounts.usecases.FindAndSaveTransactions;
 
 @Path("/transactions")
 public class TransactionsController {
@@ -29,7 +28,7 @@ public class TransactionsController {
 	private final Logger log = LogManager.getLogger(TransactionsController.class);
 
 	@Autowired
-	private FindTransactions findTransactions;
+	private FindAndSaveTransactions findTransactions;
 
 	@GET
 	@Path("/name")
@@ -59,8 +58,8 @@ public class TransactionsController {
 	
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
-	public Response saveTransactions(@RequestBody String formData) {
-		log.info("formData :" + formData);
+	public Response saveTransactions(@RequestBody String JsonBody) {
+		log.info("Json Body :" + JsonBody);
 		return Response.status(Response.Status.OK.getStatusCode()).build(); // "Transaction created successfully";
 	}
 }

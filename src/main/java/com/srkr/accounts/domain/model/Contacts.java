@@ -34,6 +34,12 @@ public class Contacts extends AssertionConcern implements Serializable {
 	private String idType;
 	private String idNumber;
 	private String designation;
+	
+	
+	public Contacts(Long id) {
+		super();
+		this.id = id;
+	}
 
 	@JsonCreator
 	public Contacts(@JsonProperty("id") Long id, @JsonProperty("supplementalId") String supplementalId,

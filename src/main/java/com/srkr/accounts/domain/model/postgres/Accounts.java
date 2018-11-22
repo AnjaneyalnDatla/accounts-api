@@ -1,13 +1,17 @@
 package com.srkr.accounts.domain.model.postgres;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,13 +26,27 @@ public class Accounts {
 	@Column(name = "name")
 	private String name;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@Column(name = "description")
+	private String description;
+
+	@ManyToOne
 	@JoinColumn(name = "account_type_id", referencedColumnName = "id")
 	private AccountTypes account_type;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "parent_account_id", referencedColumnName = "id")
-	private Accounts parent_account;
+	@ManyToOne
+	@JoinColumn(name = "contact_id", referencedColumnName = "id")
+	private Contacts contact;
+
+	@OneToMany(mappedBy = "accounts", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<AccountBalances> accountBalances;
+
+	public List<AccountBalances> getAccountBalances() {
+		return accountBalances;
+	}
+
+	public void setAccountBalances(List<AccountBalances> accountBalances) {
+		this.accountBalances = accountBalances;
+	}
 
 	public Long getId() {
 		return id;
@@ -54,12 +72,20 @@ public class Accounts {
 		this.account_type = account_type;
 	}
 
-	public Accounts getParent_account() {
-		return parent_account;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setParent_account(Accounts parent_account) {
-		this.parent_account = parent_account;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Contacts getContact() {
+		return contact;
+	}
+
+	public void setContact(Contacts contact) {
+		this.contact = contact;
 	}
 
 }

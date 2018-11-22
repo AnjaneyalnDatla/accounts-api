@@ -1,6 +1,5 @@
 package com.srkr.accounts.domain.model.postgres;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +23,15 @@ public class Transactions {
 
 	@Column(name = "user_name")
 	private String userName;
-	
+
 	@Column(name = "transaction_number")
 	private Integer transaction_number;
 
+	@Column(name = "department_id")
+	private Integer department_id;
+
+	@Column(name = "department_name")
+	private String department_name;
 
 	@Column(name = "line_item_no")
 	private Integer line_item_no;
@@ -35,9 +39,13 @@ public class Transactions {
 	@Column(name = "name")
 	private String name;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne
 	@JoinColumn(name = "account_id", referencedColumnName = "id")
 	private Accounts accounts;
+
+	@ManyToOne
+	@JoinColumn(name = "product_id", referencedColumnName = "id")
+	private Products products;
 
 	@Column(name = "quantity")
 	private Integer quantity;
@@ -48,7 +56,7 @@ public class Transactions {
 	@Column(name = "amount")
 	private Double amount;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne
 	@JoinColumn(name = "headers_id", referencedColumnName = "id")
 	private Headers headers;
 
@@ -138,6 +146,38 @@ public class Transactions {
 
 	public void setTransaction_number(Integer transaction_number) {
 		this.transaction_number = transaction_number;
+	}
+
+	public Integer getDepartment_id() {
+		return department_id;
+	}
+
+	public void setDepartment_id(Integer department_id) {
+		this.department_id = department_id;
+	}
+
+	public String getDepartment_name() {
+		return department_name;
+	}
+
+	public void setDepartment_name(String department_name) {
+		this.department_name = department_name;
+	}
+
+	public Integer getLine_item_no() {
+		return line_item_no;
+	}
+
+	public void setLine_item_no(Integer line_item_no) {
+		this.line_item_no = line_item_no;
+	}
+
+	public Products getProducts() {
+		return products;
+	}
+
+	public void setProducts(Products products) {
+		this.products = products;
 	}
 
 }
