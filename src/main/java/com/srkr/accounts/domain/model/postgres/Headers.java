@@ -1,6 +1,6 @@
 package com.srkr.accounts.domain.model.postgres;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "headers")
@@ -25,6 +27,7 @@ public class Headers {
 	private Integer headernumber;
 
 	@Column(name = "headerdate")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date headerdate;
 
 	@ManyToOne(cascade = { CascadeType.ALL })

@@ -1,5 +1,7 @@
 package com.srkr.accounts.domain.model.postgres;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "transactions")
@@ -59,6 +63,10 @@ public class Transactions {
 	@ManyToOne
 	@JoinColumn(name = "headers_id", referencedColumnName = "id")
 	private Headers headers;
+	
+	@Column(name = "dateupdated")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateupdated;
 
 	public Long getId() {
 		return id;
@@ -178,6 +186,14 @@ public class Transactions {
 
 	public void setProducts(Products products) {
 		this.products = products;
+	}
+
+	public Date getDateupdated() {
+		return dateupdated;
+	}
+
+	public void setDateupdated(Date dateupdated) {
+		this.dateupdated = dateupdated;
 	}
 
 }

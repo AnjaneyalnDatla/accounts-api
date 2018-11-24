@@ -19,6 +19,6 @@ public interface PostgresTransactionsRepository extends Repository<Transactions,
 
 	@Query(value = "SELECT nextval('sequencer')", nativeQuery =
             true)
-	Long getNextSequenceValue();
+	Integer getNextSequenceValue();
 
 }

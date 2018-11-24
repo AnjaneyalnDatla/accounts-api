@@ -1,7 +1,7 @@
 package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class Headers extends AssertionConcern implements Serializable {
 

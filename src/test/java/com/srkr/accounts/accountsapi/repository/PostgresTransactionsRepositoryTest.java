@@ -66,7 +66,7 @@ public class PostgresTransactionsRepositoryTest {
 	
 	@Test
 	public void getNextSeqValue() {
-		Long sequence = postgresTransactionsRepository.getNextSequenceValue();
+		Integer sequence = postgresTransactionsRepository.getNextSequenceValue();
 		assertNotNull(sequence);
 	}
 

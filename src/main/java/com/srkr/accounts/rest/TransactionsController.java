@@ -60,6 +60,7 @@ public class TransactionsController {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response saveTransactions(@RequestBody String JsonBody) {
 		log.info("Json Body :" + JsonBody);
+		findTransactions.saveTransactions(JsonBody);
 		return Response.status(Response.Status.OK.getStatusCode()).build(); // "Transaction created successfully";
 	}
 }
