@@ -10,9 +10,9 @@ public interface PostgresContactsRepository extends Repository<Contacts, Long> {
 
 	public Contacts save(Contacts contact);
 
-	List<Contacts> findByFirstName(String firstName);
+	List<Contacts> findByFirstname(String firstName);
 
-	List<Contacts> findByLastName(String lastName);
+	List<Contacts> findByLastname(String lastName);
 	
 	List<Contacts> findAll();
 

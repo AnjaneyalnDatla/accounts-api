@@ -27,9 +27,9 @@ public class FindAndSaveContacts {
 
 	public List<Contacts> findContacts(String firstName, String lastName) throws NameNotFoundException {
 		if (null != lastName) {
-			return contactsMapper.toListOfDomainObjects(postgresContactsRepository.findByLastName(lastName));
+			return contactsMapper.toListOfDomainObjects(postgresContactsRepository.findByLastname(lastName));
 		} else if (null != firstName) {
-			return contactsMapper.toListOfDomainObjects(postgresContactsRepository.findByFirstName(firstName));
+			return contactsMapper.toListOfDomainObjects(postgresContactsRepository.findByFirstname(firstName));
 		}
 		throw new NameNotFoundException();
 	}

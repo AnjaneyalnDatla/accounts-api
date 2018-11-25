@@ -1,183 +1,176 @@
 package com.srkr.accounts.domain.model.postgres;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "transactions")
-public class Transactions {
+@Table(name = "transactions", schema = "public")
+public class Transactions implements java.io.Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2761309527104883365L;
+	private Long id;
+	private Headers headers;
+	private Accounts accounts;
+	private Integer transactionNumber;
+	private Integer userId;
+	private String userName;
+	private Integer departmentId;
+	private String departmentName;
+	private Set<LineItem> lineItems = new HashSet<>();
+	private Date dateupdated;
+	private Set<TransactionRelations> transactionRelationses = new HashSet<TransactionRelations>(0);
+
+	public Transactions() {
+	}
+
+	public Transactions(Long id, Accounts accounts, Integer transactionNumber, Integer userId, String userName,
+			Integer departmentId, Set<LineItem> lineItems, String departmentName, String name) {
+		this.id = id;
+		this.accounts = accounts;
+		this.transactionNumber = transactionNumber;
+		this.userId = userId;
+		this.userName = userName;
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
+		this.lineItems = lineItems;
+	}
+
+	public Transactions(Long id, Headers headers, Accounts accounts, Integer transactionNumber, Integer userId,
+			String userName, Integer departmentId, String departmentName, Date dateupdated,
+			Set<TransactionRelations> transactionRelationses, Set<LineItem> lineItems) {
+		this.id = id;
+		this.headers = headers;
+		this.accounts = accounts;
+		this.transactionNumber = transactionNumber;
+		this.userId = userId;
+		this.userName = userName;
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
+		this.dateupdated = dateupdated;
+		this.lineItems = lineItems;
+		this.transactionRelationses = transactionRelationses;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-
-	@Column(name = "user_id")
-	private Integer userId;
-
-	@Column(name = "user_name")
-	private String userName;
-
-	@Column(name = "transaction_number")
-	private Integer transaction_number;
-
-	@Column(name = "department_id")
-	private Integer department_id;
-
-	@Column(name = "department_name")
-	private String department_name;
-
-	@Column(name = "line_item_no")
-	private Integer line_item_no;
-
-	@Column(name = "name")
-	private String name;
-
-	@ManyToOne
-	@JoinColumn(name = "account_id", referencedColumnName = "id")
-	private Accounts accounts;
-
-	@ManyToOne
-	@JoinColumn(name = "product_id", referencedColumnName = "id")
-	private Products products;
-
-	@Column(name = "quantity")
-	private Integer quantity;
-
-	@Column(name = "price")
-	private Double price;
-
-	@Column(name = "amount")
-	private Double amount;
-
-	@ManyToOne
-	@JoinColumn(name = "headers_id", referencedColumnName = "id")
-	private Headers headers;
-
+	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getLine_item_number() {
-		return line_item_no;
-	}
-
-	public void setLine_item_number(Integer line_item_no) {
-		this.line_item_no = line_item_no;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Accounts getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(Accounts accounts) {
-		this.accounts = accounts;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "headers_id")
 	public Headers getHeaders() {
-		return headers;
+		return this.headers;
 	}
 
 	public void setHeaders(Headers headers) {
 		this.headers = headers;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "account_id")
+	public Accounts getAccounts() {
+		return this.accounts;
+	}
+
+	public void setAccounts(Accounts accounts) {
+		this.accounts = accounts;
+	}
+
+	@Column(name = "transaction_number", nullable = false)
+	public Integer getTransactionNumber() {
+		return this.transactionNumber;
+	}
+
+	public void setTransactionNumber(Integer transactionNumber) {
+		this.transactionNumber = transactionNumber;
+	}
+
+	@Column(name = "user_id", nullable = false)
 	public Integer getUserId() {
-		return userId;
+		return this.userId;
 	}
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
+	@Column(name = "user_name", nullable = false)
 	public String getUserName() {
-		return userName;
+		return this.userName;
 	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	public Integer getTransaction_number() {
-		return transaction_number;
+	@Column(name = "department_id", nullable = false)
+	public Integer getDepartmentId() {
+		return this.departmentId;
 	}
 
-	public void setTransaction_number(Integer transaction_number) {
-		this.transaction_number = transaction_number;
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
 	}
 
-	public Integer getDepartment_id() {
-		return department_id;
+	@Column(name = "department_name", nullable = false)
+	public String getDepartmentName() {
+		return this.departmentName;
 	}
 
-	public void setDepartment_id(Integer department_id) {
-		this.department_id = department_id;
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 
-	public String getDepartment_name() {
-		return department_name;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "transactions", cascade = CascadeType.ALL)
+	public Set<LineItem> getLineItems() {
+		return lineItems;
 	}
 
-	public void setDepartment_name(String department_name) {
-		this.department_name = department_name;
+	public void setLineItems(Set<LineItem> lineItems) {
+		this.lineItems = lineItems;
 	}
 
-	public Integer getLine_item_no() {
-		return line_item_no;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "dateupdated", length = 35)
+	public Date getDateupdated() {
+		return this.dateupdated;
 	}
 
-	public void setLine_item_no(Integer line_item_no) {
-		this.line_item_no = line_item_no;
+	public void setDateupdated(Date dateupdated) {
+		this.dateupdated = dateupdated;
 	}
 
-	public Products getProducts() {
-		return products;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "transactions")
+	public Set<TransactionRelations> getTransactionRelationses() {
+		return this.transactionRelationses;
 	}
 
-	public void setProducts(Products products) {
-		this.products = products;
+	public void setTransactionRelationses(Set<TransactionRelations> transactionRelationses) {
+		this.transactionRelationses = transactionRelationses;
 	}
 
 }

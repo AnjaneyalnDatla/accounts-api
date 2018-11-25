@@ -14,26 +14,26 @@ public class ContactsMapper {
 
 		Contacts pgContacts = new Contacts();
 		pgContacts.setId(contacts.id());
-		pgContacts.setSupplementalId(contacts.supplementalId());
-		pgContacts.setIsCompany(contacts.isCompany());
-		pgContacts.setCompanyName(contacts.companyName());
-		pgContacts.setFirstName(contacts.firstName());
-		pgContacts.setMiddleName(contacts.middleName());
-		pgContacts.setLastName(contacts.lastName());
-		pgContacts.setCellPhone(contacts.cellPhone());
-		pgContacts.setHomePhone(contacts.homePhone());
-		pgContacts.setOfficePhone(contacts.officePhone());
-		pgContacts.setFaxNumber(contacts.faxNumber());
-		pgContacts.setEmailAddress(contacts.emailAddress());
-		pgContacts.setStreetAddress(contacts.streetAddress());
+		pgContacts.setSupplementalid(contacts.supplementalId());
+		pgContacts.setIscompany(contacts.isCompany());
+		pgContacts.setCompanyname(contacts.companyName());
+		pgContacts.setFirstname(contacts.firstName());
+		pgContacts.setMiddlename(contacts.middleName());
+		pgContacts.setLastname(contacts.lastName());
+		pgContacts.setCellphone(contacts.cellPhone());
+		pgContacts.setHomephone(contacts.homePhone());
+		pgContacts.setOfficephone(contacts.officePhone());
+		pgContacts.setFaxnumber(contacts.faxNumber());
+		pgContacts.setEmailaddress(contacts.emailAddress());
+		pgContacts.setStreetaddress(contacts.streetAddress());
 		pgContacts.setCity(contacts.city());
 		pgContacts.setState(contacts.state().abbreviation());
 		pgContacts.setCountry(contacts.country().abbreviation());
-		pgContacts.setPostalCode(contacts.postalCode());
-		pgContacts.setLandMark(contacts.landMark());
-		pgContacts.setAdditionalComments(contacts.additionalComments());
-		pgContacts.setIdType(contacts.idType());
-		pgContacts.setIdNumber(contacts.idNumber());
+		pgContacts.setPostalcode(contacts.postalCode());
+		pgContacts.setLandmark(contacts.landMark());
+		pgContacts.setAdditionalcomments(contacts.additionalComments());
+		pgContacts.setIdtype(contacts.idType());
+		pgContacts.setIdnumber(contacts.idNumber());
 		pgContacts.setDesignation(contacts.designation());
 
 		return pgContacts;
@@ -42,14 +42,14 @@ public class ContactsMapper {
 
 	public com.srkr.accounts.domain.model.Contacts toDomainObject(Contacts pgContacts) {
 		com.srkr.accounts.domain.model.Contacts contacts = new com.srkr.accounts.domain.model.Contacts(
-				pgContacts.getId(), pgContacts.getSupplementalId(), pgContacts.getIsCompany(),
-				pgContacts.getCompanyName(), pgContacts.getFirstName(), pgContacts.getMiddleName(),
-				pgContacts.getLastName(), pgContacts.getCellPhone(), pgContacts.getHomePhone(),
-				pgContacts.getOfficePhone(), pgContacts.getFaxNumber(), pgContacts.getEmailAddress(),
-				pgContacts.getStreetAddress(), pgContacts.getCity(), pgContacts.getState(),
-				pgContacts.getCountry(), pgContacts.getPostalCode(),
-				pgContacts.getLandMark(), pgContacts.getAdditionalComments(), pgContacts.getIdType(),
-				pgContacts.getIdNumber(), pgContacts.getDesignation());
+				pgContacts.getId(), pgContacts.getSupplementalid(), pgContacts.getIscompany(),
+				pgContacts.getCompanyname(), pgContacts.getFirstname(), pgContacts.getMiddlename(),
+				pgContacts.getLastname(), pgContacts.getCellphone(), pgContacts.getHomephone(),
+				pgContacts.getOfficephone(), pgContacts.getFaxnumber(), pgContacts.getEmailaddress(),
+				pgContacts.getStreetaddress(), pgContacts.getCity(), pgContacts.getState(),
+				pgContacts.getCountry(), pgContacts.getPostalcode(),
+				pgContacts.getLandmark(), pgContacts.getAdditionalcomments(), pgContacts.getIdtype(),
+				pgContacts.getIdnumber(), pgContacts.getDesignation());
 		return contacts;
 
 	}

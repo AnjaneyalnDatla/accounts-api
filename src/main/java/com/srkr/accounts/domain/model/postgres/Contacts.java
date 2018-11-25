@@ -1,267 +1,319 @@
 package com.srkr.accounts.domain.model.postgres;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "contacts")
-public class Contacts {
+@Table(name = "contacts", schema = "public")
+public class Contacts implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 9076213918969754442L;
+	private static final long serialVersionUID = -5344323179439558057L;
+	private Long id;
+	private String supplementalid;
+	private Boolean iscompany;
+	private String companyname;
+	private String firstname;
+	private String middlename;
+	private String lastname;
+	private String cellphone;
+	private String homephone;
+	private String faxnumber;
+	private String officephone;
+	private String emailaddress;
+	private String streetaddress;
+	private String city;
+	private String state;
+	private String country;
+	private String postalcode;
+	private String landmark;
+	private String additionalcomments;
+	private String idtype;
+	private String idnumber;
+	private String designation;
+	private Date dateupdated;
+	private Set<TransactionRelations> transactionRelationses = new HashSet<TransactionRelations>(0);
+
+	public Contacts() {
+	}
+
+	public Contacts(Long id, String firstname, String lastname, String streetaddress, String city, String state,
+			String country, String postalcode, String idtype, String idnumber, String designation) {
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.streetaddress = streetaddress;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.postalcode = postalcode;
+		this.idtype = idtype;
+		this.idnumber = idnumber;
+		this.designation = designation;
+	}
+
+	public Contacts(Long id, String supplementalid, Boolean iscompany, String companyname, String firstname,
+			String middlename, String lastname, String cellphone, String homephone, String faxnumber,
+			String officephone, String emailaddress, String streetaddress, String city, String state, String country,
+			String postalcode, String landmark, String additionalcomments, String idtype, String idnumber,
+			String designation, Date dateupdated, Set<TransactionRelations> transactionRelationses) {
+		this.id = id;
+		this.supplementalid = supplementalid;
+		this.iscompany = iscompany;
+		this.companyname = companyname;
+		this.firstname = firstname;
+		this.middlename = middlename;
+		this.lastname = lastname;
+		this.cellphone = cellphone;
+		this.homephone = homephone;
+		this.faxnumber = faxnumber;
+		this.officephone = officephone;
+		this.emailaddress = emailaddress;
+		this.streetaddress = streetaddress;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.postalcode = postalcode;
+		this.landmark = landmark;
+		this.additionalcomments = additionalcomments;
+		this.idtype = idtype;
+		this.idnumber = idnumber;
+		this.designation = designation;
+		this.dateupdated = dateupdated;
+		this.transactionRelationses = transactionRelationses;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-
-	@Column(name = "supplementalid")
-	private String supplementalId;
-
-	@Column(name = "iscompany")
-	private Boolean isCompany;
-
-	@Column(name = "companyname")
-	private String companyName;
-
-	@Column(name = "firstname")
-	private String firstName;
-
-	@Column(name = "middlename")
-	private String middleName;
-
-	@Column(name = "lastname")
-	private String lastName;
-
-	@Column(name = "cellphone")
-	private String cellPhone;
-
-	@Column(name = "homephone")
-	private String homePhone;
-
-	@Column(name = "officephone")
-	private String officePhone;
-	
-	@Column(name = "faxnumber")
-	private String faxNumber;
-
-	@Column(name = "emailaddress")
-	private String emailAddress;
-
-	@Column(name = "streetaddress")
-	private String streetAddress;
-
-	@Column(name = "city")
-	private String city;
-
-	@Column(name = "state")
-	private String state;
-
-	@Column(name = "country")
-	private String country;
-
-	@Column(name = "postalcode")
-	private String postalCode;
-
-	@Column(name = "landmark")
-	private String landMark;
-
-	@Column(name = "additionalcomments")
-	private String additionalComments;
-
-	@Column(name = "idtype")
-	private String idType;
-
-	@Column(name = "idnumber")
-	private String idNumber;
-
-	@Column(name = "designation")
-	private String designation;
-
+	@Column(name = "id", unique = true, nullable = false)
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getSupplementalId() {
-		return supplementalId;
+	@Column(name = "supplementalid")
+	public String getSupplementalid() {
+		return this.supplementalid;
 	}
 
-	public void setSupplementalId(String supplementalId) {
-		this.supplementalId = supplementalId;
+	public void setSupplementalid(String supplementalid) {
+		this.supplementalid = supplementalid;
 	}
 
-	public Boolean getIsCompany() {
-		return isCompany;
+	@Column(name = "iscompany")
+	public Boolean getIscompany() {
+		return this.iscompany;
 	}
 
-	public void setIsCompany(Boolean isCompany) {
-		this.isCompany = isCompany;
+	public void setIscompany(Boolean iscompany) {
+		this.iscompany = iscompany;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	@Column(name = "companyname")
+	public String getCompanyname() {
+		return this.companyname;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	@Column(name = "firstname", nullable = false)
+	public String getFirstname() {
+		return this.firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getMiddleName() {
-		return middleName;
+	@Column(name = "middlename")
+	public String getMiddlename() {
+		return this.middlename;
 	}
 
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
+	public void setMiddlename(String middlename) {
+		this.middlename = middlename;
 	}
 
-	public String getLastName() {
-		return lastName;
+	@Column(name = "lastname", nullable = false)
+	public String getLastname() {
+		return this.lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
-	public String getCellPhone() {
-		return cellPhone;
+	@Column(name = "cellphone")
+	public String getCellphone() {
+		return this.cellphone;
 	}
 
-	public void setCellPhone(String cellPhone) {
-		this.cellPhone = cellPhone;
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
 
-	public String getHomePhone() {
-		return homePhone;
+	@Column(name = "homephone")
+	public String getHomephone() {
+		return this.homephone;
 	}
 
-	public void setHomePhone(String homePhone) {
-		this.homePhone = homePhone;
+	public void setHomephone(String homephone) {
+		this.homephone = homephone;
 	}
 
-	public String getOfficePhone() {
-		return officePhone;
+	@Column(name = "faxnumber")
+	public String getFaxnumber() {
+		return this.faxnumber;
 	}
 
-	public void setOfficePhone(String officePhone) {
-		this.officePhone = officePhone;
+	public void setFaxnumber(String faxnumber) {
+		this.faxnumber = faxnumber;
 	}
 
-	public String getEmailAddress() {
-		return emailAddress;
+	@Column(name = "officephone")
+	public String getOfficephone() {
+		return this.officephone;
 	}
 
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+	public void setOfficephone(String officephone) {
+		this.officephone = officephone;
 	}
 
-	public String getStreetAddress() {
-		return streetAddress;
+	@Column(name = "emailaddress")
+	public String getEmailaddress() {
+		return this.emailaddress;
 	}
 
-	public void setStreetAddress(String streetAddress) {
-		this.streetAddress = streetAddress;
+	public void setEmailaddress(String emailaddress) {
+		this.emailaddress = emailaddress;
 	}
 
+	@Column(name = "streetaddress", nullable = false)
+	public String getStreetaddress() {
+		return this.streetaddress;
+	}
+
+	public void setStreetaddress(String streetaddress) {
+		this.streetaddress = streetaddress;
+	}
+
+	@Column(name = "city", nullable = false)
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	public void setCity(String city) {
 		this.city = city;
 	}
 
+	@Column(name = "state", nullable = false)
 	public String getState() {
-		return state;
+		return this.state;
 	}
 
 	public void setState(String state) {
 		this.state = state;
 	}
 
+	@Column(name = "country", nullable = false)
 	public String getCountry() {
-		return country;
+		return this.country;
 	}
 
 	public void setCountry(String country) {
 		this.country = country;
 	}
 
-	public String getPostalCode() {
-		return postalCode;
+	@Column(name = "postalcode", nullable = false)
+	public String getPostalcode() {
+		return this.postalcode;
 	}
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
+	public void setPostalcode(String postalcode) {
+		this.postalcode = postalcode;
 	}
 
-	public String getLandMark() {
-		return landMark;
+	@Column(name = "landmark")
+	public String getLandmark() {
+		return this.landmark;
 	}
 
-	public void setLandMark(String landMark) {
-		this.landMark = landMark;
+	public void setLandmark(String landmark) {
+		this.landmark = landmark;
 	}
 
-	public String getAdditionalComments() {
-		return additionalComments;
+	@Column(name = "additionalcomments")
+	public String getAdditionalcomments() {
+		return this.additionalcomments;
 	}
 
-	public void setAdditionalComments(String additionalComments) {
-		this.additionalComments = additionalComments;
+	public void setAdditionalcomments(String additionalcomments) {
+		this.additionalcomments = additionalcomments;
 	}
 
-	public String getIdType() {
-		return idType;
+	@Column(name = "idtype", nullable = false)
+	public String getIdtype() {
+		return this.idtype;
 	}
 
-	public void setIdType(String idType) {
-		this.idType = idType;
+	public void setIdtype(String idtype) {
+		this.idtype = idtype;
 	}
 
-	public String getIdNumber() {
-		return idNumber;
+	@Column(name = "idnumber", nullable = false)
+	public String getIdnumber() {
+		return this.idnumber;
 	}
 
-	public void setIdNumber(String idNumber) {
-		this.idNumber = idNumber;
+	public void setIdnumber(String idnumber) {
+		this.idnumber = idnumber;
 	}
 
+	@Column(name = "designation", nullable = false)
 	public String getDesignation() {
-		return designation;
+		return this.designation;
 	}
 
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "dateupdated", length = 35)
+	public Date getDateupdated() {
+		return this.dateupdated;
 	}
 
-	public String getFaxNumber() {
-		return faxNumber;
+	public void setDateupdated(Date dateupdated) {
+		this.dateupdated = dateupdated;
 	}
 
-	public void setFaxNumber(String faxNumber) {
-		this.faxNumber = faxNumber;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "contacts")
+	public Set<TransactionRelations> getTransactionRelationses() {
+		return this.transactionRelationses;
+	}
+
+	public void setTransactionRelationses(Set<TransactionRelations> transactionRelationses) {
+		this.transactionRelationses = transactionRelationses;
 	}
 
 }

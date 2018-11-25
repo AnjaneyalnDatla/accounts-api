@@ -5,7 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.srkr.accounts.domain.model.postgres.AccountBalances;
 import com.srkr.accounts.domain.model.postgres.AccountTypes;
 import com.srkr.accounts.domain.model.postgres.Accounts;
+import com.srkr.accounts.domain.model.postgres.AccountsBalance;
 import com.srkr.accounts.domain.model.postgres.Contacts;
 import com.srkr.accounts.domain.model.repositories.PostgresAccountsRepository;
 
@@ -40,20 +42,20 @@ public class PostgresAccountsRepositoryTest {
 		accounts.setDescription("TEST");
 		AccountTypes account_type = new AccountTypes();
 		account_type.setId(2l);
-		accounts.setAccount_type(account_type);
+		accounts.setAccountTypes(account_type);
 		Contacts contacts = new Contacts();
 		contacts.setId(5l);
 		accounts.setContact(contacts);
-		AccountBalances accountBalances = new AccountBalances();
-		accountBalances.setBeginning_balance(100.00d);
-		accountBalances.setBeginning_balance_date(new Date(2016, 12, 12));
-		accountBalances.setCurrent_balance(200.d);
-		accountBalances.setCurrent_balance_date(new Date(2018, 12, 12));
-		accountBalances.setUpdatedBy(1);
+		AccountsBalance accountBalances = new AccountsBalance();
+		accountBalances.setBeginningBalance(100.00d);
+		accountBalances.setBeginningBalanceDate(new Date(2016, 12, 12));
+		accountBalances.setCurrentBalance(200.d);
+		accountBalances.setCurrentBalanceDate(new Date(2018, 12, 12));
+		accountBalances.setUpdatedby(1);
 		accountBalances.setAccounts(accounts);
-		List<AccountBalances> balances = new ArrayList<>();
+		Set<AccountsBalance> balances = new HashSet<>();
 		balances.add(accountBalances);
-		accounts.setAccountBalances(balances);
+		accounts.setAccountsBalances(balances);
 		accountsList.add(accounts);
 	}
 

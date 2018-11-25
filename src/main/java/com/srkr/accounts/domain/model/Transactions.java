@@ -1,9 +1,9 @@
 package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Transactions extends AssertionConcern implements Serializable {
-
 
 	/**
 	 * 
@@ -18,53 +18,33 @@ public class Transactions extends AssertionConcern implements Serializable {
 
 	private String user_name;
 
-	private Integer line_item_number;
-	
-	private Products products;
-
-	private String name;
+	private List<LineItem> lineItems;
 
 	private Accounts accounts;
 
-	private Integer quantity;
-
-	private Double price;
-
-	private Double amount;
-
 	private Headers header;
 
-	public Transactions(Long id, Integer user_id, Integer transaction_number,String user_name,
-			Integer line_item_number, Products products,String name, Accounts accounts, Integer quantity, Double price, Double amount,
-			Headers header) {
+	public Transactions(Long id, Integer user_id, Integer transaction_number, String user_name, Accounts accounts,
+			Headers header, List<LineItem> lineItems) {
 		super();
 		this.id = id;
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.transaction_number = transaction_number;
-		this.line_item_number = line_item_number;
-		this.products = products;
-		this.name = name;
 		this.accounts = accounts;
-		this.quantity = quantity;
-		this.price = price;
-		this.amount = amount;
 		this.header = header;
+		this.lineItems = lineItems;
 	}
 
-	public Transactions(Integer user_id, Integer transaction_number,String user_name,Integer line_item_number,
-			String name, Products products,Accounts accounts, Integer quantity, Double price, Double amount, Headers header) {
+	public Transactions(Integer user_id, Integer transaction_number, String user_name, Accounts accounts,
+			Headers header, List<LineItem> lineItems) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
 		this.transaction_number = transaction_number;
-		this.line_item_number = line_item_number;
-		this.name = name;
 		this.accounts = accounts;
-		this.quantity = quantity;
-		this.price = price;
-		this.amount = amount;
 		this.header = header;
+		this.lineItems = lineItems;
 	}
 
 	public Long id() {
@@ -83,36 +63,16 @@ public class Transactions extends AssertionConcern implements Serializable {
 		return transaction_number;
 	}
 
-	public Integer line_item_number() {
-		return line_item_number;
-	}
-
-	public String name() {
-		return name;
+	public List<LineItem> lineItems() {
+		return lineItems;
 	}
 
 	public Accounts accounts() {
 		return accounts;
 	}
 
-	public Integer quantity() {
-		return quantity;
-	}
-
-	public Double price() {
-		return price;
-	}
-
-	public Double amount() {
-		return amount;
-	}
-
 	public Headers header() {
 		return header;
-	}
-	
-	public Products products() {
-		return products;
 	}
 
 }

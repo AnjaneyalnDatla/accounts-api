@@ -9,5 +9,7 @@ import com.srkr.accounts.domain.model.postgres.Products;
 public interface PostgresProductsRepository extends Repository<Products, Long> {
 
 	List<Products> findAll();
+	
+	Products save(Products products);
 
 }

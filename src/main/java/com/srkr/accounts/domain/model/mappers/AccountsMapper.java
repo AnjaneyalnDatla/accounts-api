@@ -21,7 +21,7 @@ public class AccountsMapper {
 			return null;
 		}
 		Accounts pgAccounts = new Accounts();
-		pgAccounts.setId(accounts.id());
+		pgAccounts.setId(accounts.id().intValue());
 		pgAccounts.setName(accounts.name());
 		pgAccounts.setContact(contactsMapper.toPostgresObject(accounts.contacts()));
 
@@ -34,9 +34,9 @@ public class AccountsMapper {
 		account_category.setId(accounts.account_type().accountCategory().id());
 		account_category.setDescription(accounts.account_type().accountCategory().description());
 		account_category.setName(accounts.account_type().accountCategory().name());
-		accountType.setAccount_type(account_category);
+		accountType.setAccountCategory(account_category);
 
-		pgAccounts.setAccount_type(accountType);
+		pgAccounts.setAccountTypes(accountType);
 
 		return pgAccounts;
 	}
@@ -46,14 +46,14 @@ public class AccountsMapper {
 			return null;
 		}
 		com.srkr.accounts.domain.model.Accounts accounts = new com.srkr.accounts.domain.model.Accounts(
-				pgAccounts.getId(), pgAccounts.getName(), pgAccounts.getDescription(),
-				new com.srkr.accounts.domain.model.AccountTypes(pgAccounts.getAccount_type().getId(),
-						pgAccounts.getAccount_type().getName(),
+				pgAccounts.getId().longValue(), pgAccounts.getName(), pgAccounts.getDescription(),
+				new com.srkr.accounts.domain.model.AccountTypes(pgAccounts.getAccountTypes().getId(),
+						pgAccounts.getAccountTypes().getName(),
 						new com.srkr.accounts.domain.model.AccountCategory(
-								pgAccounts.getAccount_type().getAccount_type().getId(),
-								pgAccounts.getAccount_type().getAccount_type().getName(),
-								pgAccounts.getAccount_type().getAccount_type().getDescription()),
-						pgAccounts.getAccount_type().getDescription()),
+								pgAccounts.getAccountTypes().getAccountCategory().getId(),
+								pgAccounts.getAccountTypes().getAccountCategory().getName(),
+								pgAccounts.getAccountTypes().getAccountCategory().getDescription()),
+						pgAccounts.getAccountTypes().getDescription()),
 				null != pgAccounts.getContact() ? contactsMapper.toDomainObject(pgAccounts.getContact()) : null, null);
 
 		return accounts;

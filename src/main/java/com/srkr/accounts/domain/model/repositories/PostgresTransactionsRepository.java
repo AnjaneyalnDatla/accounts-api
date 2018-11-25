@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.srkr.accounts.domain.model.postgres.Transactions;
 
@@ -13,12 +14,12 @@ public interface PostgresTransactionsRepository extends Repository<Transactions,
 
 	List<Transactions> findAll();
 
+	@Transactional
 	Transactions save(Transactions transactions);
 
 	Transactions delete(Transactions transactions);
 
-	@Query(value = "SELECT nextval('sequencer')", nativeQuery =
-            true)
+	@Query(value = "SELECT nextval('sequencer')", nativeQuery = true)
 	Long getNextSequenceValue();
 
 }

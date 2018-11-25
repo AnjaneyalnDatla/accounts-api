@@ -18,9 +18,11 @@ public class ProductsMapper {
 	}
 
 	public com.srkr.accounts.domain.model.Products toDomainObject(Products pgProducts) {
-		return new com.srkr.accounts.domain.model.Products(pgProducts.getId(), pgProducts.getName());
+		if (null != pgProducts)
+			return new com.srkr.accounts.domain.model.Products(pgProducts.getId(), pgProducts.getName());
+		return null;
 	}
-	
+
 	public List<com.srkr.accounts.domain.model.Products> toListOfDomainObjects(List<Products> pgProducts) {
 		List<com.srkr.accounts.domain.model.Products> products = new ArrayList<>();
 		pgProducts.forEach(c -> {

@@ -21,4 +21,9 @@ public class FindAndSaveProducts {
 	public List<Products> findAllProducts() {
 		return productsMapper.toListOfDomainObjects(postgresProductsRepository.findAll());
 	}
+
+	public Products saveProduct(Products products) {
+		return productsMapper
+				.toDomainObject(postgresProductsRepository.save(productsMapper.toPostgresObject(products)));
+	}
 }

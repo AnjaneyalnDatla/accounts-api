@@ -5,47 +5,47 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.srkr.accounts.domain.model.postgres.AccountBalances;
+import com.srkr.accounts.domain.model.postgres.AccountsBalance;
 
 @Component
 public class AccountBalancesMapper {
 
-	public List<AccountBalances> toPostgresObjects(
-			List<com.srkr.accounts.domain.model.AccountBalances> accountBalancesList) {
-		List<AccountBalances> accountBalances = new ArrayList<>();
-		accountBalancesList.forEach((accountBalance) -> {
-			accountBalances.add(toPostgresObject(accountBalance));
+	public List<AccountsBalance> toPostgresObjects(
+			List<com.srkr.accounts.domain.model.AccountBalances> AccountsBalanceList) {
+		List<AccountsBalance> AccountsBalance = new ArrayList<>();
+		AccountsBalanceList.forEach((accountBalance) -> {
+			AccountsBalance.add(toPostgresObject(accountBalance));
 		});
-		return accountBalances;
+		return AccountsBalance;
 	}
 
 	public List<com.srkr.accounts.domain.model.AccountBalances> toDomainObjects(
-			List<AccountBalances> accountBalancesList) {
-		List<com.srkr.accounts.domain.model.AccountBalances> accountBalances = new ArrayList<>();
-		accountBalancesList.forEach((accountBalance) -> {
-			accountBalances.add(toDomainObject(accountBalance));
+			List<AccountsBalance> AccountsBalanceList) {
+		List<com.srkr.accounts.domain.model.AccountBalances> AccountsBalance = new ArrayList<>();
+		AccountsBalanceList.forEach((accountBalance) -> {
+			AccountsBalance.add(toDomainObject(accountBalance));
 		});
-		return accountBalances;
+		return AccountsBalance;
 	}
 
-	private AccountBalances toPostgresObject(com.srkr.accounts.domain.model.AccountBalances accountBalances) {
-		AccountBalances pgAccountBalances = new AccountBalances();
-		pgAccountBalances.setId(accountBalances.id());
-		pgAccountBalances.setBeginning_balance(accountBalances.beginning_balance());
-		pgAccountBalances.setBeginning_balance_date(accountBalances.beginning_balance_date());
-		pgAccountBalances.setCurrent_balance(accountBalances.current_balance());
-		pgAccountBalances.setCurrent_balance_date(accountBalances.current_balance_date());
-		pgAccountBalances.setUpdatedBy(accountBalances.updatedBy());
-		return pgAccountBalances;
+	private AccountsBalance toPostgresObject(com.srkr.accounts.domain.model.AccountBalances AccountsBalance) {
+		AccountsBalance pgAccountsBalance = new AccountsBalance();
+		pgAccountsBalance.setId(AccountsBalance.id());
+		pgAccountsBalance.setBeginningBalance(AccountsBalance.beginning_balance());
+		pgAccountsBalance.setBeginningBalanceDate(AccountsBalance.beginning_balance_date());
+		pgAccountsBalance.setCurrentBalance(AccountsBalance.current_balance());
+		pgAccountsBalance.setCurrentBalanceDate(AccountsBalance.current_balance_date());
+		pgAccountsBalance.setUpdatedby(AccountsBalance.updatedBy());
+		return pgAccountsBalance;
 
 	}
 
 	private com.srkr.accounts.domain.model.AccountBalances toDomainObject(
-			com.srkr.accounts.domain.model.postgres.AccountBalances pgAccountBalances) {
-		return new com.srkr.accounts.domain.model.AccountBalances(pgAccountBalances.getId(),
-				pgAccountBalances.getBeginning_balance(), pgAccountBalances.getBeginning_balance_date(),
-				pgAccountBalances.getCurrent_balance(), pgAccountBalances.getCurrent_balance_date(),
-				pgAccountBalances.getUpdatedBy());
+			com.srkr.accounts.domain.model.postgres.AccountsBalance pgAccountsBalance) {
+		return new com.srkr.accounts.domain.model.AccountBalances(pgAccountsBalance.getId(),
+				pgAccountsBalance.getBeginningBalance(), pgAccountsBalance.getBeginningBalanceDate(),
+				pgAccountsBalance.getCurrentBalance(), pgAccountsBalance.getCurrentBalanceDate(),
+				pgAccountsBalance.getUpdatedby());
 
 	}
 
