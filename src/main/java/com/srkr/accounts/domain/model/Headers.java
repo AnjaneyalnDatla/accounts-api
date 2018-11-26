@@ -2,7 +2,6 @@ package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 public class Headers extends AssertionConcern implements Serializable {
 
 	/**
@@ -17,13 +16,18 @@ public class Headers extends AssertionConcern implements Serializable {
 	private Date headerdate;
 
 	private HeaderTypes headerTypes;
+	
+	private Accounts accounts;
+	
+	private Date dateupdated;
 
-	public Headers(Long id, Integer headernumber, Date headerdate, HeaderTypes headerTypes) {
+	public Headers(Long id, Integer headernumber, Date headerdate, HeaderTypes headerTypes,Accounts accounts) {
 		super();
 		this.id = id;
 		this.headernumber = headernumber;
 		this.headerdate = headerdate;
 		this.headerTypes = headerTypes;
+		this.accounts = accounts;
 	}
 
 	public Headers(Integer headernumber, Date headerdate, HeaderTypes headerTypes) {
@@ -48,5 +52,12 @@ public class Headers extends AssertionConcern implements Serializable {
 	public HeaderTypes headerTypes() {
 		return headerTypes;
 	}
-
+	
+	public Accounts accounts() {
+		return accounts;
+	}
+	
+	public Date dateupdated() {
+		return dateupdated;
+	}
 }

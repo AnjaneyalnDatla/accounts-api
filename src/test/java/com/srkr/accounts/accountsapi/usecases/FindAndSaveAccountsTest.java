@@ -44,6 +44,12 @@ public class FindAndSaveAccountsTest {
 		List<Accounts> accounts = findAndSaveAccounts.findAllAccounts();
 		assertNotNull(accounts);
 	}
+	
+	@Test
+	public void findAccountsByName() {
+		List<Accounts> accounts = findAndSaveAccounts.findAllAccounts();
+		assertNotNull(accounts);
+	}
 
 	@After
 	public void destroy() {

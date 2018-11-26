@@ -64,6 +64,12 @@ public class PostgresAccountsRepositoryTest {
 		List<Accounts> accounts = accountsRepository.findAll();
 		assertNotNull(accounts);
 	}
+	
+	@Test
+	public void findAccountsByName() {
+		Accounts accounts = accountsRepository.findByName("SRT ELECTRICALS ACCOUNT RECEIVABLES");
+		assertNotNull(accounts);
+	}
 
 	@Test
 	public void save() {

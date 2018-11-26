@@ -1,7 +1,7 @@
 package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 public class Transactions extends AssertionConcern implements Serializable {
 
@@ -18,14 +18,18 @@ public class Transactions extends AssertionConcern implements Serializable {
 
 	private String user_name;
 
-	private List<LineItem> lineItems;
+	private Set<LineItem> lineItems;
+
+	private Integer departmentId;
+
+	private String departmentName;
 
 	private Accounts accounts;
 
 	private Headers header;
 
 	public Transactions(Long id, Integer user_id, Integer transaction_number, String user_name, Accounts accounts,
-			Headers header, List<LineItem> lineItems) {
+			Headers header, Set<LineItem> lineItems, Integer departmentId, String departmentName) {
 		super();
 		this.id = id;
 		this.user_id = user_id;
@@ -34,10 +38,12 @@ public class Transactions extends AssertionConcern implements Serializable {
 		this.accounts = accounts;
 		this.header = header;
 		this.lineItems = lineItems;
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
 	}
 
 	public Transactions(Integer user_id, Integer transaction_number, String user_name, Accounts accounts,
-			Headers header, List<LineItem> lineItems) {
+			Headers header, Set<LineItem> lineItems, Integer departmentId, String departmentName) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -45,6 +51,8 @@ public class Transactions extends AssertionConcern implements Serializable {
 		this.accounts = accounts;
 		this.header = header;
 		this.lineItems = lineItems;
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
 	}
 
 	public Long id() {
@@ -63,7 +71,7 @@ public class Transactions extends AssertionConcern implements Serializable {
 		return transaction_number;
 	}
 
-	public List<LineItem> lineItems() {
+	public Set<LineItem> lineItems() {
 		return lineItems;
 	}
 
@@ -73,6 +81,14 @@ public class Transactions extends AssertionConcern implements Serializable {
 
 	public Headers header() {
 		return header;
+	}
+
+	public Integer departmentId() {
+		return departmentId;
+	}
+
+	public String departmentName() {
+		return departmentName;
 	}
 
 }

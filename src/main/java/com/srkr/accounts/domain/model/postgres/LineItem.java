@@ -70,7 +70,7 @@ public class LineItem implements java.io.Serializable {
 		this.transaction_number = transaction_number;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "transaction_id")
 	public Transactions getTransactions() {
 		return transactions;

@@ -36,8 +36,6 @@ public class PostgresTransactionsRepositoryTest {
 	PostgresHeadersRepository postgresHeadersRepository;
 
 	private Transactions transactions;
-	private List<Transactions> listOfTransactions;
-	private Headers headers;
 
 	@Before
 	public void setUp() {
@@ -59,15 +57,15 @@ public class PostgresTransactionsRepositoryTest {
 		Accounts accounts = new Accounts();
 		accounts.setId(1);
 		this.transactions.setAccounts(accounts);
-		this.headers = new Headers();
-		this.headers.setAccounts(accounts);
-		this.headers.setHeaderdate(new Date(2018, 11, 20));
-		this.headers.setHeadernumber(1);
-		this.headers.setId(1l);
+		Headers headers = new Headers();
+		headers.setAccounts(accounts);
+		headers.setHeaderdate(new Date(2018, 11, 20));
+		headers.setHeadernumber(1);
 		HeaderTypes headerTypes = new HeaderTypes();
 		headerTypes.setId(1l);
 		headerTypes.setName("Invoice");
-		this.headers.setHeaderTypes(headerTypes);
+		headers.setHeaderTypes(headerTypes);
+		this.transactions.setHeaders(headers);
 	}
 
 	@Test
@@ -86,8 +84,6 @@ public class PostgresTransactionsRepositoryTest {
 	public void saveTransactions() {
 		Integer transaction_number = this.postgresTransactionsRepository.getNextSequenceValue().intValue();
 		this.transactions.setTransactionNumber(transaction_number);
-		this.headers = this.postgresHeadersRepository.save(this.headers);
-		this.transactions.setHeaders(this.headers);
 		this.transactions.getLineItems().forEach((trans) -> {
 			trans.setTransaction_number(transaction_number);
 		});
@@ -97,7 +93,7 @@ public class PostgresTransactionsRepositoryTest {
 
 	@Test
 	public void getNextSeqValue() {
-		Long sequence = postgresTransactionsRepository.getNextSequenceValue();
+		Integer sequence = postgresTransactionsRepository.getNextSequenceValue().intValue();
 		assertNotNull(sequence);
 	}
 
@@ -105,9 +101,6 @@ public class PostgresTransactionsRepositoryTest {
 	public void destroy() {
 		if (this.transactions.getId() != null)
 			this.postgresTransactionsRepository.delete(this.transactions);
-		if (this.headers.getId() != null)
-			this.postgresHeadersRepository.delete(this.headers);
-
 	}
 
 }

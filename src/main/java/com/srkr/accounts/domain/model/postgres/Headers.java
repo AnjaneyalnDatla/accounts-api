@@ -1,7 +1,10 @@
 package com.srkr.accounts.domain.model.postgres;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,6 +32,7 @@ public class Headers implements java.io.Serializable {
 	private Integer headernumber;
 	private Date headerdate;
 	private Date dateupdated;
+	private Set<Transactions> transactions = new HashSet<>();
 
 	public Headers() {
 	}
@@ -38,13 +43,14 @@ public class Headers implements java.io.Serializable {
 	}
 
 	public Headers(Long id, HeaderTypes headerTypes, Accounts accounts, Integer headernumber, Date headerdate,
-			Date dateupdated) {
+			Date dateupdated, Set<Transactions> transactions) {
 		this.id = id;
 		this.headerTypes = headerTypes;
 		this.accounts = accounts;
 		this.headernumber = headernumber;
 		this.headerdate = headerdate;
 		this.dateupdated = dateupdated;
+		this.transactions = transactions;
 	}
 
 	@Id
@@ -70,7 +76,6 @@ public class Headers implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_id")
-	//@Column(name = "account_id")
 	public Accounts getAccounts() {
 		return this.accounts;
 	}
@@ -106,5 +111,14 @@ public class Headers implements java.io.Serializable {
 
 	public void setDateupdated(Date dateupdated) {
 		this.dateupdated = dateupdated;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "headers", cascade = CascadeType.ALL)
+	public Set<Transactions> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(Set<Transactions> transactions) {
+		this.transactions = transactions;
 	}
 }

@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.srkr.accounts.domain.model.Transactions;
 import com.srkr.accounts.usecases.FindAndSaveTransactions;
 
@@ -28,7 +29,7 @@ public class TransactionsController {
 	private final Logger log = LogManager.getLogger(TransactionsController.class);
 
 	@Autowired
-	private FindAndSaveTransactions findTransactions;
+	private FindAndSaveTransactions findAndSaveTransactions;
 
 	@GET
 	@Path("/name")
@@ -36,7 +37,7 @@ public class TransactionsController {
 	public Response getTransactions(@PathParam("username") String user_name) {
 		log.info("Username :" + user_name);
 		try {
-			List<Transactions> transactions = findTransactions.findTransactionsByUsername(user_name);
+			List<Transactions> transactions = findAndSaveTransactions.findTransactionsByUsername(user_name);
 			return Response.status(Response.Status.OK.getStatusCode()).entity(toJsonString(transactions)).build();
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -50,7 +51,7 @@ public class TransactionsController {
 	public Response getAllTransactions() {
 		try {
 			return Response.status(Response.Status.OK.getStatusCode())
-					.entity(toJsonString(findTransactions.findAllTransactions())).build();
+					.entity(toJsonString(findAndSaveTransactions.findAllTransactions())).build();
 		} catch (IOException e) {
 			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
 		} 
@@ -58,8 +59,16 @@ public class TransactionsController {
 	
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
-	public Response saveTransactions(@RequestBody String JsonBody) {
-		log.info("Json Body :" + JsonBody);
-		return Response.status(Response.Status.OK.getStatusCode()).build(); // "Transaction created successfully";
+	public Response saveTransactions(@RequestBody String jsonBody) {
+		log.info("json body:" + jsonBody);
+		try {
+			return Response.status(Response.Status.OK.getStatusCode())
+					.entity(toJsonString(
+							findAndSaveTransactions.saveTransaction(new ObjectMapper().readValue(jsonBody, Transactions.class))))
+					.build();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build();
+		}
 	}
 }

@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,6 +23,11 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "transactions", schema = "public")
+@NamedEntityGraphs({
+    @NamedEntityGraph(name="transactions.lineItems", attributeNodes = {
+            @NamedAttributeNode("lineItems")
+    })
+})
 public class Transactions implements java.io.Serializable {
 
 	/**
@@ -80,7 +88,7 @@ public class Transactions implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	@JoinColumn(name = "headers_id")
 	public Headers getHeaders() {
 		return this.headers;
@@ -145,7 +153,7 @@ public class Transactions implements java.io.Serializable {
 		this.departmentName = departmentName;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "transactions", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "transactions", cascade = CascadeType.ALL)
 	public Set<LineItem> getLineItems() {
 		return lineItems;
 	}

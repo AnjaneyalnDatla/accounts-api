@@ -13,10 +13,13 @@ public interface PostgresTransactionsRepository extends Repository<Transactions,
 	List<Transactions> findByUserName(String userName);
 
 	List<Transactions> findAll();
+	
+	//@EntityGraph(value = "transactions.lineItems")
+	//Page<Transactions> findWithLineItems(Pageable page);
 
 	@Transactional
 	Transactions save(Transactions transactions);
-
+	
 	Transactions delete(Transactions transactions);
 
 	@Query(value = "SELECT nextval('sequencer')", nativeQuery = true)
