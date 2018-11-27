@@ -45,7 +45,6 @@ public class TransactionsMapper {
 	}
 
 	public com.srkr.accounts.domain.model.Transactions toDomainObject(Transactions pgTransactions,Set<LineItem> pgLineItems) {
-		Set<com.srkr.accounts.domain.model.LineItem> lineItems = new HashSet<>();
 		com.srkr.accounts.domain.model.Transactions transactions = new com.srkr.accounts.domain.model.Transactions(
 				pgTransactions.getId(), headersMapper.toDomainObject(pgTransactions.getHeaders()),
 				accountsMapper.toDomainObject(pgTransactions.getAccounts()), pgTransactions.getTransactionNumber(),
