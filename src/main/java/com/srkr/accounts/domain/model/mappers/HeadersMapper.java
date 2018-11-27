@@ -33,7 +33,7 @@ public class HeadersMapper {
 				pgHeaders.getHeadernumber(), pgHeaders.getHeaderdate(),
 				new com.srkr.accounts.domain.model.HeaderTypes(pgHeaders.getHeaderTypes().getId(),
 						pgHeaders.getHeaderTypes().getName(), pgHeaders.getHeaderTypes().getDescription()),
-				accountsMapper.toDomainObject(pgHeaders.getAccounts()));
+				accountsMapper.toDomainObject(pgHeaders.getAccounts()),null);
 
 		return headers;
 	}

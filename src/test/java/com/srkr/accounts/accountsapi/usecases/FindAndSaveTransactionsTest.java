@@ -52,7 +52,7 @@ public class FindAndSaveTransactionsTest {
 		Accounts accounts = accountsMapper
 				.toDomainObject(postgresAccountsRepository.findByName("SRT ELECTRICALS ACCOUNT RECEIVABLES"));
 		Headers headers = new Headers(null, 999, new Date(2018, 11, 20), new HeaderTypes(1l, "Invoice", "Invoice"),
-				accounts);
+				accounts,null);
 		Integer transaction_number = this.postgresTransactionsRepository.getNextSequenceValue().intValue();
 		Set<LineItem> lineItems = new HashSet<>();
 		LineItem item = new LineItem(null, transaction_number, 1, new Products("Test"), "TEST", 15, 15.00d, 15.00d,

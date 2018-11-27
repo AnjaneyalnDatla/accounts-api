@@ -13,9 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,11 +20,6 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "transactions", schema = "public")
-@NamedEntityGraphs({
-    @NamedEntityGraph(name="transactions.lineItems", attributeNodes = {
-            @NamedAttributeNode("lineItems")
-    })
-})
 public class Transactions implements java.io.Serializable {
 
 	/**
@@ -42,15 +34,18 @@ public class Transactions implements java.io.Serializable {
 	private String userName;
 	private Integer departmentId;
 	private String departmentName;
-	private Set<LineItem> lineItems = new HashSet<>();
 	private Date dateupdated;
 	private Set<TransactionRelations> transactionRelationses = new HashSet<TransactionRelations>(0);
 
 	public Transactions() {
 	}
 
+	public Transactions(Integer transactionNumber) {
+		this.transactionNumber = transactionNumber;
+	}
+
 	public Transactions(Long id, Accounts accounts, Integer transactionNumber, Integer userId, String userName,
-			Integer departmentId, Set<LineItem> lineItems, String departmentName, String name) {
+			Integer departmentId, String departmentName, String name) {
 		this.id = id;
 		this.accounts = accounts;
 		this.transactionNumber = transactionNumber;
@@ -58,12 +53,11 @@ public class Transactions implements java.io.Serializable {
 		this.userName = userName;
 		this.departmentId = departmentId;
 		this.departmentName = departmentName;
-		this.lineItems = lineItems;
 	}
 
 	public Transactions(Long id, Headers headers, Accounts accounts, Integer transactionNumber, Integer userId,
 			String userName, Integer departmentId, String departmentName, Date dateupdated,
-			Set<TransactionRelations> transactionRelationses, Set<LineItem> lineItems) {
+			Set<TransactionRelations> transactionRelationses) {
 		this.id = id;
 		this.headers = headers;
 		this.accounts = accounts;
@@ -73,7 +67,6 @@ public class Transactions implements java.io.Serializable {
 		this.departmentId = departmentId;
 		this.departmentName = departmentName;
 		this.dateupdated = dateupdated;
-		this.lineItems = lineItems;
 		this.transactionRelationses = transactionRelationses;
 	}
 
@@ -88,7 +81,7 @@ public class Transactions implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@JoinColumn(name = "headers_id")
 	public Headers getHeaders() {
 		return this.headers;
@@ -151,15 +144,6 @@ public class Transactions implements java.io.Serializable {
 
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
-	}
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "transactions", cascade = CascadeType.ALL)
-	public Set<LineItem> getLineItems() {
-		return lineItems;
-	}
-
-	public void setLineItems(Set<LineItem> lineItems) {
-		this.lineItems = lineItems;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

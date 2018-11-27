@@ -7,8 +7,6 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.srkr.accounts.domain.model.postgres.LineItem;
 import com.srkr.accounts.domain.model.postgres.Transactions;
@@ -29,7 +27,6 @@ public class TransactionsMapper {
 	@Autowired
 	PostgresTransactionsRepository postgresTransactionsRepository;
 
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public Transactions toPostgresObject(com.srkr.accounts.domain.model.Transactions transactions) {
 
 		Transactions pgTransactions = new Transactions();
@@ -40,7 +37,6 @@ public class TransactionsMapper {
 		transactions.lineItems().forEach(trans -> {
 			items.add(lineItemsMapper.toPostgresObject(trans));
 		});
-		pgTransactions.setLineItems(items);
 		pgTransactions.setAccounts(accountsMapper.toPostgresObject(transactions.accounts()));
 		pgTransactions.setHeaders(headersMapper.toPostgresObject(transactions.header()));
 		pgTransactions.setDepartmentId(transactions.departmentId());
@@ -48,26 +44,20 @@ public class TransactionsMapper {
 		return pgTransactions;
 	}
 
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public com.srkr.accounts.domain.model.Transactions toDomainObject(Transactions pgTransactions) {
+	public com.srkr.accounts.domain.model.Transactions toDomainObject(Transactions pgTransactions,Set<LineItem> pgLineItems) {
 		Set<com.srkr.accounts.domain.model.LineItem> lineItems = new HashSet<>();
-		if (null != pgTransactions.getLineItems() && pgTransactions.getLineItems().isEmpty())
-			pgTransactions.getLineItems().forEach((trans) -> {
-				lineItems.add(lineItemsMapper.toDomainObject(trans));
-			});
 		com.srkr.accounts.domain.model.Transactions transactions = new com.srkr.accounts.domain.model.Transactions(
-				pgTransactions.getId(), pgTransactions.getUserId(), pgTransactions.getTransactionNumber(),
-				pgTransactions.getUserName(), accountsMapper.toDomainObject(pgTransactions.getAccounts()),
-				headersMapper.toDomainObject(pgTransactions.getHeaders()), lineItems, pgTransactions.getDepartmentId(),
-				pgTransactions.getDepartmentName());
+				pgTransactions.getId(), headersMapper.toDomainObject(pgTransactions.getHeaders()),
+				accountsMapper.toDomainObject(pgTransactions.getAccounts()), pgTransactions.getTransactionNumber(),
+				pgTransactions.getUserId(), pgTransactions.getUserName(), pgTransactions.getDepartmentId(),
+				pgTransactions.getDepartmentName(), null, this.lineItemsMapper.toListDomainObject(pgLineItems));
 		return transactions;
 	}
 
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public List<com.srkr.accounts.domain.model.Transactions> toListOfDomainObjects(List<Transactions> pgTransactions) {
+	public List<com.srkr.accounts.domain.model.Transactions> toListOfDomainObjects(List<Transactions> pgTransactions,Set<LineItem> pgLineItems) {
 		List<com.srkr.accounts.domain.model.Transactions> transactions = new ArrayList<>();
 		pgTransactions.forEach(c -> {
-			transactions.add(toDomainObject(c));
+			transactions.add(toDomainObject(c,pgLineItems));
 		});
 		return transactions;
 	}

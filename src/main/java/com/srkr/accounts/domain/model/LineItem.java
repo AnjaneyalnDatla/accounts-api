@@ -3,6 +3,9 @@ package com.srkr.accounts.domain.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class LineItem extends AssertionConcern implements Serializable {
 
 	/**
@@ -11,11 +14,11 @@ public class LineItem extends AssertionConcern implements Serializable {
 	private static final long serialVersionUID = 274915459774854721L;
 
 	private Long id;
-	
+
 	private Integer transaction_number;
-	
+
 	private Integer line_item_number;
-	
+
 	private Products products;
 
 	private String name;
@@ -28,8 +31,12 @@ public class LineItem extends AssertionConcern implements Serializable {
 
 	private Date dateupdated;
 
-	public LineItem(Long id, Integer transaction_number, Integer line_item_number, Products products, String name,
-			Integer quantity, Double price, Double amount, Date dateupdated) {
+	@JsonCreator
+	public LineItem(@JsonProperty("id") Long id, @JsonProperty("transaction_number") Integer transaction_number,
+			@JsonProperty("line_item_number") Integer line_item_number, @JsonProperty("products") Products products,
+			@JsonProperty("name") String name, @JsonProperty("quantity") Integer quantity,
+			@JsonProperty("price") Double price, @JsonProperty("amount") Double amount,
+			@JsonProperty("dateupdated") Date dateupdated) {
 		super();
 		this.id = id;
 		this.transaction_number = transaction_number;
@@ -73,7 +80,7 @@ public class LineItem extends AssertionConcern implements Serializable {
 	public Double amount() {
 		return amount;
 	}
-	
+
 	public Date dateupdated() {
 		return dateupdated;
 	}

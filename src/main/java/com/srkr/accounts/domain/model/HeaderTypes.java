@@ -2,6 +2,9 @@ package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class HeaderTypes extends AssertionConcern implements Serializable {
 
 	/**
@@ -15,7 +18,9 @@ public class HeaderTypes extends AssertionConcern implements Serializable {
 
 	private String description;
 
-	public HeaderTypes(Long id, String name, String description) {
+	@JsonCreator
+	public HeaderTypes(@JsonProperty("id") Long id, @JsonProperty("name") String name,
+			@JsonProperty("description") String description) {
 		super();
 		this.id = id;
 		this.name = name;

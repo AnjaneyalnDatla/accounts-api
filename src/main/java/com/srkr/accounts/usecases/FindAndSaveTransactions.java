@@ -1,17 +1,20 @@
 package com.srkr.accounts.usecases;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.srkr.accounts.domain.model.LineItem;
 import com.srkr.accounts.domain.model.Transactions;
 import com.srkr.accounts.domain.model.mappers.HeadersMapper;
+import com.srkr.accounts.domain.model.mappers.LineItemsMapper;
 import com.srkr.accounts.domain.model.mappers.TransactionsMapper;
 import com.srkr.accounts.domain.model.repositories.PostgresHeadersRepository;
+import com.srkr.accounts.domain.model.repositories.PostgresLineItemsRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresTransactionsRepository;
 
 @Service
@@ -21,26 +24,52 @@ public class FindAndSaveTransactions {
 	PostgresTransactionsRepository postgresTransactionsRepository;
 	@Autowired
 	PostgresHeadersRepository postgresHeadersRepository;
+	@Autowired
+	PostgresLineItemsRepository postgresLineItemRepository;
 
 	@Autowired
 	TransactionsMapper transactionsMapper;
 	@Autowired
 	HeadersMapper headersMapper;
+	@Autowired
+	LineItemsMapper lineItemsMapper;
 
 	@Transactional
 	public List<Transactions> findTransactionsByUsername(String user_name) {
-		return transactionsMapper.toListOfDomainObjects(postgresTransactionsRepository.findByUserName(user_name));
+		return transactionsMapper.toListOfDomainObjects(postgresTransactionsRepository.findByUserName(user_name),null);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED,isolation=Isolation.READ_COMMITTED)
+	@Transactional
 	public List<Transactions> findAllTransactions() {
-		return transactionsMapper.toListOfDomainObjects(postgresTransactionsRepository.findAll());
+		List<com.srkr.accounts.domain.model.postgres.Transactions> transactions = this.postgresTransactionsRepository
+				.findAll();
+		return transactionsMapper.toListOfDomainObjects(transactions,null);
 	}
 
 	@Transactional
 	public Transactions saveTransaction(Transactions transactions) {
-		return transactionsMapper.toDomainObject(
-				postgresTransactionsRepository.save(this.transactionsMapper.toPostgresObject(transactions)));
+
+		//Save Transaction
+		com.srkr.accounts.domain.model.postgres.Transactions pgTransactions = postgresTransactionsRepository
+				.save(this.transactionsMapper.toPostgresObject(transactions));
+		//Apply transactionNumber to every lineItem
+		Set<com.srkr.accounts.domain.model.postgres.LineItem> lineItems = transactions.lineItems().stream().map(lt -> {
+			com.srkr.accounts.domain.model.postgres.LineItem pgLit = this.lineItemsMapper.toPostgresObject(lt);
+			pgLit.setTransactionNumber(transactions.transaction_number());
+			return pgLit;
+		}).collect(Collectors.toSet());
+		//Save Each LineItem
+		lineItems.forEach((lt) -> {
+			this.lineItemsMapper.toDomainObject(this.postgresLineItemRepository.save(lt));
+		});
+		
+		return this.transactionsMapper.toDomainObject(pgTransactions,lineItems);
+	}
+
+	@Transactional
+	public Set<LineItem> findAllLineItemsForTransaction(String transaction_number) {
+		return lineItemsMapper.toListDomainObject(
+				this.postgresLineItemRepository.findByTransactionNumber(Integer.parseInt(transaction_number)));
 	}
 
 	@Transactional

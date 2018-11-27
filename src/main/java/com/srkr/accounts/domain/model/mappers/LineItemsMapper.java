@@ -1,5 +1,9 @@
 package com.srkr.accounts.domain.model.mappers;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +18,7 @@ public class LineItemsMapper {
 	public LineItem toPostgresObject(com.srkr.accounts.domain.model.LineItem lineItem) {
 		LineItem pgLineItem = new LineItem();
 		pgLineItem.setId(lineItem.id());
-		pgLineItem.setTransaction_number(lineItem.transaction_number());
+		pgLineItem.setTransactionNumber(lineItem.transaction_number());
 		pgLineItem.setLine_item_number(lineItem.line_item_number());
 		pgLineItem.setProducts(productsMapper.toPostgresObject(lineItem.products()));
 		pgLineItem.setName(lineItem.name());
@@ -26,11 +30,18 @@ public class LineItemsMapper {
 	}
 
 	public com.srkr.accounts.domain.model.LineItem toDomainObject(LineItem pgLineItem) {
-		return new com.srkr.accounts.domain.model.LineItem(pgLineItem.getId(), pgLineItem.getTransaction_number(),
+		return new com.srkr.accounts.domain.model.LineItem(pgLineItem.getId(), pgLineItem.getTransactionNumber(),
 				pgLineItem.getLine_item_number(), productsMapper.toDomainObject(pgLineItem.getProducts()),
 				pgLineItem.getName(), pgLineItem.getQuantity(), pgLineItem.getPrice(), pgLineItem.getAmount(),
 				pgLineItem.getDateupdated());
 
 	}
 
+	public Set<com.srkr.accounts.domain.model.LineItem> toListDomainObject(Set<LineItem> pgList) {
+		return pgList.stream().map((pgLt) -> toDomainObject(pgLt)).collect(Collectors.toSet());
+	}
+
+	public Set<LineItem> toListPostgresObject(Set<com.srkr.accounts.domain.model.LineItem> aList) {
+		return aList.stream().map((lt) -> toPostgresObject(lt)).collect(Collectors.toSet());
+	}
 }

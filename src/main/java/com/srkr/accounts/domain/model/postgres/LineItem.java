@@ -22,7 +22,7 @@ public class LineItem implements java.io.Serializable {
 	private static final long serialVersionUID = 274915459774854721L;
 
 	private Long id;
-	private Integer transaction_number;
+	private Integer transactionNumber;
 	private Transactions transactions;
 	private Integer line_item_number;
 	private Products products;
@@ -35,11 +35,11 @@ public class LineItem implements java.io.Serializable {
 	public LineItem() {
 	}
 
-	public LineItem(Long id, Integer transaction_number, Transactions transactions, Integer line_item_number,
+	public LineItem(Long id, Integer transactionNumber, Transactions transactions, Integer line_item_number,
 			Products products, String name, Integer quantity, Double price, Double amount, Date dateupdated) {
 		super();
 		this.id = id;
-		this.transaction_number = transaction_number;
+		this.transactionNumber = transactionNumber;
 		this.transactions = transactions;
 		this.line_item_number = line_item_number;
 		this.products = products;
@@ -62,15 +62,15 @@ public class LineItem implements java.io.Serializable {
 	}
 
 	@Column(name = "transaction_number")
-	public Integer getTransaction_number() {
-		return transaction_number;
+	public Integer getTransactionNumber() {
+		return transactionNumber;
 	}
 
-	public void setTransaction_number(Integer transaction_number) {
-		this.transaction_number = transaction_number;
+	public void setTransactionNumber(Integer transactionNumber) {
+		this.transactionNumber = transactionNumber;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transaction_id")
 	public Transactions getTransactions() {
 		return transactions;

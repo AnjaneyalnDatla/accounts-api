@@ -38,7 +38,7 @@ public class Accounts extends AssertionConcern implements Serializable {
 
 	@JsonCreator
 	public Accounts(@JsonProperty("id") Long id,@JsonProperty("name") String name, @JsonProperty("description") String description,
-			@JsonProperty("accountTypes") AccountTypes account_type, @JsonProperty("contacts") Contacts contacts,
+			@JsonProperty("account_type") AccountTypes account_type, @JsonProperty("contacts") Contacts contacts,
 			@JsonProperty("accountBalances") List<AccountBalances> accountBalances) {
 		super();
 		this.id = id;

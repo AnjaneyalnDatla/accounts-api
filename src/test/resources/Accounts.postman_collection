@@ -1,0 +1,146 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Accounts",
+		"_postman_id": "7649977d-a778-b503-a9d2-a0a50f3f9429",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "saveContacts",
+			"request": {
+				"url": "http://localhost:8082/accounts/contacts",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"supplementalId\": \"06s11a1222\",\n\t\"isCompany\": \"true\",\n\t\"companyName\": \"ABC Constructions\",\n\t\"firstName\": \"Tony\",\n\t\"middleName\": \"Mark\",\n\t\"lastName\": \"Stark\",\n\t\"cellPhone\": \"1234567890\",\n\t\"homePhone\": \"3216549870\",\n\t\"officePhone\": \"7412589630\",\n\t\"faxNumber\": \"0123546987\",\n\t\"emailAddress\": \"test@test.com\",\n\t\"streetAddress\": \"Main St 123\",\n\t\"city\": \"Hyderabad\",\n\t\"state\": \"Telangana\",\n\t\"country\": \"India\",\n\t\"postalCode\": \"500082\",\n\t\"landMark\": \"Near Park avenue\",\n\t\"additionalComments\": \"Construction Seller\",\n\t\"idType\": \"Pan\",\n\t\"idNumber\": \"12032564100\",\n\t\"designation\": \"Supervisior\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getContacts",
+			"request": {
+				"url": "http://localhost:8082/accounts/contacts",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getAccounts",
+			"request": {
+				"url": "http://localhost:8082/accounts/account",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "saveAccounts",
+			"request": {
+				"url": "http://localhost:8082/accounts/account",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n    \t\"id\": null,\n        \"name\": \"VIRAT WORGN ACCOUNT RECEIVABLES\",\n        \"description\": \"Test acount\",\n        \"accountTypes\": {\n            \"id\": 2,\n            \"name\": \"Accounts Receivable\",\n            \"accountCategory\": {\n                \"id\": 1,\n                \"name\": \"Asset\",\n                \"description\": null\n            },\n            \"description\": null\n        },\n        \"contacts\": {\n        \"id\": 2,\n        \"supplementalId\": \"1\",\n        \"isCompany\": true,\n        \"companyName\": \"Worgn\",\n        \"firstName\": \"Virat\",\n        \"middleName\": \"\",\n        \"lastName\": \"Kohli\",\n        \"cellPhone\": \"5003334807\",\n        \"homePhone\": \"\",\n        \"officePhone\": \"5094564534\",\n        \"faxNumber\": \"\",\n        \"emailAddress\": \"virat@gmail.com\",\n        \"streetAddress\": \"99 Princeton Rd\",\n        \"city\": \"Worcester\",\n        \"state\": \"UNKNOWN\",\n        \"country\": \"UNITED_STATES_OF_AMERICA\",\n        \"postalCode\": \"16078\",\n        \"landMark\": \"\",\n        \"additionalComments\": \"\",\n        \"idType\": \"\",\n        \"idNumber\": \"\",\n        \"designation\": \"\"\n    \t},\n        \"accountBalances\": null\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getProducts",
+			"request": {
+				"url": "http://localhost:8082/accounts/products",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getTransactions",
+			"request": {
+				"url": "http://localhost:8082/accounts/transactions",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "saveTransactions",
+			"request": {
+				"url": "http://localhost:8082/accounts/transactions",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\": 1,\n\t\"transaction_number\": 57,\n\t\"user_name\": \"Sai\",\n\t\"lineItems\": [],\n\t\"departmentId\": 1,\n\t\"departmentName\": \"civil\",\n\t\"accounts\": {\n\t\t\"id\": 1,\n\t\t\"name\": \"HDFC CHECKINGS\",\n\t\t\"description\": null,\n\t\t\"contacts\": null,\n\t\t\"accountBalances\": null,\n\t\t\"account_type\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"Bank\",\n\t\t\t\"accountCategory\": {\n\t\t\t\t\"id\": 1,\n\t\t\t\t\"name\": \"Asset\",\n\t\t\t\t\"description\": null\n\t\t\t},\n\t\t\t\"description\": null\n\t\t}\n\t},\n\t\"header\": {\n\t\t\"headernumber\": 1,\n\t\t\"headerdate\": 61503426000000,\n\t\t\"headerTypes\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"Invoice\",\n\t\t\t\"description\": null\n\t\t},\n\t\t\"accounts\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"HDFC CHECKINGS\",\n\t\t\t\"description\": null,\n\t\t\t\"contacts\": null,\n\t\t\t\"accountBalances\": null,\n\t\t\t\"account_type\": {\n\t\t\t\t\"id\": 1,\n\t\t\t\t\"name\": \"Bank\",\n\t\t\t\t\"accountCategory\": {\n\t\t\t\t\t\"id\": 1,\n\t\t\t\t\t\"name\": \"Asset\",\n\t\t\t\t\t\"description\": null\n\t\t\t\t},\n\t\t\t\t\"description\": null\n\t\t\t}\n\t\t},\n\t\t\"dateupdated\": null\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getLineItemsByTransactionNumber",
+			"request": {
+				"url": "http://localhost:8082/accounts/transactions/77/lineItems",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "saveTransactionWithLineItems",
+			"request": {
+				"url": "http://localhost:8082/accounts/transactions",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\": 1,\n\t\"transaction_number\": 57,\n\t\"user_name\": \"Sai Test\",\n\t\"lineItems\": [\n\t\t{\n\t        \"transaction_number\": 57,\n\t        \"line_item_number\": 1,\n\t        \"products\": {\n\t            \"id\": 1,\n\t            \"name\": \"Fees\"\n\t        },\n\t        \"name\": \"Test 2\",\n\t        \"quantity\": 1,\n\t        \"price\": 20,\n\t        \"amount\": 20,\n\t        \"dateupdated\": null\n    \t}\n\t],\n\t\"departmentId\": 1,\n\t\"departmentName\": \"civil\",\n\t\"accounts\": {\n\t\t\"id\": 1,\n\t\t\"name\": \"HDFC CHECKINGS\",\n\t\t\"description\": null,\n\t\t\"contacts\": null,\n\t\t\"accountBalances\": null,\n\t\t\"account_type\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"Bank\",\n\t\t\t\"accountCategory\": {\n\t\t\t\t\"id\": 1,\n\t\t\t\t\"name\": \"Asset\",\n\t\t\t\t\"description\": null\n\t\t\t},\n\t\t\t\"description\": null\n\t\t}\n\t},\n\t\"header\": {\n\t\t\"headernumber\": 1,\n\t\t\"headerdate\": 61503426000000,\n\t\t\"headerTypes\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"Invoice\",\n\t\t\t\"description\": null\n\t\t},\n\t\t\"accounts\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"HDFC CHECKINGS\",\n\t\t\t\"description\": null,\n\t\t\t\"contacts\": null,\n\t\t\t\"accountBalances\": null,\n\t\t\t\"account_type\": {\n\t\t\t\t\"id\": 1,\n\t\t\t\t\"name\": \"Bank\",\n\t\t\t\t\"accountCategory\": {\n\t\t\t\t\t\"id\": 1,\n\t\t\t\t\t\"name\": \"Asset\",\n\t\t\t\t\t\"description\": null\n\t\t\t\t},\n\t\t\t\t\"description\": null\n\t\t\t}\n\t\t},\n\t\t\"dateupdated\": null\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

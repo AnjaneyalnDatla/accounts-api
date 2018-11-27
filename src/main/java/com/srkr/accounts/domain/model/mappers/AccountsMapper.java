@@ -23,7 +23,7 @@ public class AccountsMapper {
 		Accounts pgAccounts = new Accounts();
 		pgAccounts.setId(accounts.id().intValue());
 		pgAccounts.setName(accounts.name());
-		pgAccounts.setContact(contactsMapper.toPostgresObject(accounts.contacts()));
+		pgAccounts.setContact(null != accounts.contacts() ? contactsMapper.toPostgresObject(accounts.contacts()) : null);
 
 		AccountTypes accountType = new AccountTypes();
 		accountType.setId(accounts.account_type().id());

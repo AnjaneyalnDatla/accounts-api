@@ -2,6 +2,9 @@ package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 public class Headers extends AssertionConcern implements Serializable {
 
 	/**
@@ -21,13 +24,18 @@ public class Headers extends AssertionConcern implements Serializable {
 	
 	private Date dateupdated;
 
-	public Headers(Long id, Integer headernumber, Date headerdate, HeaderTypes headerTypes,Accounts accounts) {
+	@JsonCreator
+	public Headers(@JsonProperty("id")Long id,@JsonProperty("headernumber")Integer headernumber,
+			@JsonProperty("headerdate")Date headerdate,@JsonProperty("headerTypes")HeaderTypes headerTypes,
+			@JsonProperty("accounts")Accounts accounts,
+			@JsonProperty("dateupdated")Date dateupdated) {
 		super();
 		this.id = id;
 		this.headernumber = headernumber;
 		this.headerdate = headerdate;
 		this.headerTypes = headerTypes;
 		this.accounts = accounts;
+		this.dateupdated = dateupdated;
 	}
 
 	public Headers(Integer headernumber, Date headerdate, HeaderTypes headerTypes) {

@@ -1,5 +1,6 @@
 package com.srkr.accounts.accountsapi.repository;
 
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
@@ -23,6 +24,7 @@ import com.srkr.accounts.domain.model.postgres.LineItem;
 import com.srkr.accounts.domain.model.postgres.Products;
 import com.srkr.accounts.domain.model.postgres.Transactions;
 import com.srkr.accounts.domain.model.repositories.PostgresHeadersRepository;
+import com.srkr.accounts.domain.model.repositories.PostgresLineItemsRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresTransactionsRepository;
 
 @RunWith(SpringRunner.class)
@@ -34,8 +36,12 @@ public class PostgresTransactionsRepositoryTest {
 	PostgresTransactionsRepository postgresTransactionsRepository;
 	@Autowired
 	PostgresHeadersRepository postgresHeadersRepository;
+	@Autowired
+	PostgresLineItemsRepository postgresLineItemsRepository;
 
 	private Transactions transactions;
+	Set<LineItem> lineItems;
+	Set<LineItem> deleteLineItems = new HashSet<>();
 
 	@Before
 	public void setUp() {
@@ -44,7 +50,7 @@ public class PostgresTransactionsRepositoryTest {
 		this.transactions.setUserName("Bunny");
 		this.transactions.setDepartmentId(1);
 		this.transactions.setDepartmentName("civil");
-		Set<LineItem> lineItems = new HashSet<>();
+		this.lineItems = new HashSet<>();
 		LineItem item = new LineItem();
 		item.setLine_item_number(1);
 		item.setProducts(new Products(1l, "Invoice"));
@@ -53,7 +59,6 @@ public class PostgresTransactionsRepositoryTest {
 		item.setPrice(20d);
 		item.setAmount(20d);
 		lineItems.add(item);
-		this.transactions.setLineItems(lineItems);
 		Accounts accounts = new Accounts();
 		accounts.setId(1);
 		this.transactions.setAccounts(accounts);
@@ -84,11 +89,13 @@ public class PostgresTransactionsRepositoryTest {
 	public void saveTransactions() {
 		Integer transaction_number = this.postgresTransactionsRepository.getNextSequenceValue().intValue();
 		this.transactions.setTransactionNumber(transaction_number);
-		this.transactions.getLineItems().forEach((trans) -> {
-			trans.setTransaction_number(transaction_number);
-		});
 		this.transactions = postgresTransactionsRepository.save(this.transactions);
 		assertNotNull(transactions);
+		this.lineItems.forEach(lt -> {
+			lt.setTransactionNumber(transaction_number);
+			lt.setTransactions(transactions);
+			deleteLineItems.add(this.postgresLineItemsRepository.save(lt));
+		});
 	}
 
 	@Test
@@ -101,6 +108,10 @@ public class PostgresTransactionsRepositoryTest {
 	public void destroy() {
 		if (this.transactions.getId() != null)
 			this.postgresTransactionsRepository.delete(this.transactions);
+		deleteLineItems.forEach(lt -> {
+			if (lt.getId() != null)
+				postgresLineItemsRepository.delete(lt);
+		});
 	}
 
 }
