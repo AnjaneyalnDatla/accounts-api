@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Transactions extends AssertionConcern implements Serializable {
 
 	/**

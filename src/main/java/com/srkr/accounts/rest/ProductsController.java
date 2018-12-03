@@ -32,7 +32,7 @@ public class ProductsController {
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createContact(@RequestBody String jsonBody) {
+	public Response createProduct(@RequestBody String jsonBody) {
 		log.info("json body:" + jsonBody);
 		try {
 			return Response.status(Response.Status.OK.getStatusCode())
@@ -48,7 +48,7 @@ public class ProductsController {
 	@GET
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getAllContacts() {
+	public Response getAllProducts() {
 		try {
 			return Response.status(Response.Status.OK.getStatusCode())
 					.entity(toJsonString(findAndSaveProducts.findAllProducts())).build();
