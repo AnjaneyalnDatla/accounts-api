@@ -26,15 +26,17 @@ public class AccountsMapper {
 		pgAccounts.setContact(null != accounts.contacts() ? contactsMapper.toPostgresObject(accounts.contacts()) : null);
 
 		AccountTypes accountType = new AccountTypes();
-		accountType.setId(accounts.account_type().id());
-		accountType.setDescription(accounts.account_type().description());
-		accountType.setName(accounts.account_type().name());
+		if(accounts.account_type()!=null) {
+			accountType.setId(accounts.account_type().id());
+			accountType.setDescription(accounts.account_type().description());
+			accountType.setName(accounts.account_type().name());
 
-		AccountCategory account_category = new AccountCategory();
-		account_category.setId(accounts.account_type().accountCategory().id());
-		account_category.setDescription(accounts.account_type().accountCategory().description());
-		account_category.setName(accounts.account_type().accountCategory().name());
-		accountType.setAccountCategory(account_category);
+			AccountCategory account_category = new AccountCategory();
+			account_category.setId(accounts.account_type().accountCategory().id());
+			account_category.setDescription(accounts.account_type().accountCategory().description());
+			account_category.setName(accounts.account_type().accountCategory().name());
+			accountType.setAccountCategory(account_category);
+		}
 
 		pgAccounts.setAccountTypes(accountType);
 

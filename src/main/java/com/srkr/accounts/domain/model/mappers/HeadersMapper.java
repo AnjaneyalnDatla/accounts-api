@@ -14,6 +14,10 @@ public class HeadersMapper {
 
 	public Headers toPostgresObject(com.srkr.accounts.domain.model.Headers headers) {
 
+		if (headers == null) {
+			return null;
+		}
+		
 		Headers pgHeaders = new Headers();
 		pgHeaders.setId(headers.id());
 		pgHeaders.setHeaderdate(headers.headerdate());
