@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -143,5 +145,15 @@ public class LineItem implements java.io.Serializable {
 	public void setDateupdated(Date dateupdated) {
 		this.dateupdated = dateupdated;
 	}
+	
+	@PrePersist
+    protected void onCreate() {
+		dateupdated = new Date();
+    }
+	
+	@PreUpdate
+	  protected void onUpdate() {
+		dateupdated = new Date();
+	  }
 
 }

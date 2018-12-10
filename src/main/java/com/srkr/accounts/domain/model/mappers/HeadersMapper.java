@@ -33,6 +33,9 @@ public class HeadersMapper {
 	}
 
 	public com.srkr.accounts.domain.model.Headers toDomainObject(Headers pgHeaders) {
+		if(pgHeaders==null) {
+			return null;
+		}
 		com.srkr.accounts.domain.model.Headers headers = new com.srkr.accounts.domain.model.Headers(pgHeaders.getId(),
 				pgHeaders.getHeadernumber(), pgHeaders.getHeaderdate(),
 				new com.srkr.accounts.domain.model.HeaderTypes(pgHeaders.getHeaderTypes().getId(),

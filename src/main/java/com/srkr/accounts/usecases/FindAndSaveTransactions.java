@@ -38,6 +38,13 @@ public class FindAndSaveTransactions {
 	public List<Transactions> findTransactionsByUsername(String user_name) {
 		return transactionsMapper.toListOfDomainObjects(postgresTransactionsRepository.findByUserName(user_name), null);
 	}
+	
+	@Transactional
+	public List<Transactions> findTransactionsByTransactionNumber(Integer transactionNumber) {
+		return transactionsMapper.toListOfDomainObjects(postgresTransactionsRepository.findByTransactionNumber(transactionNumber), null);
+	}
+	
+	
 
 	@Transactional
 	public List<Transactions> findAllTransactions() {
@@ -48,13 +55,17 @@ public class FindAndSaveTransactions {
 
 	@Transactional
 	public Transactions saveTransaction(Transactions transactions) {
-		// Save Transaction
+		//generate and set transaction number
+		com.srkr.accounts.domain.model.postgres.Transactions retPgTransactions  = this.transactionsMapper.toPostgresObject(transactions);
+		Integer transaction_number = postgresTransactionsRepository.getNextSequenceValue().intValue();
+		retPgTransactions.setTransactionNumber(transaction_number);
+		// Save Transaction		
 		com.srkr.accounts.domain.model.postgres.Transactions pgTransactions = postgresTransactionsRepository
-				.save(this.transactionsMapper.toPostgresObject(transactions));
+				.save(retPgTransactions);
 		// Apply transactionNumber to every lineItem
 		Set<com.srkr.accounts.domain.model.postgres.LineItem> lineItems = transactions.lineItems().stream().map(lt -> {
 			com.srkr.accounts.domain.model.postgres.LineItem pgLit = this.lineItemsMapper.toPostgresObject(lt);
-			pgLit.setTransactionNumber(transactions.transaction_number());
+			pgLit.setTransactionNumber(transaction_number);
 			return pgLit;
 		}).collect(Collectors.toSet());
 		// Save Each LineItem

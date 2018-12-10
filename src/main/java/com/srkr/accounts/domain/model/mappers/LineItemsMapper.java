@@ -37,6 +37,9 @@ public class LineItemsMapper {
 	}
 
 	public Set<com.srkr.accounts.domain.model.LineItem> toListDomainObject(Set<LineItem> pgList) {
+		if(pgList==null)
+			return null;
+		
 		return pgList.stream().map((pgLt) -> toDomainObject(pgLt)).collect(Collectors.toSet());
 	}
 

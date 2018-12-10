@@ -10,6 +10,8 @@ import com.srkr.accounts.domain.model.postgres.Transactions;
 public interface PostgresTransactionsRepository extends Repository<Transactions, Long> {
 
 	List<Transactions> findByUserName(String userName);
+	
+	List<Transactions> findByTransactionNumber(Integer transactionNumber);	
 
 	List<Transactions> findAll();
 	

@@ -47,15 +47,22 @@ public class AccountsMapper {
 		if (pgAccounts == null) {
 			return null;
 		}
+		com.srkr.accounts.domain.model.AccountTypes acctType = null;
+		if(pgAccounts.getAccountTypes().getId() != null) {
+			acctType = new com.srkr.accounts.domain.model.AccountTypes(pgAccounts.getAccountTypes().getId(),
+					pgAccounts.getAccountTypes().getName(),
+					new com.srkr.accounts.domain.model.AccountCategory(
+							pgAccounts.getAccountTypes().getAccountCategory().getId(),
+							pgAccounts.getAccountTypes().getAccountCategory().getName(),
+							pgAccounts.getAccountTypes().getAccountCategory().getDescription()),
+					pgAccounts.getAccountTypes().getDescription());
+		}
+				
+		
+		
 		com.srkr.accounts.domain.model.Accounts accounts = new com.srkr.accounts.domain.model.Accounts(
 				pgAccounts.getId().longValue(), pgAccounts.getName(), pgAccounts.getDescription(),
-				new com.srkr.accounts.domain.model.AccountTypes(pgAccounts.getAccountTypes().getId(),
-						pgAccounts.getAccountTypes().getName(),
-						new com.srkr.accounts.domain.model.AccountCategory(
-								pgAccounts.getAccountTypes().getAccountCategory().getId(),
-								pgAccounts.getAccountTypes().getAccountCategory().getName(),
-								pgAccounts.getAccountTypes().getAccountCategory().getDescription()),
-						pgAccounts.getAccountTypes().getDescription()),
+				acctType,
 				null != pgAccounts.getContact() ? contactsMapper.toDomainObject(pgAccounts.getContact()) : null, null);
 
 		return accounts;

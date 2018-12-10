@@ -12,6 +12,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -47,14 +48,14 @@ public class TransactionsController {
 		}
 
 	}
-
+	
 	@GET
-	@Path("/{transaction_number}/lineItems")
+	@Path("/transactionNumber")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getLineItemsByTransactions(@PathParam("transaction_number") String transaction_number) {
-		log.info("transaction_number :" + transaction_number);
+	public Response getTransactions(@QueryParam("transactionNumber") Integer transactionNumber) {
+		log.info("Transaction Number :" + transactionNumber);
 		try {
-			Set<LineItem> transactions = findAndSaveTransactions.findAllLineItemsForTransaction(transaction_number);
+			List<Transactions> transactions = findAndSaveTransactions.findTransactionsByTransactionNumber(transactionNumber);
 			return Response.status(Response.Status.OK.getStatusCode()).entity(toJsonString(transactions)).build();
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -62,6 +63,36 @@ public class TransactionsController {
 		}
 
 	}
+	
+	@GET
+	@Path("/lineItems")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getLineItemsByTransactions(@QueryParam("transactionNumber") String transactionNumber) {
+		log.info("transaction_number :" + transactionNumber);
+		try {
+			Set<LineItem> transactions = findAndSaveTransactions.findAllLineItemsForTransaction(transactionNumber);
+			return Response.status(Response.Status.OK.getStatusCode()).entity(toJsonString(transactions)).build();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).build();
+		}
+
+	}
+
+//	@GET
+//	@Path("/{transaction_number}/lineItems")
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	public Response getLineItemsByTransactions(@PathParam("transaction_number") String transaction_number) {
+//		log.info("transaction_number :" + transaction_number);
+//		try {
+//			Set<LineItem> transactions = findAndSaveTransactions.findAllLineItemsForTransaction(transaction_number);
+//			return Response.status(Response.Status.OK.getStatusCode()).entity(toJsonString(transactions)).build();
+//		} catch (Exception e) {
+//			log.error(e.getMessage());
+//			return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).build();
+//		}
+//
+//	}
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
