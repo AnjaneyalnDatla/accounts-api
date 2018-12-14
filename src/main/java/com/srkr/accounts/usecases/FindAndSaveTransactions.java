@@ -76,9 +76,9 @@ public class FindAndSaveTransactions {
 	}
 
 	@Transactional
-	public Set<LineItem> findAllLineItemsForTransaction(String transaction_number) {
+	public Set<LineItem> findAllLineItemsForTransaction(Integer transaction_number) {
 		return lineItemsMapper.toListDomainObject(
-				this.postgresLineItemRepository.findByTransactionNumber(Integer.parseInt(transaction_number)));
+				this.postgresLineItemRepository.findByTransactionNumber(transaction_number));
 	}
 
 	@Transactional
