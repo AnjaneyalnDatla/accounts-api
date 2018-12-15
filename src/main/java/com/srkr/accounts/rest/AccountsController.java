@@ -60,4 +60,18 @@ public class AccountsController {
 
 	}
 
+	@GET
+	@Path("/organisationAccounts")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getOrganisationAccounts() {
+		try {
+			return Response.status(Response.Status.OK.getStatusCode())
+					.entity(toJsonString(findAndSaveAccounts.findAllOrganisationAccounts(null))).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).build();
+		}
+
+	}
+
 }

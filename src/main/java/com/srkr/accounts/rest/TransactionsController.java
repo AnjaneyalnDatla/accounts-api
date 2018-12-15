@@ -79,21 +79,6 @@ public class TransactionsController {
 
 	}
 
-//	@GET
-//	@Path("/{transaction_number}/lineItems")
-//	@Produces({ MediaType.APPLICATION_JSON })
-//	public Response getLineItemsByTransactions(@PathParam("transaction_number") String transaction_number) {
-//		log.info("transaction_number :" + transaction_number);
-//		try {
-//			Set<LineItem> transactions = findAndSaveTransactions.findAllLineItemsForTransaction(transaction_number);
-//			return Response.status(Response.Status.OK.getStatusCode()).entity(toJsonString(transactions)).build();
-//		} catch (Exception e) {
-//			log.error(e.getMessage());
-//			return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).build();
-//		}
-//
-//	}
-
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getAllTransactions() {
@@ -104,6 +89,20 @@ public class TransactionsController {
 			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
 		}
 	}
+	
+	@GET
+	@Path("/transactionNumber/new")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getTransactionNumber() {
+		try {
+			return Response.status(Response.Status.OK.getStatusCode())
+					.entity(findAndSaveTransactions.transactionNumber()).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
+		}
+	}
+	
+	
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })

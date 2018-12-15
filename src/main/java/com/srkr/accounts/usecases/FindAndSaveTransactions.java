@@ -33,6 +33,11 @@ public class FindAndSaveTransactions {
 	HeadersMapper headersMapper;
 	@Autowired
 	LineItemsMapper lineItemsMapper;
+	
+	@Transactional
+	public Long transactionNumber() {
+		return postgresTransactionsRepository.getNextSequenceValue();
+	}
 
 	@Transactional
 	public List<Transactions> findTransactionsByUsername(String user_name) {

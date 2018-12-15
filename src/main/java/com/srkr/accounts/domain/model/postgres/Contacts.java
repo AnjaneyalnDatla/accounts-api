@@ -51,6 +51,10 @@ public class Contacts implements java.io.Serializable {
 	public Contacts() {
 	}
 
+	public Contacts(Long id) {
+		this.id = id;
+	}
+
 	public Contacts(Long id, String firstname, String lastname, String streetaddress, String city, String state,
 			String country, String postalcode, String idtype, String idnumber, String designation) {
 		this.id = id;
