@@ -50,9 +50,9 @@ public class TransactionsController {
 	}
 	
 	@GET
-	@Path("/transactionNumber")
+	@Path("/transactionNumber/{transactionNumber}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getTransactions(@QueryParam("transactionNumber") Integer transactionNumber) {
+	public Response getTransactions(@PathParam("transactionNumber") Integer transactionNumber) {
 		log.info("Transaction Number :" + transactionNumber);
 		try {
 			List<Transactions> transactions = findAndSaveTransactions.findTransactionsByTransactionNumber(transactionNumber);
@@ -65,9 +65,9 @@ public class TransactionsController {
 	}
 	
 	@GET
-	@Path("/lineItems")
+	@Path("/lineItems/{transactionNumber}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getLineItemsByTransactions(@QueryParam("transactionNumber") String transactionNumber) {
+	public Response getLineItemsByTransactions(@PathParam("transactionNumber") Integer transactionNumber) {
 		log.info("transaction_number :" + transactionNumber);
 		try {
 			Set<LineItem> transactions = findAndSaveTransactions.findAllLineItemsForTransaction(transactionNumber);
