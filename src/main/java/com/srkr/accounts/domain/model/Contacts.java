@@ -86,7 +86,7 @@ public class Contacts extends AssertionConcern implements Serializable {
 		return supplementalId;
 	}
 
-	public Boolean isCompany() {
+	public Boolean getIsCompany() {
 		return isCompany;
 	}
 

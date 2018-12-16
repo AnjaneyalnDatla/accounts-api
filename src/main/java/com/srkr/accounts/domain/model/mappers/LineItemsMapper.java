@@ -19,7 +19,8 @@ public class LineItemsMapper {
 		pgLineItem.setId(lineItem.id());
 		pgLineItem.setTransactionNumber(lineItem.transaction_number());
 		pgLineItem.setLine_item_number(lineItem.line_item_number());
-		pgLineItem.setProducts(productsMapper.toPostgresObject(lineItem.products()));
+		pgLineItem
+				.setProducts(null != lineItem.products() ? productsMapper.toPostgresObject(lineItem.products()) : null);
 		pgLineItem.setName(lineItem.name());
 		pgLineItem.setQuantity(lineItem.quantity());
 		pgLineItem.setPrice(lineItem.price());
@@ -37,9 +38,9 @@ public class LineItemsMapper {
 	}
 
 	public Set<com.srkr.accounts.domain.model.LineItem> toListDomainObject(Set<LineItem> pgList) {
-		if(pgList==null)
+		if (pgList == null)
 			return null;
-		
+
 		return pgList.stream().map((pgLt) -> toDomainObject(pgLt)).collect(Collectors.toSet());
 	}
 

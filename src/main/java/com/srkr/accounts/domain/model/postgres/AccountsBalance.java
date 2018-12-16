@@ -28,21 +28,23 @@ public class AccountsBalance implements java.io.Serializable {
 	private Date beginningBalanceDate;
 	private Double currentBalance;
 	private Date currentBalanceDate;
+	private Boolean isActive;
 	private Integer updatedby;
 	private Date dateupdated;
 
 	public AccountsBalance() {
 	}
 
-	public AccountsBalance(Long id, Accounts accounts, Double beginningBalance, Double currentBalance) {
+	public AccountsBalance(Long id, Accounts accounts, Double beginningBalance, Double currentBalance,Boolean isActive) {
 		this.id = id;
 		this.accounts = accounts;
 		this.beginningBalance = beginningBalance;
 		this.currentBalance = currentBalance;
+		this.isActive = isActive;
 	}
 
 	public AccountsBalance(Long id, Accounts accounts, Double beginningBalance, Date beginningBalanceDate,
-			Double currentBalance, Date currentBalanceDate, Integer updatedby, Date dateupdated) {
+			Double currentBalance, Date currentBalanceDate, Integer updatedby, Date dateupdated,Boolean isActive) {
 		this.id = id;
 		this.accounts = accounts;
 		this.beginningBalance = beginningBalance;
@@ -51,6 +53,7 @@ public class AccountsBalance implements java.io.Serializable {
 		this.currentBalanceDate = currentBalanceDate;
 		this.updatedby = updatedby;
 		this.dateupdated = dateupdated;
+		this.isActive = isActive;
 	}
 
 	@Id
@@ -110,6 +113,15 @@ public class AccountsBalance implements java.io.Serializable {
 
 	public void setCurrentBalanceDate(Date currentBalanceDate) {
 		this.currentBalanceDate = currentBalanceDate;
+	}
+
+	@Column(name = "isactive")
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	@Column(name = "updatedby")

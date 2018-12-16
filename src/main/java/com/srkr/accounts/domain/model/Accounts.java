@@ -1,7 +1,7 @@
 package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,12 +25,10 @@ public class Accounts extends AssertionConcern implements Serializable {
 
 	private Contacts contacts;
 
-	private List<AccountBalances> accountBalances;
+	private Set<AccountBalances> accountBalances;
 
-	public Accounts(String name,
-			String description,AccountTypes account_type,
-			Contacts contacts,
-			List<AccountBalances> accountBalances) {
+	public Accounts(String name, String description, AccountTypes account_type, Contacts contacts,
+			Set<AccountBalances> accountBalances) {
 		super();
 		this.name = name;
 		this.account_type = account_type;
@@ -39,9 +37,10 @@ public class Accounts extends AssertionConcern implements Serializable {
 	}
 
 	@JsonCreator
-	public Accounts(@JsonProperty("id") Long id,@JsonProperty("name") String name, @JsonProperty("description") String description,
-			@JsonProperty("account_type") AccountTypes account_type, @JsonProperty("contacts") Contacts contacts,
-			@JsonProperty("accountBalances") List<AccountBalances> accountBalances) {
+	public Accounts(@JsonProperty("id") Long id, @JsonProperty("name") String name,
+			@JsonProperty("description") String description, @JsonProperty("account_type") AccountTypes account_type,
+			@JsonProperty("contacts") Contacts contacts,
+			@JsonProperty("accountBalances") Set<AccountBalances> accountBalances) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -70,7 +69,7 @@ public class Accounts extends AssertionConcern implements Serializable {
 		return this.contacts;
 	}
 
-	public List<AccountBalances> account_balances() {
+	public Set<AccountBalances> account_balances() {
 		return this.accountBalances;
 	}
 

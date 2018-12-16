@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -61,17 +62,19 @@ public class AccountsController {
 	}
 
 	@GET
-	@Path("/organisationAccounts")
+	@Path("/contact/{contactId}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getOrganisationAccounts() {
+	public Response getAccountsByContactId(@PathParam("contactId") Long contactId) {
+		if(contactId == 0l) {
+			contactId = null;
+		}
 		try {
 			return Response.status(Response.Status.OK.getStatusCode())
-					.entity(toJsonString(findAndSaveAccounts.findAllOrganisationAccounts(null))).build();
+					.entity(toJsonString(findAndSaveAccounts.findContactById(contactId))).build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).build();
 		}
 
-	}
-
+	}	
 }

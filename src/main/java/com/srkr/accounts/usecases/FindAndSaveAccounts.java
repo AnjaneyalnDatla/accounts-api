@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.srkr.accounts.domain.model.Accounts;
 import com.srkr.accounts.domain.model.mappers.AccountsMapper;
-import com.srkr.accounts.domain.model.postgres.Contacts;
 import com.srkr.accounts.domain.model.repositories.PostgresAccountsRepository;
 
 @Service
@@ -26,7 +25,7 @@ public class FindAndSaveAccounts {
 	}
 
 	@Transactional
-	public List<Accounts> findAllOrganisationAccounts(Long contactId) {
+	public List<Accounts> findContactById(Long contactId) {
 		return accountsMapper.toListDomainObjects(postgresAccountsRepository.findByContactId(contactId));
 	}
 

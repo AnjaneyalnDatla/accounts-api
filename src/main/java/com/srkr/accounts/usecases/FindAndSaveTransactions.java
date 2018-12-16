@@ -13,6 +13,7 @@ import com.srkr.accounts.domain.model.Transactions;
 import com.srkr.accounts.domain.model.mappers.HeadersMapper;
 import com.srkr.accounts.domain.model.mappers.LineItemsMapper;
 import com.srkr.accounts.domain.model.mappers.TransactionsMapper;
+import com.srkr.accounts.domain.model.repositories.PostgresAccountsRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresHeadersRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresLineItemsRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresTransactionsRepository;
@@ -26,7 +27,8 @@ public class FindAndSaveTransactions {
 	PostgresHeadersRepository postgresHeadersRepository;
 	@Autowired
 	PostgresLineItemsRepository postgresLineItemRepository;
-
+	@Autowired
+	PostgresAccountsRepository postgresAccountsRepository;
 	@Autowired
 	TransactionsMapper transactionsMapper;
 	@Autowired
@@ -77,6 +79,10 @@ public class FindAndSaveTransactions {
 		lineItems.forEach((lt) -> {
 			this.lineItemsMapper.toDomainObject(this.postgresLineItemRepository.save(lt));
 		});
+		// Header
+		this.postgresHeadersRepository.save(this.postgresHeadersRepository.save(retPgTransactions.getHeaders()));
+		// Account
+		this.postgresAccountsRepository.save(this.postgresAccountsRepository.save(retPgTransactions.getAccounts()));
 		return this.transactionsMapper.toDomainObject(pgTransactions, lineItems);
 	}
 

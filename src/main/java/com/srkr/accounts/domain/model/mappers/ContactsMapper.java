@@ -15,7 +15,7 @@ public class ContactsMapper {
 		Contacts pgContacts = new Contacts();
 		pgContacts.setId(contacts.id());
 		pgContacts.setSupplementalid(contacts.supplementalId());
-		pgContacts.setIscompany(contacts.isCompany());
+		pgContacts.setIscompany(contacts.getIsCompany());
 		pgContacts.setCompanyname(contacts.companyName());
 		pgContacts.setFirstname(contacts.firstName());
 		pgContacts.setMiddlename(contacts.middleName());

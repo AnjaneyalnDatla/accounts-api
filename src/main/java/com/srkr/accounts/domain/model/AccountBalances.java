@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AccountBalances extends AssertionConcern implements Serializable {
@@ -17,21 +18,26 @@ public class AccountBalances extends AssertionConcern implements Serializable {
 
 	private Double beginning_balance;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date beginning_balance_date;
 
 	private Double current_balance;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date current_balance_date;
+
+	private Boolean isActive;
 
 	private Integer updatedBy;
 
 	public AccountBalances(Double beginning_balance, Date beginning_balance_date, Double current_balance,
-			Date current_balance_date, Integer updatedBy) {
+			Date current_balance_date, Boolean isActive, Integer updatedBy) {
 		super();
 		this.beginning_balance = beginning_balance;
 		this.beginning_balance_date = beginning_balance_date;
 		this.current_balance = current_balance;
 		this.current_balance_date = current_balance_date;
+		this.isActive = isActive;
 		this.updatedBy = updatedBy;
 	}
 
@@ -39,7 +45,7 @@ public class AccountBalances extends AssertionConcern implements Serializable {
 	public AccountBalances(@JsonProperty("id") Long id, @JsonProperty("beginning_balance") Double beginning_balance,
 			@JsonProperty("beginning_balance_date") Date beginning_balance_date,
 			@JsonProperty("current_balance") Double current_balance,
-			@JsonProperty("current_balance_date") Date current_balance_date,
+			@JsonProperty("current_balance_date") Date current_balance_date, @JsonProperty("isActive") Boolean isActive,
 			@JsonProperty("updatedBy") Integer updatedBy) {
 		super();
 		this.id = id;
@@ -47,6 +53,7 @@ public class AccountBalances extends AssertionConcern implements Serializable {
 		this.beginning_balance_date = beginning_balance_date;
 		this.current_balance = current_balance;
 		this.current_balance_date = current_balance_date;
+		this.isActive = isActive;
 		this.updatedBy = updatedBy;
 	}
 
@@ -68,6 +75,10 @@ public class AccountBalances extends AssertionConcern implements Serializable {
 
 	public Date current_balance_date() {
 		return this.current_balance_date;
+	}
+
+	public Boolean getIsActive() {
+		return this.isActive;
 	}
 
 	public Integer updatedBy() {

@@ -16,6 +16,9 @@ public class AccountsMapper {
 	@Autowired
 	private ContactsMapper contactsMapper;
 
+	@Autowired
+	private AccountBalancesMapper accountBalancesMapper;
+
 	public Accounts toPostgresObject(com.srkr.accounts.domain.model.Accounts accounts) {
 		if (accounts == null) {
 			return null;
@@ -23,10 +26,12 @@ public class AccountsMapper {
 		Accounts pgAccounts = new Accounts();
 		pgAccounts.setId(accounts.id().intValue());
 		pgAccounts.setName(accounts.name());
-		pgAccounts.setContact(null != accounts.contacts() ? contactsMapper.toPostgresObject(accounts.contacts()) : null);
+		pgAccounts.setDescription(null != accounts.description()? accounts.description():"DEFAULT");
+		pgAccounts
+				.setContact(null != accounts.contacts() ? contactsMapper.toPostgresObject(accounts.contacts()) : null);
 
 		AccountTypes accountType = new AccountTypes();
-		if(accounts.account_type()!=null) {
+		if (accounts.account_type() != null) {
 			accountType.setId(accounts.account_type().id());
 			accountType.setDescription(accounts.account_type().description());
 			accountType.setName(accounts.account_type().name());
@@ -39,7 +44,7 @@ public class AccountsMapper {
 		}
 
 		pgAccounts.setAccountTypes(accountType);
-
+		pgAccounts.setAccountsBalances(accountBalancesMapper.toPostgresObjects(accounts.account_balances()));
 		return pgAccounts;
 	}
 
@@ -48,7 +53,7 @@ public class AccountsMapper {
 			return null;
 		}
 		com.srkr.accounts.domain.model.AccountTypes acctType = null;
-		if(pgAccounts.getAccountTypes().getId() != null) {
+		if (pgAccounts.getAccountTypes().getId() != null) {
 			acctType = new com.srkr.accounts.domain.model.AccountTypes(pgAccounts.getAccountTypes().getId(),
 					pgAccounts.getAccountTypes().getName(),
 					new com.srkr.accounts.domain.model.AccountCategory(
@@ -57,13 +62,13 @@ public class AccountsMapper {
 							pgAccounts.getAccountTypes().getAccountCategory().getDescription()),
 					pgAccounts.getAccountTypes().getDescription());
 		}
-				
-		
-		
+
 		com.srkr.accounts.domain.model.Accounts accounts = new com.srkr.accounts.domain.model.Accounts(
-				pgAccounts.getId().longValue(), pgAccounts.getName(), pgAccounts.getDescription(),
-				acctType,
-				null != pgAccounts.getContact() ? contactsMapper.toDomainObject(pgAccounts.getContact()) : null, null);
+				pgAccounts.getId().longValue(), pgAccounts.getName(), pgAccounts.getDescription(), acctType,
+				null != pgAccounts.getContact() ? contactsMapper.toDomainObject(pgAccounts.getContact()) : null,
+				null != pgAccounts.getAccountsBalances()
+						? accountBalancesMapper.toDomainObjects(pgAccounts.getAccountsBalances())
+						: null);
 
 		return accounts;
 	}

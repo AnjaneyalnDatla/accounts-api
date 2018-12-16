@@ -4,7 +4,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,8 +34,8 @@ public class FindAndSaveAccountsTest {
 	@Before
 	public void setUp() {
 		this.accountsList = new ArrayList<>();
-		List<AccountBalances> accountBalances = new ArrayList<>();
-		accountBalances.add(new AccountBalances(100d, new Date(2016, 06, 06), 200d, new Date(2017, 06, 06), 1));
+		Set<AccountBalances> accountBalances = new HashSet();
+		accountBalances.add(new AccountBalances(100d, new Date(2016, 06, 06), 200d, new Date(2017, 06, 06), true, 1));
 		Accounts accounts = new Accounts("TEST Recievables Accounts", "Test", new AccountTypes(2l), new Contacts(5l),
 				accountBalances);
 		accountsList.add(accounts);
@@ -44,7 +46,7 @@ public class FindAndSaveAccountsTest {
 		List<Accounts> accounts = findAndSaveAccounts.findAllAccounts();
 		assertNotNull(accounts);
 	}
-	
+
 	@Test
 	public void findAccountsByName() {
 		List<Accounts> accounts = findAndSaveAccounts.findAllAccounts();
