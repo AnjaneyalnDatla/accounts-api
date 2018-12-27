@@ -3,6 +3,7 @@ package com.srkr.accounts.rest;
 import static com.srkr.accounts.util.ObjectSerializer.toJsonString;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -47,14 +49,15 @@ public class TransactionsController {
 		}
 
 	}
-	
+
 	@GET
 	@Path("/transactionNumber/{transactionNumber}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getTransactions(@PathParam("transactionNumber") Integer transactionNumber) {
 		log.info("Transaction Number :" + transactionNumber);
 		try {
-			List<Transactions> transactions = findAndSaveTransactions.findTransactionsByTransactionNumber(transactionNumber);
+			List<Transactions> transactions = findAndSaveTransactions
+					.findTransactionsByTransactionNumber(transactionNumber);
 			return Response.status(Response.Status.OK.getStatusCode()).entity(toJsonString(transactions)).build();
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -62,7 +65,7 @@ public class TransactionsController {
 		}
 
 	}
-	
+
 	@GET
 	@Path("/lineItems/{transactionNumber}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -80,15 +83,20 @@ public class TransactionsController {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getAllTransactions() {
+	public Response getAllTransactions(@QueryParam("transactionType")Long transactionType) {
+		log.info("transactionType : " + transactionType);
 		try {
+			if(null != transactionType) {
+				return Response.status(Response.Status.OK.getStatusCode())
+						.entity(toJsonString(findAndSaveTransactions.findAllTransactionsByTransactionType(transactionType))).build();
+			}
 			return Response.status(Response.Status.OK.getStatusCode())
 					.entity(toJsonString(findAndSaveTransactions.findAllTransactions())).build();
 		} catch (IOException e) {
 			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
 		}
 	}
-	
+
 	@GET
 	@Path("/transactionNumber/new")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -100,8 +108,6 @@ public class TransactionsController {
 			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
 		}
 	}
-	
-	
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })

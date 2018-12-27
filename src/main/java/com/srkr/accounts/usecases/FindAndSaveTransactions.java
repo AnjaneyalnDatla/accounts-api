@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.srkr.accounts.domain.model.AdditionalItems;
 import com.srkr.accounts.domain.model.LineItem;
 import com.srkr.accounts.domain.model.Transactions;
 import com.srkr.accounts.domain.model.mappers.AccountsMapper;
@@ -16,6 +17,7 @@ import com.srkr.accounts.domain.model.mappers.LineItemsMapper;
 import com.srkr.accounts.domain.model.mappers.TransactionsMapper;
 import com.srkr.accounts.domain.model.postgres.Accounts;
 import com.srkr.accounts.domain.model.postgres.Contacts;
+import com.srkr.accounts.domain.model.postgres.TransactionTypes;
 import com.srkr.accounts.domain.model.repositories.PostgresAccountsRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresContactsRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresLineItemsRepository;
@@ -62,6 +64,13 @@ public class FindAndSaveTransactions {
 	public List<Transactions> findAllTransactions() {
 		List<com.srkr.accounts.domain.model.postgres.Transactions> transactions = this.postgresTransactionsRepository
 				.findAll();
+		return transactionsMapper.toListOfDomainObjects(transactions, null);
+	}
+	
+	@Transactional
+	public List<Transactions> findAllTransactionsByTransactionType(Long transactionType) {
+		List<com.srkr.accounts.domain.model.postgres.Transactions> transactions = this.postgresTransactionsRepository
+				.findByTransactionType(new TransactionTypes(transactionType, null));
 		return transactionsMapper.toListOfDomainObjects(transactions, null);
 	}
 
@@ -114,19 +123,19 @@ public class FindAndSaveTransactions {
 		// mapping tax
 		if (transactions.tax() != null) {
 			lineItems.add(new com.srkr.accounts.domain.model.postgres.LineItem(null, transaction_number, pgTransactions,
-					lineItems.size() + 1, null, "TAX", 1, transactions.tax(), transactions.tax(), null));
+					lineItems.size() + 1, null, AdditionalItems.TAX.name(), 1, transactions.tax(), transactions.tax(), null));
 		}
 
 		// mapping Shipping
 		if (transactions.shipping() != null) {
 			lineItems.add(new com.srkr.accounts.domain.model.postgres.LineItem(null, transaction_number, pgTransactions,
-					lineItems.size() + 1, null, "SHIPPING", 1, transactions.shipping(), transactions.shipping(), null));
+					lineItems.size() + 1, null, AdditionalItems.SHIPPING.name(), 1, transactions.shipping(), transactions.shipping(), null));
 		}
 
 		// mapping Other
 		if (transactions.other() != null) {
 			lineItems.add(new com.srkr.accounts.domain.model.postgres.LineItem(null, transaction_number, pgTransactions,
-					lineItems.size() + 1, null, "OTHER", 1, transactions.other(), transactions.other(), null));
+					lineItems.size() + 1, null, AdditionalItems.OTHER.name(), 1, transactions.other(), transactions.other(), null));
 		}
 
 		pgTransactions.setLineItems(lineItems);

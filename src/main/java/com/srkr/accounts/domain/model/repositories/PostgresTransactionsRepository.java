@@ -5,13 +5,16 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
+import com.srkr.accounts.domain.model.postgres.TransactionTypes;
 import com.srkr.accounts.domain.model.postgres.Transactions;
 
 public interface PostgresTransactionsRepository extends Repository<Transactions, Long> {
 
 	List<Transactions> findByUserName(String userName);
 	
-	List<Transactions> findByTransactionNumber(Integer transactionNumber);	
+	List<Transactions> findByTransactionType(TransactionTypes transactionType);	
+	
+	List<Transactions> findByTransactionNumber(Integer transactionNumber);
 
 	List<Transactions> findAll();
 	

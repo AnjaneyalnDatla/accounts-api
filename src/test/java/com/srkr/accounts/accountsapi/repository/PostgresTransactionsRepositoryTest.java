@@ -97,6 +97,12 @@ public class PostgresTransactionsRepositoryTest {
 		List<Transactions> transactions = postgresTransactionsRepository.findByUserName("admin@admin.com");
 		assertNotNull(transactions);
 	}
+	
+	@Test
+	public void findByTransactionType() {
+		List<Transactions> transactions = postgresTransactionsRepository.findByTransactionType(new TransactionTypes(1l, null));
+		assertNotNull(transactions);
+	}
 
 	@Test
 	public void saveTransactions() {

@@ -175,7 +175,7 @@ public class Transactions implements java.io.Serializable {
 		this.contactName = contactName;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "transactiontype_id")
 	public TransactionTypes getTransactionType() {
 		return transactionType;
@@ -194,7 +194,7 @@ public class Transactions implements java.io.Serializable {
 		this.transactionTypeName = transactionTypeName;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "transaction_status_id")
 	public TransactionStatus getTransactionStatus() {
 		return transactionStatus;
