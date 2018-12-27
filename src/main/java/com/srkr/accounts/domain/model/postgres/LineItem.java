@@ -74,6 +74,7 @@ public class LineItem implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transaction_id")
+	//@ManyToOne
 	public Transactions getTransactions() {
 		return transactions;
 	}

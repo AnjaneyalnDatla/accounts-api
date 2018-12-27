@@ -1,23 +1,19 @@
 package com.srkr.accounts.domain.model.postgres;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "header_types", schema = "public")
-public class HeaderTypes implements java.io.Serializable {
+@Table(name = "transaction_type", schema = "public")
+public class TransactionTypes implements java.io.Serializable {
 
 	/**
 	 * 
@@ -27,22 +23,20 @@ public class HeaderTypes implements java.io.Serializable {
 	private String name;
 	private String description;
 	private Date dateupdated;
-	private Set<Headers> headerses = new HashSet<Headers>(0);
 
-	public HeaderTypes() {
+	public TransactionTypes() {
 	}
 
-	public HeaderTypes(Long id, String name) {
+	public TransactionTypes(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 
-	public HeaderTypes(Long id, String name, String description, Date dateupdated, Set<Headers> headerses) {
+	public TransactionTypes(Long id, String name, String description, Date dateupdated) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.dateupdated = dateupdated;
-		this.headerses = headerses;
 	}
 
 	@Id
@@ -82,15 +76,6 @@ public class HeaderTypes implements java.io.Serializable {
 
 	public void setDateupdated(Date dateupdated) {
 		this.dateupdated = dateupdated;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "headerTypes")
-	public Set<Headers> getHeaderses() {
-		return this.headerses;
-	}
-
-	public void setHeaderses(Set<Headers> headerses) {
-		this.headerses = headerses;
 	}
 
 }

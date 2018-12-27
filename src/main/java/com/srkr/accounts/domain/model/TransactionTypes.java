@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class HeaderTypes extends AssertionConcern implements Serializable {
+public class TransactionTypes extends AssertionConcern implements Serializable {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class HeaderTypes extends AssertionConcern implements Serializable {
 	private String description;
 
 	@JsonCreator
-	public HeaderTypes(@JsonProperty("id") Long id, @JsonProperty("name") String name,
+	public TransactionTypes(@JsonProperty("id") Long id, @JsonProperty("name") String name,
 			@JsonProperty("description") String description) {
 		super();
 		this.id = id;
@@ -27,7 +27,7 @@ public class HeaderTypes extends AssertionConcern implements Serializable {
 		this.description = description;
 	}
 
-	public HeaderTypes(String name, String description) {
+	public TransactionTypes(String name, String description) {
 		super();
 		this.name = name;
 		this.description = description;

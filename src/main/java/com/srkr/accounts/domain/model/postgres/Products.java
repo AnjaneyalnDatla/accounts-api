@@ -66,5 +66,6 @@ public class Products implements java.io.Serializable {
 	public void setDateupdated(Date dateupdated) {
 		this.dateupdated = dateupdated;
 	}
+	
 
 }

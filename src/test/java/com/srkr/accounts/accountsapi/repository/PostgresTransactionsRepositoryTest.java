@@ -1,6 +1,5 @@
 package com.srkr.accounts.accountsapi.repository;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
@@ -8,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,13 +16,14 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.srkr.accounts.domain.model.postgres.Accounts;
-import com.srkr.accounts.domain.model.postgres.HeaderTypes;
-import com.srkr.accounts.domain.model.postgres.Headers;
+import com.srkr.accounts.domain.model.postgres.Contacts;
 import com.srkr.accounts.domain.model.postgres.LineItem;
 import com.srkr.accounts.domain.model.postgres.Products;
+import com.srkr.accounts.domain.model.postgres.TransactionStatus;
+import com.srkr.accounts.domain.model.postgres.TransactionTypes;
 import com.srkr.accounts.domain.model.postgres.Transactions;
-import com.srkr.accounts.domain.model.repositories.PostgresHeadersRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresLineItemsRepository;
+import com.srkr.accounts.domain.model.repositories.PostgresTransactionTypesRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresTransactionsRepository;
 
 @RunWith(SpringRunner.class)
@@ -35,7 +34,7 @@ public class PostgresTransactionsRepositoryTest {
 	@Autowired
 	PostgresTransactionsRepository postgresTransactionsRepository;
 	@Autowired
-	PostgresHeadersRepository postgresHeadersRepository;
+	PostgresTransactionTypesRepository postgresTransactionTypesRepository;
 	@Autowired
 	PostgresLineItemsRepository postgresLineItemsRepository;
 
@@ -46,31 +45,45 @@ public class PostgresTransactionsRepositoryTest {
 	@Before
 	public void setUp() {
 		this.transactions = new Transactions();
-		this.transactions.setUserId(1);
-		this.transactions.setUserName("Bunny");
-		this.transactions.setDepartmentId(1);
-		this.transactions.setDepartmentName("civil");
+		this.transactions.setOriginalAmount(20000d);
+		this.transactions.setPendingAmount(0d);
+
 		this.lineItems = new HashSet<>();
 		LineItem item = new LineItem();
 		item.setLine_item_number(1);
-		item.setProducts(new Products(1l, "Invoice"));
+		item.setProducts(new Products(1l, "TEST"));
 		item.setName("Test 1");
 		item.setQuantity(1);
 		item.setPrice(20d);
 		item.setAmount(20d);
 		lineItems.add(item);
+		
+		LineItem item2 = new LineItem();
+		item2.setLine_item_number(2);
+		item2.setProducts(new Products(1l, "TEST2"));
+		item2.setName("Test 2");
+		item2.setQuantity(1);
+		item2.setPrice(20d);
+		item2.setAmount(20d);
+		lineItems.add(item2);
+		this.transactions.setLineItems(lineItems);
+
 		Accounts accounts = new Accounts();
 		accounts.setId(1);
-		this.transactions.setAccounts(accounts);
-		Headers headers = new Headers();
-		headers.setAccounts(accounts);
-		headers.setHeaderdate(new Date(2018, 11, 20));
-		headers.setHeadernumber(1);
-		HeaderTypes headerTypes = new HeaderTypes();
-		headerTypes.setId(1l);
-		headerTypes.setName("Invoice");
-		headers.setHeaderTypes(headerTypes);
-		this.transactions.setHeaders(headers);
+		Contacts contact = new Contacts(1l);
+
+		this.transactions.setTransactionType(new TransactionTypes(1l, "INVOICE"));
+		this.transactions.setTransactionStatus(new TransactionStatus(1l, "COMPLETE"));
+
+		this.transactions.setAccount(accounts);
+		this.transactions.setContact(contact);
+		this.transactions.setUserId(4);
+		this.transactions.setUserName("admin@admin.com");
+		this.transactions.setDepartmentId(1);
+		this.transactions.setDepartmentName("civil");
+		this.transactions.setDueDate(new Date());
+		this.transactions.setPaymentDate(new Date());
+		this.transactions.setDeliveryDate(new Date());
 	}
 
 	@Test
@@ -81,7 +94,7 @@ public class PostgresTransactionsRepositoryTest {
 
 	@Test
 	public void findAllTransactionsByUsername() {
-		List<Transactions> transactions = postgresTransactionsRepository.findByUserName("Bunny");
+		List<Transactions> transactions = postgresTransactionsRepository.findByUserName("admin@admin.com");
 		assertNotNull(transactions);
 	}
 
@@ -89,13 +102,20 @@ public class PostgresTransactionsRepositoryTest {
 	public void saveTransactions() {
 		Integer transaction_number = this.postgresTransactionsRepository.getNextSequenceValue().intValue();
 		this.transactions.setTransactionNumber(transaction_number);
+		this.transactions.getLineItems().forEach(lt -> {
+			lt.setTransactionNumber(transaction_number);
+		});
 		this.transactions = postgresTransactionsRepository.save(this.transactions);
 		assertNotNull(transactions);
-		this.lineItems.forEach(lt -> {
-			lt.setTransactionNumber(transaction_number);
-			lt.setTransactions(transactions);
-			deleteLineItems.add(this.postgresLineItemsRepository.save(lt));
-		});
+
+	}
+
+	@Test
+	public void updateTransaction() {
+		this.transactions.setTransactionNumber(128);
+		this.transactions.setLineItems(null);
+		this.transactions = postgresTransactionsRepository.save(this.transactions);
+		assertNotNull(transactions);
 	}
 
 	@Test
@@ -104,7 +124,7 @@ public class PostgresTransactionsRepositoryTest {
 		assertNotNull(sequence);
 	}
 
-	@After
+	// @After
 	public void destroy() {
 		if (this.transactions.getId() != null)
 			this.postgresTransactionsRepository.delete(this.transactions);

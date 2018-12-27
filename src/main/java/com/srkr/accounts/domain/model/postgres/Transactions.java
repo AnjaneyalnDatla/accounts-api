@@ -27,15 +27,33 @@ public class Transactions implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 2761309527104883365L;
 	private Long id;
-	private Headers headers;
-	private Accounts accounts;
 	private Integer transactionNumber;
+	private Double originalAmount;
+	private Double pendingAmount;
+
+	private Accounts account;
+	private String accountName;
+
+	private Contacts contact;
+	private String contactName;
+
+	private TransactionTypes transactionType;
+	private String transactionTypeName;
+
+	private TransactionStatus transactionStatus;
+	private String transactionStatusName;
+
 	private Integer userId;
 	private String userName;
 	private Integer departmentId;
 	private String departmentName;
 	private Date dateupdated;
-	private Set<TransactionRelations> transactionRelationses = new HashSet<TransactionRelations>(0);
+
+	private Date paymentDate;
+	private Date dueDate;
+	private Date deliveryDate;
+	
+	private Set<LineItem> lineItems = new HashSet<>();
 
 	public Transactions() {
 	}
@@ -44,30 +62,31 @@ public class Transactions implements java.io.Serializable {
 		this.transactionNumber = transactionNumber;
 	}
 
-	public Transactions(Long id, Accounts accounts, Integer transactionNumber, Integer userId, String userName,
-			Integer departmentId, String departmentName, String name) {
+	public Transactions(Long id, Integer transactionNumber, Double originalAmount, Double pendingAmount,
+			Accounts account, Contacts contact, TransactionTypes transactionType, TransactionStatus transactionStatus,
+			Integer userId, String userName, Integer departmentId, String departmentName, Date dateupdated,
+			Date paymentDate, Date dueDate, Date deliveryDate,Set<LineItem> lineItems) {
 		this.id = id;
-		this.accounts = accounts;
 		this.transactionNumber = transactionNumber;
-		this.userId = userId;
-		this.userName = userName;
-		this.departmentId = departmentId;
-		this.departmentName = departmentName;
-	}
-
-	public Transactions(Long id, Headers headers, Accounts accounts, Integer transactionNumber, Integer userId,
-			String userName, Integer departmentId, String departmentName, Date dateupdated,
-			Set<TransactionRelations> transactionRelationses) {
-		this.id = id;
-		this.headers = headers;
-		this.accounts = accounts;
-		this.transactionNumber = transactionNumber;
+		this.originalAmount = originalAmount;
+		this.pendingAmount = pendingAmount;
+		this.account = account;
+		this.accountName = account.getName();
+		this.contact = contact;
+		this.contactName = contact.getLastname();
+		this.transactionType = transactionType;
+		this.transactionTypeName = transactionType.getName();
+		this.transactionStatus = transactionStatus;
+		this.transactionStatusName = transactionStatus.getValue();
 		this.userId = userId;
 		this.userName = userName;
 		this.departmentId = departmentId;
 		this.departmentName = departmentName;
 		this.dateupdated = dateupdated;
-		this.transactionRelationses = transactionRelationses;
+		this.paymentDate = paymentDate;
+		this.dueDate = dueDate;
+		this.deliveryDate = deliveryDate;
+		this.lineItems = lineItems;
 	}
 
 	@Id
@@ -81,26 +100,6 @@ public class Transactions implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-	@JoinColumn(name = "headers_id")
-	public Headers getHeaders() {
-		return this.headers;
-	}
-
-	public void setHeaders(Headers headers) {
-		this.headers = headers;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "account_id")
-	public Accounts getAccounts() {
-		return this.accounts;
-	}
-
-	public void setAccounts(Accounts accounts) {
-		this.accounts = accounts;
-	}
-
 	@Column(name = "transaction_number", nullable = false)
 	public Integer getTransactionNumber() {
 		return this.transactionNumber;
@@ -108,6 +107,110 @@ public class Transactions implements java.io.Serializable {
 
 	public void setTransactionNumber(Integer transactionNumber) {
 		this.transactionNumber = transactionNumber;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "dateupdated", length = 35)
+	public Date getDateupdated() {
+		return this.dateupdated;
+	}
+
+	public void setDateupdated(Date dateupdated) {
+		this.dateupdated = dateupdated;
+	}
+
+	@Column(name = "original_amount", nullable = false)
+	public Double getOriginalAmount() {
+		return originalAmount;
+	}
+
+	public void setOriginalAmount(Double originalAmount) {
+		this.originalAmount = originalAmount;
+	}
+
+	@Column(name = "pending_balance", nullable = false)
+	public Double getPendingAmount() {
+		return pendingAmount;
+	}
+
+	public void setPendingAmount(Double pendingAmount) {
+		this.pendingAmount = pendingAmount;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "account_id")
+	public Accounts getAccount() {
+		return this.account;
+	}
+
+	public void setAccount(Accounts account) {
+		this.account = account;
+	}
+
+	@Column(name = "account_name", nullable = false)
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "contact_id")
+	public Contacts getContact() {
+		return contact;
+	}
+
+	public void setContact(Contacts contact) {
+		this.contact = contact;
+	}
+
+	@Column(name = "contact_name", nullable = false)
+	public String getContactName() {
+		return contactName;
+	}
+
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "transactiontype_id")
+	public TransactionTypes getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(TransactionTypes transactionType) {
+		this.transactionType = transactionType;
+	}
+
+	@Column(name = "transactiontype_name", nullable = false)
+	public String getTransactionTypeName() {
+		return this.transactionTypeName;
+	}
+
+	public void setTransactionTypeName(String transactionTypeName) {
+		this.transactionTypeName = transactionTypeName;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "transaction_status_id")
+	public TransactionStatus getTransactionStatus() {
+		return transactionStatus;
+	}
+
+	public void setTransactionStatus(TransactionStatus transactionStatus) {
+		this.transactionStatus = transactionStatus;
+	}
+
+	@Column(name = "transaction_status_name", nullable = false)
+	public String getTransactionStatusName() {
+		return transactionStatusName;
+	}
+
+	public void setTransactionStatusName(String transactionStatusName) {
+		this.transactionStatusName = transactionStatusName;
 	}
 
 	@Column(name = "user_id", nullable = false)
@@ -146,23 +249,41 @@ public class Transactions implements java.io.Serializable {
 		this.departmentName = departmentName;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "dateupdated", length = 35)
-	public Date getDateupdated() {
-		return this.dateupdated;
+	@Column(name = "payment_date")
+	public Date getPaymentDate() {
+		return paymentDate;
 	}
 
-	public void setDateupdated(Date dateupdated) {
-		this.dateupdated = dateupdated;
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "transactions")
-	public Set<TransactionRelations> getTransactionRelationses() {
-		return this.transactionRelationses;
+	@Column(name = "due_date")
+	public Date getDueDate() {
+		return dueDate;
 	}
 
-	public void setTransactionRelationses(Set<TransactionRelations> transactionRelationses) {
-		this.transactionRelationses = transactionRelationses;
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	@Column(name = "delivery_date")
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL,
+	        mappedBy = "transactions", orphanRemoval = true)
+	public Set<LineItem> getLineItems() {
+		return lineItems;
+	}
+
+	public void setLineItems(Set<LineItem> lineItems) {
+		this.lineItems = lineItems;
 	}
 
 }

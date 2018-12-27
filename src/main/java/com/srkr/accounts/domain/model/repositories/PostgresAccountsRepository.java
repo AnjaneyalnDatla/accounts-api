@@ -11,10 +11,11 @@ public interface PostgresAccountsRepository extends Repository<Accounts, Long> {
 
 	List<Accounts> findAll();
 	
-	List<Accounts> findByContactId(Long id);
-	
 	@Transactional
 	Accounts findByName(String name);
+	
+	@Transactional
+	Accounts findById(Integer id);
 
 	Accounts save(Accounts accounts);
 

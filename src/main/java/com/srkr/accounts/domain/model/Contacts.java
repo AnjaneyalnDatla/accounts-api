@@ -1,6 +1,7 @@
 package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -34,6 +35,8 @@ public class Contacts extends AssertionConcern implements Serializable {
 	private String idType;
 	private String idNumber;
 	private String designation;
+	private Double current_balance;
+	private Date balance_updated_date;
 	
 	
 	public Contacts(Long id) {
@@ -52,7 +55,8 @@ public class Contacts extends AssertionConcern implements Serializable {
 			@JsonProperty("state") String state, @JsonProperty("country") String country,
 			@JsonProperty("postalCode") String postalCode, @JsonProperty("landMark") String landMark,
 			@JsonProperty("additionalComments") String additionalComments, @JsonProperty("idType") String idType,
-			@JsonProperty("idNumber") String idNumber, @JsonProperty("designation") String designation) {
+			@JsonProperty("idNumber") String idNumber, @JsonProperty("designation") String designation,
+			@JsonProperty("current_balance")Double current_balance, @JsonProperty("balance_updated_date")Date balance_updated_date) {
 		super();
 		this.id = id;
 		this.supplementalId = supplementalId;
@@ -76,6 +80,8 @@ public class Contacts extends AssertionConcern implements Serializable {
 		this.idType = idType;
 		this.idNumber = idNumber;
 		this.designation = designation;
+		this.current_balance = current_balance;
+		this.balance_updated_date = balance_updated_date;
 	}
 
 	public Long id() {
@@ -165,5 +171,14 @@ public class Contacts extends AssertionConcern implements Serializable {
 	public String designation() {
 		return designation;
 	}
+
+	public Double current_balance() {
+		return current_balance;
+	}
+	
+	public Date balance_updated_date() {
+		return balance_updated_date;
+	}
+	
 
 }

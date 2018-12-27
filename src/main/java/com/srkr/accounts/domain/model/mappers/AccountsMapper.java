@@ -3,7 +3,6 @@ package com.srkr.accounts.domain.model.mappers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.srkr.accounts.domain.model.postgres.AccountCategory;
@@ -13,12 +12,6 @@ import com.srkr.accounts.domain.model.postgres.Accounts;
 @Component
 public class AccountsMapper {
 
-	@Autowired
-	private ContactsMapper contactsMapper;
-
-	@Autowired
-	private AccountBalancesMapper accountBalancesMapper;
-
 	public Accounts toPostgresObject(com.srkr.accounts.domain.model.Accounts accounts) {
 		if (accounts == null) {
 			return null;
@@ -26,9 +19,7 @@ public class AccountsMapper {
 		Accounts pgAccounts = new Accounts();
 		pgAccounts.setId(accounts.id().intValue());
 		pgAccounts.setName(accounts.name());
-		pgAccounts.setDescription(null != accounts.description()? accounts.description():"DEFAULT");
-		pgAccounts
-				.setContact(null != accounts.contacts() ? contactsMapper.toPostgresObject(accounts.contacts()) : null);
+		pgAccounts.setDescription(null != accounts.description() ? accounts.description() : "DEFAULT");
 
 		AccountTypes accountType = new AccountTypes();
 		if (accounts.account_type() != null) {
@@ -44,7 +35,7 @@ public class AccountsMapper {
 		}
 
 		pgAccounts.setAccountTypes(accountType);
-		pgAccounts.setAccountsBalances(accountBalancesMapper.toPostgresObjects(accounts.account_balances()));
+		pgAccounts.setCurrentBalance(accounts.currentBalance());
 		return pgAccounts;
 	}
 
@@ -65,10 +56,7 @@ public class AccountsMapper {
 
 		com.srkr.accounts.domain.model.Accounts accounts = new com.srkr.accounts.domain.model.Accounts(
 				pgAccounts.getId().longValue(), pgAccounts.getName(), pgAccounts.getDescription(), acctType,
-				null != pgAccounts.getContact() ? contactsMapper.toDomainObject(pgAccounts.getContact()) : null,
-				null != pgAccounts.getAccountsBalances()
-						? accountBalancesMapper.toDomainObjects(pgAccounts.getAccountsBalances())
-						: null);
+				pgAccounts.getCurrentBalance());
 
 		return accounts;
 	}

@@ -61,20 +61,4 @@ public class AccountsController {
 
 	}
 
-	@GET
-	@Path("/contact/{contactId}")
-	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getAccountsByContactId(@PathParam("contactId") Long contactId) {
-		if(contactId == 0l) {
-			contactId = null;
-		}
-		try {
-			return Response.status(Response.Status.OK.getStatusCode())
-					.entity(toJsonString(findAndSaveAccounts.findContactById(contactId))).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).build();
-		}
-
-	}	
 }

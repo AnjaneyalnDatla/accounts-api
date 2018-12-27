@@ -27,14 +27,16 @@ public class ContactsMapper {
 		pgContacts.setEmailaddress(contacts.emailAddress());
 		pgContacts.setStreetaddress(contacts.streetAddress());
 		pgContacts.setCity(contacts.city());
-		pgContacts.setState(contacts.state().abbreviation());
-		pgContacts.setCountry(contacts.country().abbreviation());
+		pgContacts.setState(null != contacts.state() ? contacts.state().abbreviation() : null);
+		pgContacts.setCountry(null != contacts.country() ? contacts.country().abbreviation() : null);
 		pgContacts.setPostalcode(contacts.postalCode());
 		pgContacts.setLandmark(contacts.landMark());
 		pgContacts.setAdditionalcomments(contacts.additionalComments());
 		pgContacts.setIdtype(contacts.idType());
 		pgContacts.setIdnumber(contacts.idNumber());
 		pgContacts.setDesignation(contacts.designation());
+		pgContacts.setCurrent_balance(contacts.current_balance());
+		pgContacts.setBalance_updated_date(contacts.balance_updated_date());
 
 		return pgContacts;
 
@@ -46,10 +48,10 @@ public class ContactsMapper {
 				pgContacts.getCompanyname(), pgContacts.getFirstname(), pgContacts.getMiddlename(),
 				pgContacts.getLastname(), pgContacts.getCellphone(), pgContacts.getHomephone(),
 				pgContacts.getOfficephone(), pgContacts.getFaxnumber(), pgContacts.getEmailaddress(),
-				pgContacts.getStreetaddress(), pgContacts.getCity(), pgContacts.getState(),
-				pgContacts.getCountry(), pgContacts.getPostalcode(),
-				pgContacts.getLandmark(), pgContacts.getAdditionalcomments(), pgContacts.getIdtype(),
-				pgContacts.getIdnumber(), pgContacts.getDesignation());
+				pgContacts.getStreetaddress(), pgContacts.getCity(), pgContacts.getState(), pgContacts.getCountry(),
+				pgContacts.getPostalcode(), pgContacts.getLandmark(), pgContacts.getAdditionalcomments(),
+				pgContacts.getIdtype(), pgContacts.getIdnumber(), pgContacts.getDesignation(),
+				pgContacts.getCurrent_balance(), pgContacts.getBalance_updated_date());
 		return contacts;
 
 	}

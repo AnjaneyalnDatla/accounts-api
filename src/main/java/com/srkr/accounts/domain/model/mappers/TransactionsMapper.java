@@ -1,7 +1,6 @@
 package com.srkr.accounts.domain.model.mappers;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,13 +15,16 @@ import com.srkr.accounts.domain.model.repositories.PostgresTransactionsRepositor
 public class TransactionsMapper {
 
 	@Autowired
-	private AccountsMapper accountsMapper;
+	private ContactsMapper contactsMapper;
 
 	@Autowired
-	private HeadersMapper headersMapper;
+	private TransactionTypesAndStatusMapper transactionTypesAndStatusMapper;
 
 	@Autowired
-	private LineItemsMapper lineItemsMapper;
+	private AccountsMapper accountsmapper;
+
+	@Autowired
+	private LineItemsMapper lineItemMapper;
 
 	@Autowired
 	PostgresTransactionsRepository postgresTransactionsRepository;
@@ -30,33 +32,45 @@ public class TransactionsMapper {
 	public Transactions toPostgresObject(com.srkr.accounts.domain.model.Transactions transactions) {
 
 		Transactions pgTransactions = new Transactions();
+		pgTransactions.setTransactionNumber(transactions.transaction_number());
+		pgTransactions.setOriginalAmount(transactions.paymentAmount());
+		pgTransactions.setPendingAmount(transactions.pendingAmount());
+		pgTransactions.setAccount(this.accountsmapper.toPostgresObject(transactions.accounts()));
+		pgTransactions.setContact(this.contactsMapper.toPostgresObject(transactions.contact()));
+		pgTransactions
+				.setTransactionType(transactionTypesAndStatusMapper.toPostgresObject(transactions.transactionType()));
+		pgTransactions.setTransactionStatus(
+				transactionTypesAndStatusMapper.toPostgresObject(transactions.transactionStatus()));
 		pgTransactions.setUserId(transactions.user_id());
 		pgTransactions.setUserName(transactions.user_name());
-		pgTransactions.setTransactionNumber(transactions.transaction_number());
-		Set<LineItem> items = new HashSet<>();
-		transactions.lineItems().forEach(trans -> {
-			items.add(lineItemsMapper.toPostgresObject(trans));
-		});
-		pgTransactions.setAccounts(accountsMapper.toPostgresObject(transactions.accounts()));
-		pgTransactions.setHeaders(headersMapper.toPostgresObject(transactions.header()));
 		pgTransactions.setDepartmentId(transactions.departmentId());
 		pgTransactions.setDepartmentName(transactions.departmentName());
+		pgTransactions.setPaymentDate(transactions.paymentDate());
+		pgTransactions.setDueDate(transactions.dueDate());
+		pgTransactions.setDeliveryDate(transactions.deliveryDate());
+		pgTransactions.setLineItems(this.lineItemMapper.toListPostgresObject(transactions.lineItems()));
 		return pgTransactions;
 	}
 
-	public com.srkr.accounts.domain.model.Transactions toDomainObject(Transactions pgTransactions,Set<LineItem> pgLineItems) {
-		com.srkr.accounts.domain.model.Transactions transactions = new com.srkr.accounts.domain.model.Transactions(
-				pgTransactions.getId(), headersMapper.toDomainObject(pgTransactions.getHeaders()),
-				accountsMapper.toDomainObject(pgTransactions.getAccounts()), pgTransactions.getTransactionNumber(),
-				pgTransactions.getUserId(), pgTransactions.getUserName(), pgTransactions.getDepartmentId(),
-				pgTransactions.getDepartmentName(), null, this.lineItemsMapper.toListDomainObject(pgLineItems));
-		return transactions;
+	public com.srkr.accounts.domain.model.Transactions toDomainObject(Transactions pgTransactions) {
+
+		return new com.srkr.accounts.domain.model.Transactions(pgTransactions.getId(),
+				pgTransactions.getTransactionNumber(), pgTransactions.getOriginalAmount(),
+				pgTransactions.getPendingAmount(), this.accountsmapper.toDomainObject(pgTransactions.getAccount()),
+				this.contactsMapper.toDomainObject(pgTransactions.getContact()),
+				this.transactionTypesAndStatusMapper.toDomainObject(pgTransactions.getTransactionType()),
+				this.transactionTypesAndStatusMapper.toDomainObject(pgTransactions.getTransactionStatus()), null, null,
+				null, pgTransactions.getUserId(), pgTransactions.getUserName(), pgTransactions.getDepartmentId(),
+				pgTransactions.getDepartmentName(), pgTransactions.getDateupdated(),
+				this.lineItemMapper.toListDomainObject(pgTransactions.getLineItems()), pgTransactions.getPaymentDate(),
+				pgTransactions.getDueDate(), pgTransactions.getDeliveryDate());
 	}
 
-	public List<com.srkr.accounts.domain.model.Transactions> toListOfDomainObjects(List<Transactions> pgTransactions,Set<LineItem> pgLineItems) {
+	public List<com.srkr.accounts.domain.model.Transactions> toListOfDomainObjects(List<Transactions> pgTransactions,
+			Set<LineItem> pgLineItems) {
 		List<com.srkr.accounts.domain.model.Transactions> transactions = new ArrayList<>();
 		pgTransactions.forEach(c -> {
-			transactions.add(toDomainObject(c,pgLineItems));
+			transactions.add(toDomainObject(c));
 		});
 		return transactions;
 	}

@@ -1,7 +1,6 @@
 package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,30 +22,23 @@ public class Accounts extends AssertionConcern implements Serializable {
 
 	private AccountTypes account_type;
 
-	private Contacts contacts;
+	private Double currentBalance;
 
-	private Set<AccountBalances> accountBalances;
-
-	public Accounts(String name, String description, AccountTypes account_type, Contacts contacts,
-			Set<AccountBalances> accountBalances) {
+	public Accounts(String name, String description, AccountTypes account_type) {
 		super();
 		this.name = name;
 		this.account_type = account_type;
-		this.contacts = contacts;
-		this.accountBalances = accountBalances;
 	}
 
 	@JsonCreator
 	public Accounts(@JsonProperty("id") Long id, @JsonProperty("name") String name,
 			@JsonProperty("description") String description, @JsonProperty("account_type") AccountTypes account_type,
-			@JsonProperty("contacts") Contacts contacts,
-			@JsonProperty("accountBalances") Set<AccountBalances> accountBalances) {
+			@JsonProperty("currentBalance") Double currentBalance) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.account_type = account_type;
-		this.contacts = contacts;
-		this.accountBalances = accountBalances;
+		this.currentBalance = currentBalance;
 	}
 
 	public Long id() {
@@ -65,12 +57,8 @@ public class Accounts extends AssertionConcern implements Serializable {
 		return this.account_type;
 	}
 
-	public Contacts contacts() {
-		return this.contacts;
-	}
-
-	public Set<AccountBalances> account_balances() {
-		return this.accountBalances;
+	public Double currentBalance() {
+		return this.currentBalance;
 	}
 
 }

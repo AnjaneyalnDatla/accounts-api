@@ -1,16 +1,12 @@
 package com.srkr.accounts.domain.model.postgres;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,7 +42,8 @@ public class Contacts implements java.io.Serializable {
 	private String idnumber;
 	private String designation;
 	private Date dateupdated;
-	private Set<TransactionRelations> transactionRelationses = new HashSet<TransactionRelations>(0);
+	private Double current_balance;
+	private Date balance_updated_date;
 
 	public Contacts() {
 	}
@@ -56,7 +53,8 @@ public class Contacts implements java.io.Serializable {
 	}
 
 	public Contacts(Long id, String firstname, String lastname, String streetaddress, String city, String state,
-			String country, String postalcode, String idtype, String idnumber, String designation) {
+			String country, String postalcode, String idtype, String idnumber, String designation,
+			Double current_balance, Date balance_updated_date) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -68,13 +66,15 @@ public class Contacts implements java.io.Serializable {
 		this.idtype = idtype;
 		this.idnumber = idnumber;
 		this.designation = designation;
+		this.current_balance = current_balance;
+		this.balance_updated_date = balance_updated_date;
 	}
 
 	public Contacts(Long id, String supplementalid, Boolean iscompany, String companyname, String firstname,
 			String middlename, String lastname, String cellphone, String homephone, String faxnumber,
 			String officephone, String emailaddress, String streetaddress, String city, String state, String country,
 			String postalcode, String landmark, String additionalcomments, String idtype, String idnumber,
-			String designation, Date dateupdated, Set<TransactionRelations> transactionRelationses) {
+			String designation, Date dateupdated, Double current_balance, Date balance_updated_date) {
 		this.id = id;
 		this.supplementalid = supplementalid;
 		this.iscompany = iscompany;
@@ -98,7 +98,8 @@ public class Contacts implements java.io.Serializable {
 		this.idnumber = idnumber;
 		this.designation = designation;
 		this.dateupdated = dateupdated;
-		this.transactionRelationses = transactionRelationses;
+		this.current_balance = current_balance;
+		this.balance_updated_date = balance_updated_date;
 	}
 
 	@Id
@@ -311,13 +312,23 @@ public class Contacts implements java.io.Serializable {
 		this.dateupdated = dateupdated;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "contacts")
-	public Set<TransactionRelations> getTransactionRelationses() {
-		return this.transactionRelationses;
+	@Column(name = "current_balance", nullable = false)
+	public Double getCurrent_balance() {
+		return current_balance;
 	}
 
-	public void setTransactionRelationses(Set<TransactionRelations> transactionRelationses) {
-		this.transactionRelationses = transactionRelationses;
+	public void setCurrent_balance(Double current_balance) {
+		this.current_balance = current_balance;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "balance_updated_date", length = 35)
+	public Date getBalance_updated_date() {
+		return balance_updated_date;
+	}
+
+	public void setBalance_updated_date(Date balance_updated_date) {
+		this.balance_updated_date = balance_updated_date;
 	}
 
 }

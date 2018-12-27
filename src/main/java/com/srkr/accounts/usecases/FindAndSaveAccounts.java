@@ -25,11 +25,6 @@ public class FindAndSaveAccounts {
 	}
 
 	@Transactional
-	public List<Accounts> findContactById(Long contactId) {
-		return accountsMapper.toListDomainObjects(postgresAccountsRepository.findByContactId(contactId));
-	}
-
-	@Transactional
 	public Accounts saveAccount(Accounts accounts) {
 		return accountsMapper
 				.toDomainObject(postgresAccountsRepository.save(accountsMapper.toPostgresObject(accounts)));

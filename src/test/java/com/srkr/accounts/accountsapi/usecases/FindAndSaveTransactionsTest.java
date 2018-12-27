@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,15 +15,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.srkr.accounts.domain.model.Accounts;
-import com.srkr.accounts.domain.model.HeaderTypes;
-import com.srkr.accounts.domain.model.Headers;
+import com.srkr.accounts.domain.model.Contacts;
 import com.srkr.accounts.domain.model.LineItem;
 import com.srkr.accounts.domain.model.Products;
+import com.srkr.accounts.domain.model.TransactionStatus;
+import com.srkr.accounts.domain.model.TransactionTypes;
 import com.srkr.accounts.domain.model.Transactions;
 import com.srkr.accounts.domain.model.mappers.AccountsMapper;
 import com.srkr.accounts.domain.model.mappers.TransactionsMapper;
 import com.srkr.accounts.domain.model.repositories.PostgresAccountsRepository;
-import com.srkr.accounts.domain.model.repositories.PostgresHeadersRepository;
+import com.srkr.accounts.domain.model.repositories.PostgresTransactionTypesRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresTransactionsRepository;
 import com.srkr.accounts.usecases.FindAndSaveTransactions;
 
@@ -36,7 +36,7 @@ public class FindAndSaveTransactionsTest {
 	@Autowired
 	PostgresTransactionsRepository postgresTransactionsRepository;
 	@Autowired
-	PostgresHeadersRepository postgresHeadersRepository;
+	PostgresTransactionTypesRepository postgresTransactionTypesRepository;
 	@Autowired
 	PostgresAccountsRepository postgresAccountsRepository;
 
@@ -49,17 +49,15 @@ public class FindAndSaveTransactionsTest {
 
 	@Before
 	public void setUp() {
-		Accounts accounts = accountsMapper
-				.toDomainObject(postgresAccountsRepository.findByName("SRT ELECTRICALS ACCOUNT RECEIVABLES"));
-		Headers headers = new Headers(null, 999, new Date(2018, 11, 20), new HeaderTypes(1l, "Invoice", "Invoice"),
-				accounts,null);
-		Integer transaction_number = this.postgresTransactionsRepository.getNextSequenceValue().intValue();
+
 		Set<LineItem> lineItems = new HashSet<>();
-		LineItem item = new LineItem(null, transaction_number, 1, new Products("Test"), "TEST", 15, 15.00d, 15.00d,
-				null);
+		LineItem item = new LineItem(null, null, 1, new Products(1l,"Test2"), "TEST2", 15, 15.00d, 15.00d, null);
 		lineItems.add(item);
-		this.transactions = new Transactions(new Integer(1), transaction_number, "Bunny", accounts, headers, lineItems,
-				new Integer(1), "civil");
+		this.transactions = new Transactions(null, null, 1000d, 200d,
+				new Accounts(1l, "HDFC CHECKINGS", null, null, null), new Contacts(1l),
+				new TransactionTypes(1l, "INVOICE", null), new TransactionStatus(1l, "COMPLETE"), 10d, 20d, 30d, 4,
+				"admin@admin.com", 1, "CIVIL", null, lineItems, new Date(), new Date(), new Date());
+
 	}
 
 	@Autowired
@@ -79,12 +77,9 @@ public class FindAndSaveTransactionsTest {
 	public void saveTransaction() {
 		this.transactions = findAndSaveTransactions.saveTransaction(this.transactions);
 		assertNotNull(this.transactions);
-		assertNotNull(this.transactions.lineItems());
-		assertNotNull(this.transactions.header());
-		assertNotNull(this.transactions.accounts());
 	}
 
-	@After
+	//@After
 	public void destroy() {
 		if (this.transactions.id() != null)
 			this.findAndSaveTransactions.deleteTransaction(this.transactions);
