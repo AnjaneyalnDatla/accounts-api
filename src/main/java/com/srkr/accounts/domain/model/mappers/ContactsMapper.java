@@ -35,8 +35,8 @@ public class ContactsMapper {
 		pgContacts.setIdtype(contacts.idType());
 		pgContacts.setIdnumber(contacts.idNumber());
 		pgContacts.setDesignation(contacts.designation());
-		pgContacts.setCurrent_balance(contacts.current_balance());
-		pgContacts.setBalance_updated_date(contacts.balance_updated_date());
+		pgContacts.setCurrent_balance(null != contacts.current_balance() ? contacts.current_balance() : 0.0d);
+		pgContacts.setBalance_updated_date(null != contacts.balance_updated_date() ? contacts.balance_updated_date() : null);
 
 		return pgContacts;
 

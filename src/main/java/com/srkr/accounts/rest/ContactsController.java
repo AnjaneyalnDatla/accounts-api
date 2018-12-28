@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -59,6 +60,20 @@ public class ContactsController {
 			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
 		} catch (NameNotFoundException e) {
 			return Response.status(Response.Status.UNAUTHORIZED.getStatusCode()).build();
+		}
+	}
+	
+	@GET
+	@Path("/id/{id}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getContactById(@PathParam("id")Long contactId) {
+		log.info("ID : " + contactId);
+		try {
+			return Response.status(Response.Status.OK.getStatusCode())
+					.entity(toJsonString(findAndCreateContacts.findContactById(contactId))).build();
+		} catch (IOException e) {
+			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
 		}
 	}
 
