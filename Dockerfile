@@ -7,7 +7,7 @@ WORKDIR "/accounts-api"
 VOLUME /tmp
 
 # Retriving the latest jar from nexus and copying into the docker container
-ADD ADD build/libs/accounts-api-1.0.0.jar accounts-api-1.0.0.jar
+ADD build/libs/accounts-api-1.0.0.jar accounts-api-1.0.0.jar
 
 
 # Running the app
