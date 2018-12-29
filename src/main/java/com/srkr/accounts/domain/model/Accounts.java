@@ -1,6 +1,7 @@
 package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,6 +24,10 @@ public class Accounts extends AssertionConcern implements Serializable {
 	private AccountTypes account_type;
 
 	private Double currentBalance;
+	
+	private Date dateUpdated;
+	
+	private Boolean isActive;
 
 	public Accounts(String name, String description, AccountTypes account_type) {
 		super();
@@ -33,12 +38,15 @@ public class Accounts extends AssertionConcern implements Serializable {
 	@JsonCreator
 	public Accounts(@JsonProperty("id") Long id, @JsonProperty("name") String name,
 			@JsonProperty("description") String description, @JsonProperty("account_type") AccountTypes account_type,
-			@JsonProperty("currentBalance") Double currentBalance) {
+			@JsonProperty("currentBalance") Double currentBalance,
+			@JsonProperty("dateUpdated") Date dateUpdated, @JsonProperty("isActive") Boolean isActive) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.account_type = account_type;
 		this.currentBalance = currentBalance;
+		this.dateUpdated = dateUpdated;
+		this.isActive = isActive;
 	}
 
 	public Long id() {
@@ -59,6 +67,14 @@ public class Accounts extends AssertionConcern implements Serializable {
 
 	public Double currentBalance() {
 		return this.currentBalance;
+	}
+	
+	public Boolean getIsActive() {
+		return this.isActive;
+	}
+	
+	public Date dateUpdated() {
+		return this.dateUpdated;
 	}
 
 }

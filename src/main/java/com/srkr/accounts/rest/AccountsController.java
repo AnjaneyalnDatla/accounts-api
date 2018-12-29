@@ -61,4 +61,36 @@ public class AccountsController {
 
 	}
 
+	@GET
+	@Path("/id/{id}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAccountsById(@PathParam("id") Long id) {
+		try {
+			return Response.status(Response.Status.OK.getStatusCode())
+					.entity(toJsonString(findAndSaveAccounts.findAccountById(id))).build();
+		} catch (IOException e) {
+			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).build();
+		}
+
+	}
+
+	@GET
+	@Path("/accountTypes")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAccountTypes() {
+		try {
+			return Response.status(Response.Status.OK.getStatusCode())
+					.entity(toJsonString(findAndSaveAccounts.findAllAccountTypes())).build();
+		} catch (IOException e) {
+			return Response.status(Response.Status.FORBIDDEN.getStatusCode()).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).build();
+		}
+
+	}
+
 }

@@ -28,16 +28,18 @@ public class Accounts implements java.io.Serializable {
 	private String description;
 	private Date dateupdated;
 	private Double currentBalance;
+	private Boolean isActive;
 
 	public Accounts() {
 	}
 
-	public Accounts(Integer id, AccountTypes accountTypes, String name, String description, Double currentBalance) {
+	public Accounts(Integer id, AccountTypes accountTypes, String name, String description, Double currentBalance,Boolean isActive) {
 		this.id = id;
 		this.accountTypes = accountTypes;
 		this.name = name;
 		this.description = description;
 		this.currentBalance = currentBalance;
+		this.isActive = isActive;
 	}
 
 	@Id
@@ -96,6 +98,15 @@ public class Accounts implements java.io.Serializable {
 
 	public void setCurrentBalance(Double currentBalance) {
 		this.currentBalance = currentBalance;
+	}
+
+	@Column(name = "isactive", nullable = false)
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

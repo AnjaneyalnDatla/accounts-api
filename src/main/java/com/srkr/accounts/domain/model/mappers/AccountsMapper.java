@@ -17,7 +17,7 @@ public class AccountsMapper {
 			return null;
 		}
 		Accounts pgAccounts = new Accounts();
-		pgAccounts.setId(accounts.id().intValue());
+		pgAccounts.setId(null != accounts.id()? accounts.id().intValue() : null);
 		pgAccounts.setName(accounts.name());
 		pgAccounts.setDescription(null != accounts.description() ? accounts.description() : "DEFAULT");
 
@@ -36,6 +36,8 @@ public class AccountsMapper {
 
 		pgAccounts.setAccountTypes(accountType);
 		pgAccounts.setCurrentBalance(accounts.currentBalance());
+		pgAccounts.setDateupdated(accounts.dateUpdated());
+		pgAccounts.setIsActive(accounts.getIsActive());
 		return pgAccounts;
 	}
 
@@ -56,7 +58,7 @@ public class AccountsMapper {
 
 		com.srkr.accounts.domain.model.Accounts accounts = new com.srkr.accounts.domain.model.Accounts(
 				pgAccounts.getId().longValue(), pgAccounts.getName(), pgAccounts.getDescription(), acctType,
-				pgAccounts.getCurrentBalance());
+				pgAccounts.getCurrentBalance(), pgAccounts.getDateupdated(), pgAccounts.getIsActive());
 
 		return accounts;
 	}
