@@ -11,15 +11,15 @@ import com.srkr.accounts.domain.model.postgres.Transactions;
 public interface PostgresTransactionsRepository extends Repository<Transactions, Long> {
 
 	List<Transactions> findByUserName(String userName);
-	
-	List<Transactions> findByTransactionType(TransactionTypes transactionType);	
-	
-	List<Transactions> findByTransactionNumber(Integer transactionNumber);
+
+	List<Transactions> findByTransactionType(TransactionTypes transactionType);
+
+	Transactions findByTransactionNumber(Integer transactionNumber);
 
 	List<Transactions> findAll();
-	
+
 	Transactions save(Transactions transactions);
-	
+
 	Transactions delete(Transactions transactions);
 
 	@Query(value = "SELECT nextval('sequencer')", nativeQuery = true)

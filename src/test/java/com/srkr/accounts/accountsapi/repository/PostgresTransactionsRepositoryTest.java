@@ -57,7 +57,7 @@ public class PostgresTransactionsRepositoryTest {
 		item.setPrice(20d);
 		item.setAmount(20d);
 		lineItems.add(item);
-		
+
 		LineItem item2 = new LineItem();
 		item2.setLine_item_number(2);
 		item2.setProducts(new Products(1l, "TEST2"));
@@ -75,14 +75,13 @@ public class PostgresTransactionsRepositoryTest {
 		this.transactions.setTransactionType(new TransactionTypes(1l, "INVOICE"));
 		this.transactions.setTransactionStatus(new TransactionStatus(1l, "COMPLETE"));
 
-		this.transactions.setAccount(accounts);
 		this.transactions.setContact(contact);
 		this.transactions.setUserId(4);
 		this.transactions.setUserName("admin@admin.com");
 		this.transactions.setDepartmentId(1);
 		this.transactions.setDepartmentName("civil");
 		this.transactions.setDueDate(new Date());
-		this.transactions.setPaymentDate(new Date());
+		this.transactions.setCreationdate(new Date());
 		this.transactions.setDeliveryDate(new Date());
 	}
 
@@ -97,10 +96,11 @@ public class PostgresTransactionsRepositoryTest {
 		List<Transactions> transactions = postgresTransactionsRepository.findByUserName("admin@admin.com");
 		assertNotNull(transactions);
 	}
-	
+
 	@Test
 	public void findByTransactionType() {
-		List<Transactions> transactions = postgresTransactionsRepository.findByTransactionType(new TransactionTypes(1l, null));
+		List<Transactions> transactions = postgresTransactionsRepository
+				.findByTransactionType(new TransactionTypes(1l, null));
 		assertNotNull(transactions);
 	}
 

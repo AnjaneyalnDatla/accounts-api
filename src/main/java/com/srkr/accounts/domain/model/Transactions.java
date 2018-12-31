@@ -2,6 +2,7 @@ package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -23,8 +24,6 @@ public class Transactions extends AssertionConcern implements Serializable {
 	private Double paymentAmount;
 
 	private Double pendingAmount;
-
-	private Accounts accounts;
 
 	private Contacts contact;
 
@@ -48,24 +47,26 @@ public class Transactions extends AssertionConcern implements Serializable {
 
 	private String departmentName;
 
-	private Date paymentDate;
+	private Date creationdate;
 
 	private Date dueDate;
 
 	private Date deliveryDate;
 
+	private Set<Bill> bills;
+
 	@JsonCreator
 	public Transactions(@JsonProperty("id") Long id, @JsonProperty("transaction_number") Integer transaction_number,
 			@JsonProperty("paymentAmount") Double paymentAmount, @JsonProperty("pendingAmount") Double pendingAmount,
-			@JsonProperty("accounts") Accounts accounts, @JsonProperty("contact") Contacts contacts,
+			@JsonProperty("contact") Contacts contacts,
 			@JsonProperty("transactionType") TransactionTypes transactionType,
 			@JsonProperty("transactionStatus") TransactionStatus transactionStatus, @JsonProperty("tax") Double tax,
 			@JsonProperty("shipping") Double shipping, @JsonProperty("other") Double other,
 			@JsonProperty("user_id") Integer userId, @JsonProperty("user_name") String userName,
 			@JsonProperty("departmentId") Integer departmentId, @JsonProperty("departmentName") String departmentName,
 			@JsonProperty("dateupdated") Date dateupdated, @JsonProperty("lineItems") Set<LineItem> lineItems,
-			@JsonProperty("paymentDate") Date paymentDate, @JsonProperty("dueDate") Date dueDate,
-			@JsonProperty("deliveryDate") Date deliveryDate) {
+			@JsonProperty("creationdate") Date creationdate, @JsonProperty("dueDate") Date dueDate,
+			@JsonProperty("deliveryDate") Date deliveryDate, @JsonProperty("bills") Set<Bill> bills) {
 		super();
 		this.id = id;
 		this.user_id = userId;
@@ -79,14 +80,14 @@ public class Transactions extends AssertionConcern implements Serializable {
 		this.contact = contacts;
 		this.tax = tax;
 		this.paymentAmount = paymentAmount;
-		//default to zero pending amount if no pending amount
-		this.pendingAmount = (null != pendingAmount? pendingAmount:0d);
-		this.paymentDate = paymentDate;
-		this.accounts = accounts;
+		// default to zero pending amount if no pending amount
+		this.pendingAmount = (null != pendingAmount ? pendingAmount : 0d);
+		this.creationdate = creationdate;
 		this.other = other;
 		this.shipping = shipping;
 		this.dueDate = dueDate;
 		this.deliveryDate = deliveryDate;
+		this.bills = bills;
 	}
 
 	public Transactions(Integer user_id, Integer transaction_number, String user_name, TransactionTypes transactionType,
@@ -118,6 +119,8 @@ public class Transactions extends AssertionConcern implements Serializable {
 	}
 
 	public Set<LineItem> lineItems() {
+		if (null == lineItems)
+			return new HashSet<>();
 		return lineItems;
 	}
 
@@ -153,12 +156,8 @@ public class Transactions extends AssertionConcern implements Serializable {
 		return paymentAmount;
 	}
 
-	public Date paymentDate() {
-		return paymentDate;
-	}
-
-	public Accounts accounts() {
-		return accounts;
+	public Date creationdate() {
+		return creationdate;
 	}
 
 	public TransactionStatus transactionStatus() {
@@ -175,6 +174,12 @@ public class Transactions extends AssertionConcern implements Serializable {
 
 	public Date deliveryDate() {
 		return deliveryDate;
+	}
+
+	public Set<Bill> bills() {
+		if (null == bills)
+			return new HashSet<>();
+		return bills;
 	}
 
 }

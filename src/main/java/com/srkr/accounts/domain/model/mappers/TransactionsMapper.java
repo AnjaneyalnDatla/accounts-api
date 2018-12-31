@@ -23,10 +23,10 @@ public class TransactionsMapper {
 	private TransactionTypesAndStatusMapper transactionTypesAndStatusMapper;
 
 	@Autowired
-	private AccountsMapper accountsmapper;
+	private LineItemsMapper lineItemMapper;
 
 	@Autowired
-	private LineItemsMapper lineItemMapper;
+	private BillMapper billMapper;
 
 	@Autowired
 	PostgresTransactionsRepository postgresTransactionsRepository;
@@ -37,7 +37,6 @@ public class TransactionsMapper {
 		pgTransactions.setTransactionNumber(transactions.transaction_number());
 		pgTransactions.setOriginalAmount(transactions.paymentAmount());
 		pgTransactions.setPendingAmount(transactions.pendingAmount());
-		pgTransactions.setAccount(this.accountsmapper.toPostgresObject(transactions.accounts()));
 		pgTransactions.setContact(this.contactsMapper.toPostgresObject(transactions.contact()));
 		pgTransactions
 				.setTransactionType(transactionTypesAndStatusMapper.toPostgresObject(transactions.transactionType()));
@@ -47,10 +46,15 @@ public class TransactionsMapper {
 		pgTransactions.setUserName(transactions.user_name());
 		pgTransactions.setDepartmentId(transactions.departmentId());
 		pgTransactions.setDepartmentName(transactions.departmentName());
-		pgTransactions.setPaymentDate(transactions.paymentDate());
+		pgTransactions.setCreationdate(transactions.creationdate());
 		pgTransactions.setDueDate(transactions.dueDate());
 		pgTransactions.setDeliveryDate(transactions.deliveryDate());
 		pgTransactions.setLineItems(this.lineItemMapper.toListPostgresObject(transactions.lineItems()));
+		pgTransactions.setBills(this.billMapper.toListPostgresObject(transactions.bills()));
+		if (null != pgTransactions.getBills())
+			pgTransactions.getBills().forEach(bill -> {
+				bill.setTransaction_number(transactions.transaction_number());
+			});
 		return pgTransactions;
 	}
 
@@ -60,7 +64,8 @@ public class TransactionsMapper {
 
 		/**
 		 * In Postgres TAX,SHIPPING and OTHER are saved as lineitems, we need to
-		 * separate that out for UI and pass as elements by themselves on the transaction object
+		 * separate that out for UI and pass as elements by themselves on the
+		 * transaction object
 		 */
 		double tax = 0.0d;
 		double shipping = 0.0d;
@@ -80,14 +85,13 @@ public class TransactionsMapper {
 
 		return new com.srkr.accounts.domain.model.Transactions(pgTransactions.getId(),
 				pgTransactions.getTransactionNumber(), pgTransactions.getOriginalAmount(),
-				pgTransactions.getPendingAmount(), this.accountsmapper.toDomainObject(pgTransactions.getAccount()),
-				this.contactsMapper.toDomainObject(pgTransactions.getContact()),
+				pgTransactions.getPendingAmount(), this.contactsMapper.toDomainObject(pgTransactions.getContact()),
 				this.transactionTypesAndStatusMapper.toDomainObject(pgTransactions.getTransactionType()),
 				this.transactionTypesAndStatusMapper.toDomainObject(pgTransactions.getTransactionStatus()), tax,
 				shipping, other, pgTransactions.getUserId(), pgTransactions.getUserName(),
 				pgTransactions.getDepartmentId(), pgTransactions.getDepartmentName(), pgTransactions.getDateupdated(),
-				reOrganisedList, pgTransactions.getPaymentDate(), pgTransactions.getDueDate(),
-				pgTransactions.getDeliveryDate());
+				reOrganisedList, pgTransactions.getCreationdate(), pgTransactions.getDueDate(),
+				pgTransactions.getDeliveryDate(), this.billMapper.toListDomainObject(pgTransactions.getBills()));
 	}
 
 	public List<com.srkr.accounts.domain.model.Transactions> toListOfDomainObjects(List<Transactions> pgTransactions,

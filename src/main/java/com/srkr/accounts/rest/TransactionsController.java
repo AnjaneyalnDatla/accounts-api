@@ -3,7 +3,6 @@ package com.srkr.accounts.rest;
 import static com.srkr.accounts.util.ObjectSerializer.toJsonString;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -56,7 +55,7 @@ public class TransactionsController {
 	public Response getTransactions(@PathParam("transactionNumber") Integer transactionNumber) {
 		log.info("Transaction Number :" + transactionNumber);
 		try {
-			List<Transactions> transactions = findAndSaveTransactions
+			Transactions transactions = findAndSaveTransactions
 					.findTransactionsByTransactionNumber(transactionNumber);
 			return Response.status(Response.Status.OK.getStatusCode()).entity(toJsonString(transactions)).build();
 		} catch (Exception e) {

@@ -31,9 +31,6 @@ public class Transactions implements java.io.Serializable {
 	private Double originalAmount;
 	private Double pendingAmount;
 
-	private Accounts account;
-	private String accountName;
-
 	private Contacts contact;
 	private String contactName;
 
@@ -49,11 +46,12 @@ public class Transactions implements java.io.Serializable {
 	private String departmentName;
 	private Date dateupdated;
 
-	private Date paymentDate;
+	private Date creationdate;
 	private Date dueDate;
 	private Date deliveryDate;
-	
+
 	private Set<LineItem> lineItems = new HashSet<>();
+	private Set<Bill> bills = new HashSet<>();
 
 	public Transactions() {
 	}
@@ -63,15 +61,13 @@ public class Transactions implements java.io.Serializable {
 	}
 
 	public Transactions(Long id, Integer transactionNumber, Double originalAmount, Double pendingAmount,
-			Accounts account, Contacts contact, TransactionTypes transactionType, TransactionStatus transactionStatus,
-			Integer userId, String userName, Integer departmentId, String departmentName, Date dateupdated,
-			Date paymentDate, Date dueDate, Date deliveryDate,Set<LineItem> lineItems) {
+			Contacts contact, TransactionTypes transactionType, TransactionStatus transactionStatus, Integer userId,
+			String userName, Integer departmentId, String departmentName, Date dateupdated, Date creationdate,
+			Date dueDate, Date deliveryDate, Set<LineItem> lineItems, Set<Bill> bills) {
 		this.id = id;
 		this.transactionNumber = transactionNumber;
 		this.originalAmount = originalAmount;
 		this.pendingAmount = pendingAmount;
-		this.account = account;
-		this.accountName = account.getName();
 		this.contact = contact;
 		this.contactName = contact.getLastname();
 		this.transactionType = transactionType;
@@ -83,10 +79,11 @@ public class Transactions implements java.io.Serializable {
 		this.departmentId = departmentId;
 		this.departmentName = departmentName;
 		this.dateupdated = dateupdated;
-		this.paymentDate = paymentDate;
+		this.creationdate = creationdate;
 		this.dueDate = dueDate;
 		this.deliveryDate = deliveryDate;
 		this.lineItems = lineItems;
+		this.bills = bills;
 	}
 
 	@Id
@@ -135,25 +132,6 @@ public class Transactions implements java.io.Serializable {
 
 	public void setPendingAmount(Double pendingAmount) {
 		this.pendingAmount = pendingAmount;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "account_id")
-	public Accounts getAccount() {
-		return this.account;
-	}
-
-	public void setAccount(Accounts account) {
-		this.account = account;
-	}
-
-	@Column(name = "account_name", nullable = false)
-	public String getAccountName() {
-		return accountName;
-	}
-
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -249,13 +227,13 @@ public class Transactions implements java.io.Serializable {
 		this.departmentName = departmentName;
 	}
 
-	@Column(name = "payment_date")
-	public Date getPaymentDate() {
-		return paymentDate;
+	@Column(name = "creation_date")
+	public Date getCreationdate() {
+		return creationdate;
 	}
 
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
+	public void setCreationdate(Date creationdate) {
+		this.creationdate = creationdate;
 	}
 
 	@Column(name = "due_date")
@@ -276,8 +254,7 @@ public class Transactions implements java.io.Serializable {
 		this.deliveryDate = deliveryDate;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL,
-	        mappedBy = "transactions", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "transactions", orphanRemoval = true)
 	public Set<LineItem> getLineItems() {
 		return lineItems;
 	}
@@ -286,4 +263,12 @@ public class Transactions implements java.io.Serializable {
 		this.lineItems = lineItems;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "transactions", orphanRemoval = true)
+	public Set<Bill> getBills() {
+		return bills;
+	}
+
+	public void setBills(Set<Bill> bills) {
+		this.bills = bills;
+	}
 }

@@ -54,9 +54,9 @@ public class FindAndSaveTransactionsTest {
 		LineItem item = new LineItem(null, null, 1, new Products(1l,"Test2"), "TEST2", 15, 15.00d, 15.00d, null);
 		lineItems.add(item);
 		this.transactions = new Transactions(null, null, 1000d, 200d,
-				new Accounts(1l, "HDFC CHECKINGS", null, null, null,null,null), new Contacts(1l),
+				new Contacts(1l),
 				new TransactionTypes(1l, "INVOICE", null), new TransactionStatus(1l, "COMPLETE"), 10d, 20d, 30d, 4,
-				"admin@admin.com", 1, "CIVIL", null, lineItems, new Date(), new Date(), new Date());
+				"admin@admin.com", 1, "CIVIL", null, lineItems, new Date(), new Date(), new Date(),null);
 
 	}
 
