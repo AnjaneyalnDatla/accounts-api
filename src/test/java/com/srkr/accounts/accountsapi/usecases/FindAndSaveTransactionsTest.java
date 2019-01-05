@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.srkr.accounts.domain.model.Accounts;
 import com.srkr.accounts.domain.model.Contacts;
 import com.srkr.accounts.domain.model.LineItem;
 import com.srkr.accounts.domain.model.Products;
@@ -51,12 +50,11 @@ public class FindAndSaveTransactionsTest {
 	public void setUp() {
 
 		Set<LineItem> lineItems = new HashSet<>();
-		LineItem item = new LineItem(null, null, 1, new Products(1l,"Test2"), "TEST2", 15, 15.00d, 15.00d, null);
+		LineItem item = new LineItem(null, null, 1, new Products(1l, "Test2"), "TEST2", 15, 15.00d, 15.00d, null);
 		lineItems.add(item);
-		this.transactions = new Transactions(null, null, 1000d, 200d,
-				new Contacts(1l),
+		this.transactions = new Transactions(null, null, 1000d, 200d, new Contacts(1l),
 				new TransactionTypes(1l, "INVOICE", null), new TransactionStatus(1l, "COMPLETE"), 10d, 20d, 30d, 4,
-				"admin@admin.com", 1, "CIVIL", null, lineItems, new Date(), new Date(), new Date(),null);
+				"admin@admin.com", 1, "CIVIL", null, lineItems, new Date(), new Date(), new Date(), null, null);
 
 	}
 
@@ -79,7 +77,7 @@ public class FindAndSaveTransactionsTest {
 		assertNotNull(this.transactions);
 	}
 
-	//@After
+	// @After
 	public void destroy() {
 		if (this.transactions.id() != null)
 			this.findAndSaveTransactions.deleteTransaction(this.transactions);

@@ -2,6 +2,8 @@ package com.srkr.accounts.domain.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -37,8 +39,8 @@ public class Contacts extends AssertionConcern implements Serializable {
 	private String designation;
 	private Double current_balance;
 	private Date balance_updated_date;
-	
-	
+	private Set<Document> documents;
+
 	public Contacts(Long id) {
 		super();
 		this.id = id;
@@ -56,7 +58,9 @@ public class Contacts extends AssertionConcern implements Serializable {
 			@JsonProperty("postalCode") String postalCode, @JsonProperty("landMark") String landMark,
 			@JsonProperty("additionalComments") String additionalComments, @JsonProperty("idType") String idType,
 			@JsonProperty("idNumber") String idNumber, @JsonProperty("designation") String designation,
-			@JsonProperty("current_balance")Double current_balance, @JsonProperty("balance_updated_date")Date balance_updated_date) {
+			@JsonProperty("current_balance") Double current_balance,
+			@JsonProperty("balance_updated_date") Date balance_updated_date,
+			@JsonProperty("documents") Set<Document> documents) {
 		super();
 		this.id = id;
 		this.supplementalId = supplementalId;
@@ -82,6 +86,7 @@ public class Contacts extends AssertionConcern implements Serializable {
 		this.designation = designation;
 		this.current_balance = current_balance;
 		this.balance_updated_date = balance_updated_date;
+		this.documents = documents;
 	}
 
 	public Long id() {
@@ -175,10 +180,19 @@ public class Contacts extends AssertionConcern implements Serializable {
 	public Double current_balance() {
 		return current_balance;
 	}
-	
+
 	public Date balance_updated_date() {
 		return balance_updated_date;
 	}
-	
+
+	public Set<Document> documents() {
+		if (null == documents)
+			return new HashSet<>();
+		return documents;
+	}
+
+	public void setDocuments(Set<Document> documents) {
+		this.documents = documents;
+	}
 
 }

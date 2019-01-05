@@ -34,6 +34,7 @@ public class TransactionsMapper {
 	public Transactions toPostgresObject(com.srkr.accounts.domain.model.Transactions transactions) {
 
 		Transactions pgTransactions = new Transactions();
+		pgTransactions.setId(transactions.id());
 		pgTransactions.setTransactionNumber(transactions.transaction_number());
 		pgTransactions.setOriginalAmount(transactions.paymentAmount());
 		pgTransactions.setPendingAmount(transactions.pendingAmount());
@@ -91,7 +92,7 @@ public class TransactionsMapper {
 				shipping, other, pgTransactions.getUserId(), pgTransactions.getUserName(),
 				pgTransactions.getDepartmentId(), pgTransactions.getDepartmentName(), pgTransactions.getDateupdated(),
 				reOrganisedList, pgTransactions.getCreationdate(), pgTransactions.getDueDate(),
-				pgTransactions.getDeliveryDate(), this.billMapper.toListDomainObject(pgTransactions.getBills()));
+				pgTransactions.getDeliveryDate(), this.billMapper.toListDomainObject(pgTransactions.getBills()),null);
 	}
 
 	public List<com.srkr.accounts.domain.model.Transactions> toListOfDomainObjects(List<Transactions> pgTransactions,

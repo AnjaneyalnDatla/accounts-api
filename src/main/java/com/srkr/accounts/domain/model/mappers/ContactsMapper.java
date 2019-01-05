@@ -51,7 +51,7 @@ public class ContactsMapper {
 				pgContacts.getStreetaddress(), pgContacts.getCity(), pgContacts.getState(), pgContacts.getCountry(),
 				pgContacts.getPostalcode(), pgContacts.getLandmark(), pgContacts.getAdditionalcomments(),
 				pgContacts.getIdtype(), pgContacts.getIdnumber(), pgContacts.getDesignation(),
-				pgContacts.getCurrent_balance(), pgContacts.getBalance_updated_date());
+				pgContacts.getCurrent_balance(), pgContacts.getBalance_updated_date(),null);
 		return contacts;
 
 	}

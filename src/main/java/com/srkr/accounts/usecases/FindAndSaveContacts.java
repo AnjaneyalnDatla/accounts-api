@@ -1,6 +1,7 @@
 package com.srkr.accounts.usecases;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.NameNotFoundException;
 
@@ -10,26 +11,42 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.srkr.accounts.domain.model.Contacts;
 import com.srkr.accounts.domain.model.mappers.ContactsMapper;
+import com.srkr.accounts.domain.model.mappers.DocumentMapper;
+import com.srkr.accounts.domain.model.postgres.Document;
 import com.srkr.accounts.domain.model.repositories.PostgresContactsRepository;
+import com.srkr.accounts.domain.model.repositories.PostgresDocumentRepository;
 
 @Service
 public class FindAndSaveContacts {
 
 	@Autowired
 	private PostgresContactsRepository postgresContactsRepository;
+	@Autowired
+	private PostgresDocumentRepository postgresDocumentRespository;
 
 	@Autowired
 	private ContactsMapper contactsMapper;
+	@Autowired
+	private DocumentMapper documentMapper;
 
 	@Transactional
 	public Contacts createContact(Contacts contact) {
-		return contactsMapper.toDomainObject(postgresContactsRepository.save(contactsMapper.toPostgresObject(contact)));
-
+		Contacts contacts = contactsMapper
+				.toDomainObject(postgresContactsRepository.save(contactsMapper.toPostgresObject(contact)));
+		Set<Document> documents = this.documentMapper.toListPostgresObject(contacts.documents());
+		documents.forEach(doc -> {
+			postgresDocumentRespository.save(doc);
+		});
+		contacts.setDocuments(this.documentMapper.toListDomainObject(documents));
+		return contacts;
 	}
 
 	@Transactional
 	public Contacts findContactById(Long contactId) {
-		return contactsMapper.toDomainObject(postgresContactsRepository.findById(contactId));
+		Contacts contacts = contactsMapper.toDomainObject(postgresContactsRepository.findById(contactId));
+		contacts.setDocuments(this.documentMapper
+				.toListDomainObject(this.postgresDocumentRespository.findByDocumentReferencerNumber(contactId)));
+		return contacts;
 
 	}
 

@@ -15,12 +15,9 @@ public class PaymentsMapper {
 	AccountsMapper accountsMapper;
 
 	public com.srkr.accounts.domain.model.postgres.Payment toPostgresObject(Payment aPayment) {
-		if (aPayment.getIsNew())
 			return new com.srkr.accounts.domain.model.postgres.Payment(aPayment.id(), aPayment.billNUmber(), null,
 					aPayment.amount(), aPayment.paymentDate(), aPayment.getIsActive(), aPayment.dateUpdated(),
 					this.accountsMapper.toPostgresObject(aPayment.accounts()));
-		else
-			return null;
 	}
 
 	public Payment toDomainObject(com.srkr.accounts.domain.model.postgres.Payment pgPayment) {

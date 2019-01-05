@@ -55,6 +55,8 @@ public class Transactions extends AssertionConcern implements Serializable {
 
 	private Set<Bill> bills;
 
+	private Set<Document> documents;
+
 	@JsonCreator
 	public Transactions(@JsonProperty("id") Long id, @JsonProperty("transaction_number") Integer transaction_number,
 			@JsonProperty("paymentAmount") Double paymentAmount, @JsonProperty("pendingAmount") Double pendingAmount,
@@ -66,7 +68,8 @@ public class Transactions extends AssertionConcern implements Serializable {
 			@JsonProperty("departmentId") Integer departmentId, @JsonProperty("departmentName") String departmentName,
 			@JsonProperty("dateupdated") Date dateupdated, @JsonProperty("lineItems") Set<LineItem> lineItems,
 			@JsonProperty("creationdate") Date creationdate, @JsonProperty("dueDate") Date dueDate,
-			@JsonProperty("deliveryDate") Date deliveryDate, @JsonProperty("bills") Set<Bill> bills) {
+			@JsonProperty("deliveryDate") Date deliveryDate, @JsonProperty("bills") Set<Bill> bills,
+			@JsonProperty("documents") Set<Document> documents) {
 		super();
 		this.id = id;
 		this.user_id = userId;
@@ -88,6 +91,7 @@ public class Transactions extends AssertionConcern implements Serializable {
 		this.dueDate = dueDate;
 		this.deliveryDate = deliveryDate;
 		this.bills = bills;
+		this.documents = documents;
 	}
 
 	public Transactions(Integer user_id, Integer transaction_number, String user_name, TransactionTypes transactionType,
@@ -180,6 +184,16 @@ public class Transactions extends AssertionConcern implements Serializable {
 		if (null == bills)
 			return new HashSet<>();
 		return bills;
+	}
+
+	public Set<Document> documents() {
+		if (null == documents)
+			return new HashSet<>();
+		return documents;
+	}
+	
+	public void setDocuments(Set<Document> documents) {
+		this.documents = documents;
 	}
 
 }

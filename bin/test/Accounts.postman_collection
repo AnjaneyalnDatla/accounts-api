@@ -63,7 +63,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n    \t\"id\": null,\n        \"name\": \"VIRAT WORGN ACCOUNT RECEIVABLES\",\n        \"description\": \"Test acount\",\n        \"accountTypes\": {\n            \"id\": 2,\n            \"name\": \"Accounts Receivable\",\n            \"accountCategory\": {\n                \"id\": 1,\n                \"name\": \"Asset\",\n                \"description\": null\n            },\n            \"description\": null\n        },\n        \"contacts\": {\n        \"id\": 2,\n        \"supplementalId\": \"1\",\n        \"isCompany\": true,\n        \"companyName\": \"Worgn\",\n        \"firstName\": \"Virat\",\n        \"middleName\": \"\",\n        \"lastName\": \"Kohli\",\n        \"cellPhone\": \"5003334807\",\n        \"homePhone\": \"\",\n        \"officePhone\": \"5094564534\",\n        \"faxNumber\": \"\",\n        \"emailAddress\": \"virat@gmail.com\",\n        \"streetAddress\": \"99 Princeton Rd\",\n        \"city\": \"Worcester\",\n        \"state\": \"UNKNOWN\",\n        \"country\": \"UNITED_STATES_OF_AMERICA\",\n        \"postalCode\": \"16078\",\n        \"landMark\": \"\",\n        \"additionalComments\": \"\",\n        \"idType\": \"\",\n        \"idNumber\": \"\",\n        \"designation\": \"\"\n    \t},\n        \"accountBalances\": null\n    }"
+					"raw": "{\n  \"id\": \"\",\n  \"name\": \"Bank Of Baroda\",\n  \"description\": \"TEmp\",\n  \"account_type\": {\n    \"id\": 1,\n    \"name\": \"Bank\",\n    \"accountCategory\": {\n      \"id\": 1,\n      \"name\": \"Asset\",\n      \"description\": null\n    },\n    \"description\": null\n  },\n  \"currentBalance\": \"2000325\",\n  \"dateUpdated\": \"\",\n  \"isActive\": \"true\"\n}"
 				},
 				"description": ""
 			},
@@ -105,7 +105,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"user_id\": 1,\n\t\"transaction_number\": 57,\n\t\"user_name\": \"Sai\",\n\t\"lineItems\": [],\n\t\"departmentId\": 1,\n\t\"departmentName\": \"civil\",\n\t\"accounts\": {\n\t\t\"id\": 1,\n\t\t\"name\": \"HDFC CHECKINGS\",\n\t\t\"description\": null,\n\t\t\"contacts\": null,\n\t\t\"accountBalances\": null,\n\t\t\"account_type\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"Bank\",\n\t\t\t\"accountCategory\": {\n\t\t\t\t\"id\": 1,\n\t\t\t\t\"name\": \"Asset\",\n\t\t\t\t\"description\": null\n\t\t\t},\n\t\t\t\"description\": null\n\t\t}\n\t},\n\t\"header\": {\n\t\t\"headernumber\": 1,\n\t\t\"headerdate\": 61503426000000,\n\t\t\"headerTypes\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"Invoice\",\n\t\t\t\"description\": null\n\t\t},\n\t\t\"accounts\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"HDFC CHECKINGS\",\n\t\t\t\"description\": null,\n\t\t\t\"contacts\": null,\n\t\t\t\"accountBalances\": null,\n\t\t\t\"account_type\": {\n\t\t\t\t\"id\": 1,\n\t\t\t\t\"name\": \"Bank\",\n\t\t\t\t\"accountCategory\": {\n\t\t\t\t\t\"id\": 1,\n\t\t\t\t\t\"name\": \"Asset\",\n\t\t\t\t\t\"description\": null\n\t\t\t\t},\n\t\t\t\t\"description\": null\n\t\t\t}\n\t\t},\n\t\t\"dateupdated\": null\n\t}\n}"
+					"raw": "{\n  \"id\": 114,\n  \"transaction_number\": 245,\n  \"paymentAmount\": 2020,\n  \"pendingAmount\": 20,\n  \"contact\": {\n    \"id\": 1,\n    \"supplementalId\": \"1\",\n    \"isCompany\": true,\n    \"companyName\": \"SRT Electronics\",\n    \"firstName\": \"Sachin\",\n    \"middleName\": \"Ramesh\",\n    \"lastName\": \"Tendulkar\",\n    \"cellPhone\": \"8062800896\",\n    \"homePhone\": \"\",\n    \"officePhone\": null,\n    \"faxNumber\": \"\",\n    \"emailAddress\": \"srt@gmail.com\",\n    \"streetAddress\": \"4 Pionner Ct\",\n    \"city\": \"Ewing\",\n    \"state\": \"UNKNOWN\",\n    \"country\": \"UNKNOWN\",\n    \"postalCode\": \"08648\",\n    \"landMark\": \"\",\n    \"additionalComments\": \"\",\n    \"idType\": \"\",\n    \"idNumber\": \"\",\n    \"designation\": \"\",\n    \"current_balance\": 0,\n    \"balance_updated_date\": null\n  },\n  \"transactionType\": {\n    \"id\": 7,\n    \"name\": \"Purchase Order\",\n    \"description\": null\n  },\n  \"transactionStatus\": {\n    \"id\": 2,\n    \"value\": \"IN-PROGRESS\"\n  },\n  \"tax\": 20,\n  \"shipping\": 0,\n  \"other\": 0,\n  \"user_id\": 4,\n  \"user_name\": \"ADMIN@ADMIN.COM\",\n  \"departmentId\": 20,\n  \"departmentName\": \"DepartmentNameTest\",\n  \"lineItems\": null,\n  \"creationdate\": 1545973200000,\n  \"dueDate\": null,\n  \"deliveryDate\": null,\n  \"bills\": [\n    {\n      \"id\": 26,\n      \"transaction_number\": 245,\n      \"billNumber\": \"S345\",\n      \"amount\": 2000,\n      \"bill_issued_date\": 1546232400000,\n      \"bill_payment_date\": null,\n      \"payments\": [\n        {\n          \"id\": 23,\n          \"billNumber\": \"S345\",\n          \"amount\": 2000,\n          \"paymentDate\": 1545714000000,\n          \"isActive\": true,\n          \"dateUpdated\": null,\n          \"accounts\": {\n            \"id\": 2,\n            \"name\": \"AXIS SAVINGS\",\n            \"description\": null,\n            \"account_type\": {\n              \"id\": 1,\n              \"name\": \"Bank\",\n              \"accountCategory\": {\n                \"id\": 1,\n                \"name\": \"Asset\",\n                \"description\": null\n              },\n              \"description\": null\n            },\n            \"currentBalance\": 42367,\n            \"dateUpdated\": null,\n            \"isActive\": true\n          },\n          \"isNew\": false\n        }\n      ]\n    },\n    {\n      \"billNumber\": \"S345\",\n      \"bill_issued_date\": \"2018-12-28T05:00:00.000Z\",\n      \"amount\": \"10\",\n      \"payments\": [\n        {\n          \"amount\": \"10\",\n          \"paymentDate\": \"2018-12-31T05:00:00.000Z\",\n          \"isNew\": true,\n          \"isActive\": true,\n          \"accounts\": {\n            \"id\": 4\n          }\n        }\n      ]\n    }\n  ]\n}"
 				},
 				"description": ""
 			},
@@ -138,6 +138,92 @@
 					"mode": "raw",
 					"raw": "{\n\t\"user_id\": 1,\n\t\"transaction_number\": 57,\n\t\"user_name\": \"Sai Test\",\n\t\"lineItems\": [\n\t\t{\n\t        \"transaction_number\": 57,\n\t        \"line_item_number\": 1,\n\t        \"products\": {\n\t            \"id\": 1,\n\t            \"name\": \"Fees\"\n\t        },\n\t        \"name\": \"Test 2\",\n\t        \"quantity\": 1,\n\t        \"price\": 20,\n\t        \"amount\": 20,\n\t        \"dateupdated\": null\n    \t}\n\t],\n\t\"departmentId\": 1,\n\t\"departmentName\": \"civil\",\n\t\"accounts\": {\n\t\t\"id\": 1,\n\t\t\"name\": \"HDFC CHECKINGS\",\n\t\t\"description\": null,\n\t\t\"contacts\": null,\n\t\t\"accountBalances\": null,\n\t\t\"account_type\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"Bank\",\n\t\t\t\"accountCategory\": {\n\t\t\t\t\"id\": 1,\n\t\t\t\t\"name\": \"Asset\",\n\t\t\t\t\"description\": null\n\t\t\t},\n\t\t\t\"description\": null\n\t\t}\n\t},\n\t\"header\": {\n\t\t\"headernumber\": 1,\n\t\t\"headerdate\": 61503426000000,\n\t\t\"headerTypes\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"Invoice\",\n\t\t\t\"description\": null\n\t\t},\n\t\t\"accounts\": {\n\t\t\t\"id\": 1,\n\t\t\t\"name\": \"HDFC CHECKINGS\",\n\t\t\t\"description\": null,\n\t\t\t\"contacts\": null,\n\t\t\t\"accountBalances\": null,\n\t\t\t\"account_type\": {\n\t\t\t\t\"id\": 1,\n\t\t\t\t\"name\": \"Bank\",\n\t\t\t\t\"accountCategory\": {\n\t\t\t\t\t\"id\": 1,\n\t\t\t\t\t\"name\": \"Asset\",\n\t\t\t\t\t\"description\": null\n\t\t\t\t},\n\t\t\t\t\"description\": null\n\t\t\t}\n\t\t},\n\t\t\"dateupdated\": null\n\t}\n}"
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getTransactionNumber",
+			"request": {
+				"url": "http://localhost:8082/accounts/transactions/transactionNumber",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getOrgAccounts",
+			"request": {
+				"url": "http://localhost:8082/accounts/account/organisationAccounts",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getAllAccounts",
+			"request": {
+				"url": "http://localhost:8082/accounts/account/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getTransactionsByTransactionNumber",
+			"request": {
+				"url": "http://localhost:8082/accounts/transactions/transactionNumber/296",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getTransactionsByTransactionType",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8082/accounts/transactions?transactionType=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"accounts",
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "transactionType",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getAccountTypes",
+			"request": {
+				"url": "http://localhost:8082/accounts/account/accountTypes",
+				"method": "GET",
+				"header": [],
+				"body": {},
 				"description": ""
 			},
 			"response": []

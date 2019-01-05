@@ -9,6 +9,10 @@ spring:
     url: jdbc:postgresql://206.189.197.225:5432/accounts
     username: postgres
     password: postgres
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 180000
+      maximum-pool-size: 20 
   jpa:
     properties:
       hibernate: 
