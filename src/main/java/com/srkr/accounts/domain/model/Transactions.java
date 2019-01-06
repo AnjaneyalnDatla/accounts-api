@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -160,6 +161,7 @@ public class Transactions extends AssertionConcern implements Serializable {
 		return paymentAmount;
 	}
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	public Date creationdate() {
 		return creationdate;
 	}
@@ -172,10 +174,12 @@ public class Transactions extends AssertionConcern implements Serializable {
 		return pendingAmount;
 	}
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	public Date dueDate() {
 		return dueDate;
 	}
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	public Date deliveryDate() {
 		return deliveryDate;
 	}

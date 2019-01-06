@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Payment extends AssertionConcern implements Serializable {
@@ -57,6 +58,7 @@ public class Payment extends AssertionConcern implements Serializable {
 		return this.amount;
 	}
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	public Date paymentDate() {
 		return this.paymentDate;
 	}
@@ -65,6 +67,7 @@ public class Payment extends AssertionConcern implements Serializable {
 		return this.isActive;
 	}
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	public Date dateUpdated() {
 		return this.dateUpdated;
 	}

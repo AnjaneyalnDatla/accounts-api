@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Document extends AssertionConcern implements Serializable {
@@ -52,6 +53,7 @@ public class Document extends AssertionConcern implements Serializable {
 		return documentLink;
 	}
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	public Date documentUploadedDate() {
 		return documentUploadedDate;
 	}

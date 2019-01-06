@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Contacts extends AssertionConcern implements Serializable {
@@ -181,6 +182,7 @@ public class Contacts extends AssertionConcern implements Serializable {
 		return current_balance;
 	}
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	public Date balance_updated_date() {
 		return balance_updated_date;
 	}
