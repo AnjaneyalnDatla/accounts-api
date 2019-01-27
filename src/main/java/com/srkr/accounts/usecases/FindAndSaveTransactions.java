@@ -145,7 +145,7 @@ public class FindAndSaveTransactions {
 					acc = this.postgresAccountsRepository.findById(payment.accounts().id().intValue());
 					// for invoice we add the payment amount and for purchase order and bill we
 					// deduct the payment amount
-					if (transactions.transactionType().id() == 1l)
+					if (transactions.transactionType().id() == 1l || transactions.transactionType().id() == 10l)
 						acc.setCurrentBalance(acc.getCurrentBalance() + payment.amount());
 					else
 						acc.setCurrentBalance(acc.getCurrentBalance() - payment.amount());

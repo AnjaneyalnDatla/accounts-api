@@ -19,3 +19,18 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+# Keycloak Json properties
+keycloak:
+  realm: AFS
+  auth-server-url: http://localhost:8090/auth
+  ssl-required: external
+  resource: afs-accounts
+  bearer-only: true
+  credentials:
+    secret: ce551fe5-5e30-4e76-a937-8efce38fa91b
+  cors: false
+  securityConstraints:
+  - authRoles: user
+    securityCollections:
+    - patterns: /accounts/*
+  principal-attribute: preferred_username

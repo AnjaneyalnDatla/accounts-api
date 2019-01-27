@@ -62,12 +62,12 @@ public class ContactsController {
 			return Response.status(Response.Status.UNAUTHORIZED.getStatusCode()).build();
 		}
 	}
-	
+
 	@GET
 	@Path("/id/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getContactById(@PathParam("id")Long contactId) {
+	public Response getContactById(@PathParam("id") Long contactId) {
 		log.info("ID : " + contactId);
 		try {
 			return Response.status(Response.Status.OK.getStatusCode())
