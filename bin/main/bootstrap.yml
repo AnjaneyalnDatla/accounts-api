@@ -28,7 +28,7 @@ keycloak:
   bearer-only: true
   credentials:
     secret: ce551fe5-5e30-4e76-a937-8efce38fa91b
-  cors: false
+  cors: true
   securityConstraints:
   - authRoles: user
     securityCollections:
