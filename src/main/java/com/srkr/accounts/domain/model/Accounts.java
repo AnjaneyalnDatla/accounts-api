@@ -33,6 +33,7 @@ public class Accounts extends AssertionConcern implements Serializable {
 	public Accounts(String name, String description, AccountTypes account_type) {
 		super();
 		this.name = name;
+		this.description = description;
 		this.account_type = account_type;
 	}
 
