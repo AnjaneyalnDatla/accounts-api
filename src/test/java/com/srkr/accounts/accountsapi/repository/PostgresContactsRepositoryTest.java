@@ -1,6 +1,7 @@
 package com.srkr.accounts.accountsapi.repository;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,14 +73,14 @@ public class PostgresContactsRepositoryTest {
 		assertNotNull(contacts);
 	}
 
-	/*@Test
+	@Test
 	public void save() {
 		contactsList.forEach((contact) -> {
 			contactsDeleteList.add(this.contactsRepository.save(contact));
 		});
 		assertTrue(contactsDeleteList.size() > 0);
 	}
-	*/
+	
 	@Test
 	public void findById() {
 		Contacts contacts = contactsRepository.findById(1l);
