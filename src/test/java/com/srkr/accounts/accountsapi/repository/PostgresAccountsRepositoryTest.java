@@ -33,6 +33,7 @@ public class PostgresAccountsRepositoryTest {
 	@Before
 	public void setUp() {
 		this.accountsList = new ArrayList<>();
+		
 		Accounts accounts = new Accounts();
 		accounts.setName("TEST Recievables Accounts");
 		accounts.setDescription("TEST");

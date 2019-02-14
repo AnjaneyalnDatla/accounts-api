@@ -25,12 +25,12 @@ public class PostgresDocumentRepositoryTest {
 	@Autowired
 	PostgresDocumentRepository documentRepository;
 	
-	private List<Document> documentsDeleteList = new ArrayList<>();
 	private List<Document> documentsList;
 
 	@Before
 	public void setUp() {
 		this.documentsList = new ArrayList<Document>();
+		
 		Document pgDocument = new Document();
 		pgDocument.setDocumentLink("testing link");;
 		pgDocument.setDocumentName("Billing");

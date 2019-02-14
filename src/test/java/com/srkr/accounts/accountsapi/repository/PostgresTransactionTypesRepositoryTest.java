@@ -60,7 +60,6 @@ public class PostgresTransactionTypesRepositoryTest {
 		});
 	}
 	
-	
 	/*@After
 	public void after() {
 		transactionTypesDeleteList.forEach(transactionTypes -> {

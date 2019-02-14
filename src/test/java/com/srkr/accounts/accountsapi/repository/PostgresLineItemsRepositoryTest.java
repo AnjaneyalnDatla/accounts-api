@@ -32,7 +32,7 @@ public class PostgresLineItemsRepositoryTest {
 	private PostgresLineItemsRepository lineItemsRepository;
 
 	private List<LineItem> lineItemsList;
-	private List<LineItem> lineItemsDeleteList = new ArrayList<>();
+	private List<LineItem> lineItemsDeleteList;
 
 	@Before
 	public void setUp() {
@@ -41,9 +41,9 @@ public class PostgresLineItemsRepositoryTest {
 		LineItem pgLineItem = new LineItem();
 		Products products = new Products(rand.nextLong(), "new Product", new Date()); 
 		Transactions transactions = new Transactions();
+		
 		transactions.setTransactionType(new TransactionTypes(1l, "INVOICE"));
 		transactions.setTransactionStatus(new TransactionStatus(1l, "COMPLETE"));
-
 		transactions.setContact(new Contacts(rand.nextLong()));
 		transactions.setUserId(rand.nextInt());
 		transactions.setUserName("admin@admin.com");

@@ -47,8 +47,8 @@ public class PostgresTransactionsRepositoryTest {
 		this.transactions = new Transactions();
 		this.transactions.setOriginalAmount(20000d);
 		this.transactions.setPendingAmount(0d);
-
 		this.lineItems = new HashSet<>();
+
 		LineItem item = new LineItem();
 		item.setLine_item_number(1);
 		item.setProducts(new Products(1l, "TEST"));

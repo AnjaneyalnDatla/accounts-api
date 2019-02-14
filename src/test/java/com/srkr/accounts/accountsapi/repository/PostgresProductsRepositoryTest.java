@@ -31,6 +31,7 @@ public class PostgresProductsRepositoryTest {
 		Products products = new Products();
 		products.setDateupdated(new Date());
 		products.setName("New Product");
+
 		productsList.add(products);
 	}
 	

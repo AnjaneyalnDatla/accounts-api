@@ -20,6 +20,7 @@ public class PostgresAccountTypeRepositoryTest {
 	@Autowired
 	PostgresAccountTypeRepository accountTypeRepository; 
 	
+	
 	@Test
 	public void findAll() {
 		List<AccountTypes> accountTypes = this.accountTypeRepository.findAll();

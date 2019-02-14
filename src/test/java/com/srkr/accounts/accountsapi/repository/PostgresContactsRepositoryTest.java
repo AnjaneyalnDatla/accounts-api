@@ -33,7 +33,6 @@ public class PostgresContactsRepositoryTest {
 		this.contactsList = new ArrayList<>();
 		
 		Contacts pgContacts = new Contacts();
-//		pgContacts.setId(5l);
 		pgContacts.setSupplementalid("supplemId");
 		pgContacts.setIscompany(true);
 		pgContacts.setCompanyname("AFS system");
