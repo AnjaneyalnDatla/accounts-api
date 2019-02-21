@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.srkr.accounts.domain.model.Contacts;
 import com.srkr.accounts.domain.model.LineItem;
 import com.srkr.accounts.domain.model.Products;
+import com.srkr.accounts.domain.model.TransactionLog;
 import com.srkr.accounts.domain.model.TransactionStatus;
 import com.srkr.accounts.domain.model.TransactionTypes;
 import com.srkr.accounts.domain.model.Transactions;
@@ -45,6 +46,8 @@ public class FindAndSaveTransactionsTest {
 	AccountsMapper accountsMapper;
 
 	private Transactions transactions;
+	
+	private TransactionLog transactionLog;
 
 	@Before
 	public void setUp() {
@@ -52,9 +55,10 @@ public class FindAndSaveTransactionsTest {
 		Set<LineItem> lineItems = new HashSet<>();
 		LineItem item = new LineItem(null, null, 1, new Products(1l, "Test2"), "TEST2", 15, 15.00d, 15.00d, null);
 		lineItems.add(item);
-		this.transactions = new Transactions(null, null, 1000d, 200d, new Contacts(1l),
-				new TransactionTypes(1l, "INVOICE", null), new TransactionStatus(1l, "COMPLETE"), 10d, 20d, 30d, 4,
+		this.transactions = new Transactions(null, null, 5000d, 2500d, new Contacts(1l),
+				new TransactionTypes(1l, "INVOICE", null), new TransactionStatus(3l, "APPROVAL PENDING"), 10d, 20d, 30d, 4,
 				"admin@admin.com", 1, "CIVIL", null, lineItems, new Date(), new Date(), new Date(), null, null);
+		
 
 	}
 
@@ -75,6 +79,19 @@ public class FindAndSaveTransactionsTest {
 	public void saveTransaction() {
 		this.transactions = findAndSaveTransactions.saveTransaction(this.transactions);
 		assertNotNull(this.transactions);
+	}
+	
+	@Test 
+	public void approveTransaction() {
+		this.transactions = findAndSaveTransactions.saveTransaction(this.transactions);
+		this.transactionLog = new TransactionLog(null, this.transactions, new TransactionStatus(1l, "COMPLETE"), new Date(), "KGollapalli", "Testing");
+		this.transactionLog = findAndSaveTransactions.saveTransactionLog(transactionLog);
+		assertNotNull(this.transactionLog);
+	}
+	
+	@Test
+	public void sendEmail() throws Exception {
+		findAndSaveTransactions.sendEmail();
 	}
 
 	// @After

@@ -51,6 +51,7 @@ dependencies {
 	// Spring Security
 	'org.springframework.boot:spring-boot-starter-security',
 	'org.springframework.boot:spring-boot-starter-web',
+	'org.springframework.boot:spring-boot-starter-mail',
 	// Spring Boot Facilitators
 	'org.springframework.boot:spring-boot-devtools',
 	'org.springframework.boot:spring-boot-starter-actuator',
