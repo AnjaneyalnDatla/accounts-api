@@ -24,16 +24,6 @@ sourceCompatibility = 1.8
 
 repositories {
 //nexus repository
-    maven {
-      credentials {
-          username 'admin'
-          password 'admin123'
-    		    }
-      url 'http://206.189.197.225:8081/repository/a2nine-maven-jars/'
-      authentication {
-          basic(BasicAuthentication)
-      		  }
-    }
 	mavenCentral()
 }
 

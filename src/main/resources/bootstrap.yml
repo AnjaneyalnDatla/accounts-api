@@ -6,7 +6,7 @@ spring:
       name: bootstrap.yml
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://206.189.197.225:5432/accounts
+    url: jdbc:postgresql://68.183.156.146:5432/accounts
     username: postgres
     password: postgres
     hikari:
