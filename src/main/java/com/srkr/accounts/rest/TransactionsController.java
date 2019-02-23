@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.srkr.accounts.domain.model.LineItem;
+import com.srkr.accounts.domain.model.TransactionLog;
 import com.srkr.accounts.domain.model.Transactions;
 import com.srkr.accounts.usecases.FindAndSaveTransactions;
 
@@ -170,4 +171,33 @@ public class TransactionsController {
 			return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build();
 		}
 	}
+	
+	@POST
+	@Path("/approve")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public Response approveTransaction(@PathParam("transactionNumber") Integer transactionNumber, @RequestBody String jsonBody) {
+		log.info("transactionNumber:" + transactionNumber);
+		try {
+			 findAndSaveTransactions
+					.approveTransaction(new ObjectMapper().readValue(jsonBody, TransactionLog.class));
+			//return Response.status(Response.Status.OK.getStatusCode()).entity().build();
+			//findAndSaveTransactions.approveTransaction(transactionNumber, status);
+			return Response.status(Response.Status.OK.getStatusCode()).build();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			return Response.status(Response.Status.BAD_REQUEST.getStatusCode()).build();
+		}
+	}
+	
+	@Path("/sendemail")
+	   public String sendEmail() {
+		try {
+			findAndSaveTransactions.sendEmail();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      return "Email sent successfully";
+	   }   
+	
 }

@@ -1,5 +1,6 @@
 package com.srkr.accounts.usecases;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,16 +8,21 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.srkr.accounts.domain.model.AdditionalItems;
 import com.srkr.accounts.domain.model.LineItem;
+import com.srkr.accounts.domain.model.TransactionLog;
+import com.srkr.accounts.domain.model.TransactionStatus;
 import com.srkr.accounts.domain.model.Transactions;
 import com.srkr.accounts.domain.model.mappers.AccountsMapper;
 import com.srkr.accounts.domain.model.mappers.DocumentMapper;
 import com.srkr.accounts.domain.model.mappers.LineItemsMapper;
 import com.srkr.accounts.domain.model.mappers.PaymentsMapper;
+import com.srkr.accounts.domain.model.mappers.TransactionLogMapper;
 import com.srkr.accounts.domain.model.mappers.TransactionTypesAndStatusMapper;
 import com.srkr.accounts.domain.model.mappers.TransactionsMapper;
 import com.srkr.accounts.domain.model.postgres.Accounts;
@@ -27,6 +33,7 @@ import com.srkr.accounts.domain.model.repositories.PostgresAccountsRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresContactsRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresDocumentRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresLineItemsRepository;
+import com.srkr.accounts.domain.model.repositories.PostgresTransactionLogRepository;
 import com.srkr.accounts.domain.model.repositories.PostgresTransactionsRepository;
 
 @Service
@@ -42,6 +49,8 @@ public class FindAndSaveTransactions {
 	PostgresContactsRepository postgresContactsRepository;
 	@Autowired
 	PostgresDocumentRepository postgresDocumentsRepository;
+	@Autowired
+	PostgresTransactionLogRepository postgresTransactionLogRepository;
 
 	@Autowired
 	TransactionsMapper transactionsMapper;
@@ -55,6 +64,11 @@ public class FindAndSaveTransactions {
 	PaymentsMapper paymentsMapper;
 	@Autowired
 	DocumentMapper documentMapper;
+	@Autowired
+	TransactionLogMapper transactionLogMapper;
+	@Autowired
+	JavaMailSender sender;
+
 
 	@Transactional
 	public Long transactionNumber() {
@@ -108,6 +122,8 @@ public class FindAndSaveTransactions {
 		retPgTransactions = getPayments(transactions, transaction_number, retPgTransactions);
 		// Save Transaction
 		retPgTransactions = postgresTransactionsRepository.save(retPgTransactions);
+		
+		
 		// Save Document MetaData
 		Set<Document> documents = this.documentMapper.toListPostgresObject(transactions.documents());
 		documents.forEach(doc -> {
@@ -119,6 +135,11 @@ public class FindAndSaveTransactions {
 		Set<com.srkr.accounts.domain.model.Document> documents2 = this.documentMapper.toListDomainObject(documents);
 		Transactions transactionRs = this.transactionsMapper.toDomainObject(retPgTransactions);
 		transactionRs.setDocuments(documents2);
+		
+		// Save Transaction log
+		TransactionLog transactionLog = new TransactionLog(null, transactionRs, transactionRs.transactionStatus(), new Date(), transactionRs.user_name(), null);
+		saveTransactionLog(transactionLog);
+		
 		return transactionRs;
 	}
 
@@ -266,5 +287,46 @@ public class FindAndSaveTransactions {
 		}
 		return pgTransactions;
 	}
+	
+	@Transactional
+	public TransactionLog approveTransaction(TransactionLog transactionLog) {
+		com.srkr.accounts.domain.model.postgres.TransactionLog retPgTransactionLog = this.transactionLogMapper
+				.toPostgresObject(transactionLog);	
+		//update the status in transaction table
+		// Save Transaction
+		com.srkr.accounts.domain.model.postgres.Transactions	retPgTransactions = retPgTransactionLog.getTransactions();
+		retPgTransactions.setTransactionStatus(retPgTransactionLog.getTransactionStatus());
+		retPgTransactions.setTransactionStatusName(retPgTransactionLog.getTransactionStatus().getValue());
+		postgresTransactionsRepository.save(retPgTransactionLog.getTransactions());
+		
+		//save status in transaction log			
+		retPgTransactionLog = postgresTransactionLogRepository.save(retPgTransactionLog);
+		
+		TransactionLog transactionLogRs = this.transactionLogMapper.toDomainObject(retPgTransactionLog);
+		
+		return transactionLogRs;
+	}
+	
+
+	private TransactionLog saveTransactionLog(TransactionLog transactionLog) {
+		//save status in transaction log
+		com.srkr.accounts.domain.model.postgres.TransactionLog retPgTransactionLog = this.transactionLogMapper
+				.toPostgresObject(transactionLog);		
+		retPgTransactionLog = postgresTransactionLogRepository.save(retPgTransactionLog);
+		
+		TransactionLog transactionLogRs = this.transactionLogMapper.toDomainObject(retPgTransactionLog);
+		
+		return transactionLogRs;
+	}
+
+	public void sendEmail() throws Exception{
+		SimpleMailMessage message = new SimpleMailMessage(); 
+		message.setFrom("kaushik@gmail.com");
+        message.setTo("approver@gmail.com"); 
+        message.setSubject("Testing"); 
+        message.setText( "This is the test email template for your email:\n%s\n");
+        sender.send(message);
+    }
+	
 
 }

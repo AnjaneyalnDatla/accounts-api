@@ -19,17 +19,32 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: a501c40aa9cc3d
+    password: 86c07dae49dd90
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+            auth: true
+            connectiontimeout: 5000
+            timeout: 5000
+            writetimeout: 5000
 # Keycloak Json properties
 keycloak:
   realm: AFS
-  auth-server-url: http://localhost:8090/auth
+  auth-server-url: https://68.183.156.146:8443/auth
   ssl-required: external
   resource: afs-accounts
   bearer-only: true
   credentials:
-    secret: ce551fe5-5e30-4e76-a937-8efce38fa91b
+    secret: 321fa720-43a6-47e9-b624-25e50061e6b4
   cors: true
-  securityConstraints:
+  securityConstraints:  
   - authRoles: user
     securityCollections:
     - patterns: /accounts/*
