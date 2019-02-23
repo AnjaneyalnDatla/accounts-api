@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.srkr.accounts.domain.model.AdditionalItems;
+import com.srkr.accounts.domain.model.Organisation;
 import com.srkr.accounts.domain.model.postgres.LineItem;
 import com.srkr.accounts.domain.model.postgres.Transactions;
 import com.srkr.accounts.domain.model.repositories.PostgresTransactionsRepository;
@@ -56,6 +57,8 @@ public class TransactionsMapper {
 			pgTransactions.getBills().forEach(bill -> {
 				bill.setTransaction_number(transactions.transaction_number());
 			});
+		pgTransactions.setOrgCode(transactions.organisation().code());
+		pgTransactions.setOrgName(transactions.organisation().name());
 		return pgTransactions;
 	}
 
@@ -92,7 +95,8 @@ public class TransactionsMapper {
 				shipping, other, pgTransactions.getUserId(), pgTransactions.getUserName(),
 				pgTransactions.getDepartmentId(), pgTransactions.getDepartmentName(), pgTransactions.getDateupdated(),
 				reOrganisedList, pgTransactions.getCreationdate(), pgTransactions.getDueDate(),
-				pgTransactions.getDeliveryDate(), this.billMapper.toListDomainObject(pgTransactions.getBills()),null);
+				pgTransactions.getDeliveryDate(), this.billMapper.toListDomainObject(pgTransactions.getBills()), null,
+				new Organisation(pgTransactions.getOrgName(), pgTransactions.getOrgCode()));
 	}
 
 	public List<com.srkr.accounts.domain.model.Transactions> toListOfDomainObjects(List<Transactions> pgTransactions,

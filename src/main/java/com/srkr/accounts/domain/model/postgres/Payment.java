@@ -23,27 +23,22 @@ public class Payment implements Serializable {
 	private static final long serialVersionUID = 36101921973946273L;
 
 	private Long id;
-
 	private String billNumber;
-
 	private Bill bill;
-
 	private Double amount;
-
 	private Date paymentDate;
-
 	private Boolean isActive;
-
 	private Date dateUpdated;
-
 	private Accounts accounts;
+	private String orgName;
+	private String orgCode;
 
 	public Payment() {
 
 	}
 
 	public Payment(Long id, String billNumber, Bill bill, Double amount, Date paymentDate, Boolean isActive,
-			Date dateUpdated, Accounts accounts) {
+			Date dateUpdated, Accounts accounts, String orgName, String orgCode) {
 		super();
 		this.id = id;
 		this.billNumber = billNumber;
@@ -53,6 +48,8 @@ public class Payment implements Serializable {
 		this.isActive = isActive;
 		this.dateUpdated = dateUpdated;
 		this.accounts = accounts;
+		this.orgName = orgName;
+		this.orgCode = orgCode;
 	}
 
 	@Id
@@ -129,6 +126,24 @@ public class Payment implements Serializable {
 
 	public void setAccounts(Accounts accounts) {
 		this.accounts = accounts;
+	}
+
+	@Column(name = "orgName")
+	public String getOrgName() {
+		return this.orgName;
+	}
+
+	@Column(name = "orgCode")
+	public String getOrgCode() {
+		return this.orgCode;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
 	}
 
 }

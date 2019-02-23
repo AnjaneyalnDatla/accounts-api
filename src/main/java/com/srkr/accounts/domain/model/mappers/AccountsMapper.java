@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.srkr.accounts.domain.model.Organisation;
 import com.srkr.accounts.domain.model.postgres.AccountCategory;
 import com.srkr.accounts.domain.model.postgres.AccountTypes;
 import com.srkr.accounts.domain.model.postgres.Accounts;
@@ -17,7 +18,7 @@ public class AccountsMapper {
 			return null;
 		}
 		Accounts pgAccounts = new Accounts();
-		pgAccounts.setId(null != accounts.id()? accounts.id().intValue() : null);
+		pgAccounts.setId(null != accounts.id() ? accounts.id().intValue() : null);
 		pgAccounts.setName(accounts.name());
 		pgAccounts.setDescription(null != accounts.description() ? accounts.description() : "DEFAULT");
 
@@ -38,6 +39,8 @@ public class AccountsMapper {
 		pgAccounts.setCurrentBalance(accounts.currentBalance());
 		pgAccounts.setDateupdated(accounts.dateUpdated());
 		pgAccounts.setIsActive(accounts.getIsActive());
+		pgAccounts.setOrgCode(accounts.organisation().code());
+		pgAccounts.setOrgName(accounts.organisation().name());
 		return pgAccounts;
 	}
 
@@ -58,7 +61,8 @@ public class AccountsMapper {
 
 		com.srkr.accounts.domain.model.Accounts accounts = new com.srkr.accounts.domain.model.Accounts(
 				pgAccounts.getId().longValue(), pgAccounts.getName(), pgAccounts.getDescription(), acctType,
-				pgAccounts.getCurrentBalance(), pgAccounts.getDateupdated(), pgAccounts.getIsActive());
+				pgAccounts.getCurrentBalance(), pgAccounts.getDateupdated(), pgAccounts.getIsActive(),
+				new Organisation(pgAccounts.getOrgName(), pgAccounts.getOrgCode()));
 
 		return accounts;
 	}

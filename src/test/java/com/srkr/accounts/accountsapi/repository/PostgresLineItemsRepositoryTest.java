@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.srkr.accounts.domain.model.Organisation;
 import com.srkr.accounts.domain.model.postgres.Contacts;
 import com.srkr.accounts.domain.model.postgres.LineItem;
 import com.srkr.accounts.domain.model.postgres.Products;
@@ -39,9 +40,10 @@ public class PostgresLineItemsRepositoryTest {
 		this.lineItemsList = new ArrayList<>();
 		Random rand = new Random();
 		LineItem pgLineItem = new LineItem();
-		Products products = new Products(rand.nextLong(), "new Product", new Date()); 
+		Products products = new Products(rand.nextLong(), "new Product", new Date(),
+				"DEFAULT", "DEFAULT");
 		Transactions transactions = new Transactions();
-		
+
 		transactions.setTransactionType(new TransactionTypes(1l, "INVOICE"));
 		transactions.setTransactionStatus(new TransactionStatus(1l, "COMPLETE"));
 		transactions.setContact(new Contacts(rand.nextLong()));
@@ -52,7 +54,7 @@ public class PostgresLineItemsRepositoryTest {
 		transactions.setDueDate(new Date());
 		transactions.setCreationdate(new Date());
 		transactions.setDeliveryDate(new Date());
-				
+
 		pgLineItem.setAmount(rand.nextDouble());
 		pgLineItem.setDateupdated(new Date());
 		pgLineItem.setLine_item_number(rand.nextInt());
@@ -62,16 +64,16 @@ public class PostgresLineItemsRepositoryTest {
 		pgLineItem.setQuantity(rand.nextInt());
 		pgLineItem.setTransactionNumber(rand.nextInt());
 		pgLineItem.setTransactions(transactions);
-		
+
 		lineItemsList.add(pgLineItem);
 	}
-	
+
 	@Test
 	public void findByTransactionNumber() {
 		Set<LineItem> lineItem = lineItemsRepository.findByTransactionNumber(1);
 		assertNotNull(lineItem);
 	}
-	
+
 	@Test
 	public void save() {
 		lineItemsList.forEach((lineItem) -> {
@@ -79,7 +81,7 @@ public class PostgresLineItemsRepositoryTest {
 		});
 		assertTrue(lineItemsDeleteList.size() > 0);
 	}
-	
+
 	@After
 	public void after() {
 		lineItemsDeleteList.forEach(lineItem -> {

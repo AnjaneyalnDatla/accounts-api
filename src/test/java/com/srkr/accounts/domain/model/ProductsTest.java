@@ -7,10 +7,10 @@ import org.junit.Test;
 
 public class ProductsTest {
 
-	@Test 
+	@Test
 	public void TestProducts() {
-		Products products = new Products(new Long(975637), "Oatnut");
-		
+		Products products = new Products(new Long(975637), "Oatnut", new Organisation("DEFAULT", "DEFAULT"));
+
 		assertNotNull(products);
 		assertEquals(new Long(975637), products.getId());
 		assertEquals("Oatnut", products.getName());

@@ -29,12 +29,14 @@ public class Bill extends AssertionConcern implements Serializable {
 
 	private Set<Payment> payments;
 
+	private Organisation organisation;
+
 	@JsonCreator
 	public Bill(@JsonProperty("id") Long id, @JsonProperty("transaction_number") Integer transaction_number,
 			@JsonProperty("billNumber") String billNumber, @JsonProperty("amount") Double amount,
 			@JsonProperty("bill_issued_date") Date bill_issued_date,
-			@JsonProperty("bill_payment_date") Date bill_payment_date,
-			@JsonProperty("payments") Set<Payment> payments) {
+			@JsonProperty("bill_payment_date") Date bill_payment_date, @JsonProperty("payments") Set<Payment> payments,
+			@JsonProperty("organisation") Organisation organisation) {
 		super();
 		this.id = id;
 		this.transaction_number = transaction_number;
@@ -43,6 +45,7 @@ public class Bill extends AssertionConcern implements Serializable {
 		this.bill_issued_date = bill_issued_date;
 		this.bill_payment_date = bill_payment_date;
 		this.payments = payments;
+		this.organisation = organisation;
 	}
 
 	public Long id() {
@@ -73,6 +76,10 @@ public class Bill extends AssertionConcern implements Serializable {
 
 	public Set<Payment> payments() {
 		return this.payments;
+	}
+
+	public Organisation organisation() {
+		return this.organisation;
 	}
 
 }

@@ -27,6 +27,8 @@ public class Accounts implements java.io.Serializable {
 	private AccountTypes accountTypes;
 	private String name;
 	private String description;
+	private String orgName;
+	private String orgCode;
 	private Date dateupdated;
 	private Double currentBalance;
 	private Boolean isActive;
@@ -34,11 +36,14 @@ public class Accounts implements java.io.Serializable {
 	public Accounts() {
 	}
 
-	public Accounts(Integer id, AccountTypes accountTypes, String name, String description, Double currentBalance,Boolean isActive) {
+	public Accounts(Integer id, AccountTypes accountTypes, String name, String description, 
+			String orgName, String orgCode, Double currentBalance, Boolean isActive) {
 		this.id = id;
 		this.accountTypes = accountTypes;
 		this.name = name;
 		this.description = description;
+		this.orgName = orgName;
+		this.orgCode = orgCode;
 		this.currentBalance = currentBalance;
 		this.isActive = isActive;
 	}
@@ -54,7 +59,7 @@ public class Accounts implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "account_type_id")
 	public AccountTypes getAccountTypes() {
 		return this.accountTypes;
@@ -81,6 +86,25 @@ public class Accounts implements java.io.Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	@Column(name = "orgName")
+	public String getOrgName() {
+		return this.orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	@Column(name = "orgCode")
+	public String getOrgCode() {
+		return this.orgCode;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
+	
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dateupdated", length = 35)

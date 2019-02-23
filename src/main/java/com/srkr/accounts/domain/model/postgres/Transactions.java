@@ -30,25 +30,22 @@ public class Transactions implements java.io.Serializable {
 	private Integer transactionNumber;
 	private Double originalAmount;
 	private Double pendingAmount;
-
 	private Contacts contact;
 	private String contactName;
-
 	private TransactionTypes transactionType;
 	private String transactionTypeName;
-
 	private TransactionStatus transactionStatus;
 	private String transactionStatusName;
-
 	private Integer userId;
 	private String userName;
 	private Integer departmentId;
 	private String departmentName;
 	private Date dateupdated;
-
 	private Date creationdate;
 	private Date dueDate;
 	private Date deliveryDate;
+	private String orgName;
+	private String orgCode;
 
 	private Set<LineItem> lineItems = new HashSet<>();
 	private Set<Bill> bills = new HashSet<>();
@@ -63,7 +60,8 @@ public class Transactions implements java.io.Serializable {
 	public Transactions(Long id, Integer transactionNumber, Double originalAmount, Double pendingAmount,
 			Contacts contact, TransactionTypes transactionType, TransactionStatus transactionStatus, Integer userId,
 			String userName, Integer departmentId, String departmentName, Date dateupdated, Date creationdate,
-			Date dueDate, Date deliveryDate, Set<LineItem> lineItems, Set<Bill> bills) {
+			Date dueDate, Date deliveryDate, Set<LineItem> lineItems, Set<Bill> bills
+			,String orgName, String orgCode) {
 		this.id = id;
 		this.transactionNumber = transactionNumber;
 		this.originalAmount = originalAmount;
@@ -84,6 +82,8 @@ public class Transactions implements java.io.Serializable {
 		this.deliveryDate = deliveryDate;
 		this.lineItems = lineItems;
 		this.bills = bills;
+		this.orgName = orgName;
+		this.orgCode = orgCode;
 	}
 
 	@Id
@@ -271,4 +271,23 @@ public class Transactions implements java.io.Serializable {
 	public void setBills(Set<Bill> bills) {
 		this.bills = bills;
 	}
+	
+	@Column(name = "orgName")
+	public String getOrgName() {
+		return this.orgName;
+	}
+
+	@Column(name = "orgCode")
+	public String getOrgCode() {
+		return this.orgCode;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
+
 }

@@ -20,7 +20,7 @@ public class BillTest {
 		Payment payment = createPaymentObj();
 		payments.add(payment);
 		payments.add(payment);
-		Bill bill = new Bill(new Long(123456), 26, "A1234567", 5000.00, createDateObj("2019-02-01"), createDateObj("2019-02-09"), payments);
+		Bill bill = new Bill(new Long(123456), 26, "A1234567", 5000.00, createDateObj("2019-02-01"), createDateObj("2019-02-09"), payments, new Organisation("DEFAULT", "DEFAULT"));
 		assertNotNull(bill);
 		assertNotNull(bill.payments());
 		assertNotNull( bill.bill_issued_date());
@@ -42,7 +42,7 @@ public class BillTest {
 				new AccountTypes("AccountTypesName", 
 					new AccountCategory("AccountCategoryName", "AccountCategoryDescription"), 
 						"AccountTypesDescription"));
-		Payment payment = new Payment(new Long(122343), "A678N1", 2999.00, createDateObj("2019-02-03"), true, new Date(), accounts, true);
+		Payment payment = new Payment(new Long(122343), "A678N1", 2999.00, createDateObj("2019-02-03"), true, new Date(), accounts, true, new Organisation("DEFAULT", "DEFAULT"));
 		return payment;
 	}
 

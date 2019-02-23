@@ -44,6 +44,8 @@ public class Contacts implements java.io.Serializable {
 	private Date dateupdated;
 	private Double current_balance;
 	private Date balance_updated_date;
+	private String orgName;
+	private String orgCode;
 
 	public Contacts() {
 	}
@@ -54,7 +56,7 @@ public class Contacts implements java.io.Serializable {
 
 	public Contacts(Long id, String firstname, String lastname, String streetaddress, String city, String state,
 			String country, String postalcode, String idtype, String idnumber, String designation,
-			Double current_balance, Date balance_updated_date) {
+			Double current_balance, Date balance_updated_date, String orgName, String orgCode) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -68,13 +70,16 @@ public class Contacts implements java.io.Serializable {
 		this.designation = designation;
 		this.current_balance = current_balance;
 		this.balance_updated_date = balance_updated_date;
+		this.orgName = orgName;
+		this.orgCode = orgCode;
 	}
 
 	public Contacts(Long id, String supplementalid, Boolean iscompany, String companyname, String firstname,
 			String middlename, String lastname, String cellphone, String homephone, String faxnumber,
 			String officephone, String emailaddress, String streetaddress, String city, String state, String country,
 			String postalcode, String landmark, String additionalcomments, String idtype, String idnumber,
-			String designation, Date dateupdated, Double current_balance, Date balance_updated_date) {
+			String designation, Date dateupdated, Double current_balance, Date balance_updated_date, String orgName,
+			String orgCode) {
 		this.id = id;
 		this.supplementalid = supplementalid;
 		this.iscompany = iscompany;
@@ -100,6 +105,8 @@ public class Contacts implements java.io.Serializable {
 		this.dateupdated = dateupdated;
 		this.current_balance = current_balance;
 		this.balance_updated_date = balance_updated_date;
+		this.orgName = orgName;
+		this.orgCode = orgCode;
 	}
 
 	@Id
@@ -329,6 +336,24 @@ public class Contacts implements java.io.Serializable {
 
 	public void setBalance_updated_date(Date balance_updated_date) {
 		this.balance_updated_date = balance_updated_date;
+	}
+
+	@Column(name = "orgName")
+	public String getOrgName() {
+		return this.orgName;
+	}
+
+	@Column(name = "orgCode")
+	public String getOrgCode() {
+		return this.orgCode;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
 	}
 
 }

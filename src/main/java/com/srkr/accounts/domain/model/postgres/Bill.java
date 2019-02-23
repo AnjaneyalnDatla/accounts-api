@@ -32,7 +32,7 @@ public class Bill implements Serializable {
 	private Transactions transactions;
 
 	private String billNumber;
-	
+
 	private Double amount;
 
 	private Date bill_issued_date;
@@ -41,12 +41,17 @@ public class Bill implements Serializable {
 
 	private Set<Payment> payments;
 
+	private String orgName;
+	
+	private String orgCode;
+
 	public Bill() {
 
 	}
 
-	public Bill(Long id, Integer transaction_number, Transactions transactions, String billNumber,
-			Double amount,Date bill_issued_date, Date bill_payment_date, Set<Payment> payments) {
+	public Bill(Long id, Integer transaction_number, Transactions transactions, String billNumber, Double amount,
+			Date bill_issued_date, Date bill_payment_date, Set<Payment> payments, 
+			String orgName, String orgCode) {
 		super();
 		this.id = id;
 		this.transaction_number = transaction_number;
@@ -56,6 +61,8 @@ public class Bill implements Serializable {
 		this.bill_issued_date = bill_issued_date;
 		this.bill_payment_date = bill_payment_date;
 		this.payments = payments;
+		this.orgName = orgName;
+		this.orgCode = orgCode;
 	}
 
 	@Id
@@ -100,7 +107,25 @@ public class Bill implements Serializable {
 	public Double getAmount() {
 		return amount;
 	}
-	
+
+	@Column(name = "orgName")
+	public String getOrgName() {
+		return this.orgName;
+	}
+
+	@Column(name = "orgCode")
+	public String getOrgCode() {
+		return this.orgCode;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}

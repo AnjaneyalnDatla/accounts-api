@@ -44,12 +44,7 @@ dependencies {
 	'org.springframework.boot:spring-boot-starter-mail',
 	// Spring Boot Facilitators
 	'org.springframework.boot:spring-boot-devtools',
-	'org.springframework.boot:spring-boot-starter-actuator',
-	// Keycloak
-	//'org.keycloak:keycloak-spring-boot-adapter:4.8.3.Final',
-	//'org.keycloak:keycloak-tomcat8-adapter:4.8.3.Final'
-	//'org.keycloak:keycloak-spring-boot-starter'
-	'org.keycloak:keycloak-spring-boot-2-starter:4.0.0.Final'
+	'org.springframework.boot:spring-boot-starter-actuator'
 	)
 	
 	runtime('org.postgresql:postgresql')

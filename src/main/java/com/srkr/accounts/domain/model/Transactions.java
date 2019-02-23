@@ -19,44 +19,26 @@ public class Transactions extends AssertionConcern implements Serializable {
 	private static final long serialVersionUID = -3143036145899180010L;
 
 	private Long id;
-
 	private Integer transaction_number;
-
 	private Double paymentAmount;
-
 	private Double pendingAmount;
-
 	private Contacts contact;
-
 	private TransactionTypes transactionType;
-
 	private TransactionStatus transactionStatus;
-
 	private Double tax;
-
 	private Double shipping;
-
 	private Double other;
-
 	private Integer user_id;
-
 	private String user_name;
-
 	private Set<LineItem> lineItems;
-
 	private Integer departmentId;
-
 	private String departmentName;
-
 	private Date creationdate;
-
 	private Date dueDate;
-
 	private Date deliveryDate;
-
 	private Set<Bill> bills;
-
 	private Set<Document> documents;
+	private Organisation organisation;
 
 	@JsonCreator
 	public Transactions(@JsonProperty("id") Long id, @JsonProperty("transaction_number") Integer transaction_number,
@@ -70,7 +52,8 @@ public class Transactions extends AssertionConcern implements Serializable {
 			@JsonProperty("dateupdated") Date dateupdated, @JsonProperty("lineItems") Set<LineItem> lineItems,
 			@JsonProperty("creationdate") Date creationdate, @JsonProperty("dueDate") Date dueDate,
 			@JsonProperty("deliveryDate") Date deliveryDate, @JsonProperty("bills") Set<Bill> bills,
-			@JsonProperty("documents") Set<Document> documents) {
+			@JsonProperty("documents") Set<Document> documents,
+			@JsonProperty("organisation") Organisation organisation) {
 		super();
 		this.id = id;
 		this.user_id = userId;
@@ -93,6 +76,7 @@ public class Transactions extends AssertionConcern implements Serializable {
 		this.deliveryDate = deliveryDate;
 		this.bills = bills;
 		this.documents = documents;
+		this.organisation = organisation;
 	}
 
 	public Transactions(Integer user_id, Integer transaction_number, String user_name, TransactionTypes transactionType,
@@ -195,9 +179,13 @@ public class Transactions extends AssertionConcern implements Serializable {
 			return new HashSet<>();
 		return documents;
 	}
-	
+
 	public void setDocuments(Set<Document> documents) {
 		this.documents = documents;
+	}
+
+	public Organisation organisation() {
+		return this.organisation;
 	}
 
 }

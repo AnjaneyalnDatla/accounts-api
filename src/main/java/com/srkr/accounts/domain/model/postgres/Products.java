@@ -22,6 +22,8 @@ public class Products implements java.io.Serializable {
 	private Long id;
 	private String name;
 	private Date dateupdated;
+	private String orgName;
+	private String orgCode;
 
 	public Products() {
 	}
@@ -31,10 +33,12 @@ public class Products implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Products(Long id, String name, Date dateupdated) {
+	public Products(Long id, String name, Date dateupdated, String orgName, String orgCode) {
 		this.id = id;
 		this.name = name;
 		this.dateupdated = dateupdated;
+		this.orgName = orgName;
+		this.orgCode = orgCode;
 	}
 
 	@Id
@@ -66,6 +70,23 @@ public class Products implements java.io.Serializable {
 	public void setDateupdated(Date dateupdated) {
 		this.dateupdated = dateupdated;
 	}
-	
+
+	@Column(name = "orgName")
+	public String getOrgName() {
+		return this.orgName;
+	}
+
+	@Column(name = "orgCode")
+	public String getOrgCode() {
+		return this.orgCode;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
 
 }

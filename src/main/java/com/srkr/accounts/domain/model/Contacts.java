@@ -41,6 +41,7 @@ public class Contacts extends AssertionConcern implements Serializable {
 	private Double current_balance;
 	private Date balance_updated_date;
 	private Set<Document> documents;
+	private Organisation organisation;
 
 	public Contacts(Long id) {
 		super();
@@ -61,7 +62,8 @@ public class Contacts extends AssertionConcern implements Serializable {
 			@JsonProperty("idNumber") String idNumber, @JsonProperty("designation") String designation,
 			@JsonProperty("current_balance") Double current_balance,
 			@JsonProperty("balance_updated_date") Date balance_updated_date,
-			@JsonProperty("documents") Set<Document> documents) {
+			@JsonProperty("documents") Set<Document> documents,
+			@JsonProperty("organisation") Organisation organisation) {
 		super();
 		this.id = id;
 		this.supplementalId = supplementalId;
@@ -88,6 +90,7 @@ public class Contacts extends AssertionConcern implements Serializable {
 		this.current_balance = current_balance;
 		this.balance_updated_date = balance_updated_date;
 		this.documents = documents;
+		this.organisation = organisation;
 	}
 
 	public Long id() {
@@ -195,6 +198,10 @@ public class Contacts extends AssertionConcern implements Serializable {
 
 	public void setDocuments(Set<Document> documents) {
 		this.documents = documents;
+	}
+
+	public Organisation organisation() {
+		return this.organisation;
 	}
 
 }

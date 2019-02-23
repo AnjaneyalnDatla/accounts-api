@@ -22,12 +22,14 @@ public class Accounts extends AssertionConcern implements Serializable {
 
 	private String description;
 
+	private Organisation organisation;
+
 	private AccountTypes account_type;
 
 	private Double currentBalance;
-	
+
 	private Date dateUpdated;
-	
+
 	private Boolean isActive;
 
 	public Accounts(String name, String description, AccountTypes account_type) {
@@ -40,8 +42,8 @@ public class Accounts extends AssertionConcern implements Serializable {
 	@JsonCreator
 	public Accounts(@JsonProperty("id") Long id, @JsonProperty("name") String name,
 			@JsonProperty("description") String description, @JsonProperty("account_type") AccountTypes account_type,
-			@JsonProperty("currentBalance") Double currentBalance,
-			@JsonProperty("dateUpdated") Date dateUpdated, @JsonProperty("isActive") Boolean isActive) {
+			@JsonProperty("currentBalance") Double currentBalance, @JsonProperty("dateUpdated") Date dateUpdated,
+			@JsonProperty("isActive") Boolean isActive, @JsonProperty("organisation") Organisation organisation) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -49,6 +51,7 @@ public class Accounts extends AssertionConcern implements Serializable {
 		this.currentBalance = currentBalance;
 		this.dateUpdated = dateUpdated;
 		this.isActive = isActive;
+		this.organisation = organisation;
 	}
 
 	public Long id() {
@@ -70,11 +73,15 @@ public class Accounts extends AssertionConcern implements Serializable {
 	public Double currentBalance() {
 		return this.currentBalance;
 	}
-	
+
+	public Organisation organisation() {
+		return this.organisation;
+	}
+
 	public Boolean getIsActive() {
 		return this.isActive;
 	}
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	public Date dateUpdated() {
 		return this.dateUpdated;

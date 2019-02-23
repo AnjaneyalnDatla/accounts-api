@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.srkr.accounts.domain.model.Organisation;
 import com.srkr.accounts.domain.model.Payment;
 
 @Component
@@ -15,15 +16,17 @@ public class PaymentsMapper {
 	AccountsMapper accountsMapper;
 
 	public com.srkr.accounts.domain.model.postgres.Payment toPostgresObject(Payment aPayment) {
-			return new com.srkr.accounts.domain.model.postgres.Payment(aPayment.id(), aPayment.billNUmber(), null,
-					aPayment.amount(), aPayment.paymentDate(), aPayment.getIsActive(), aPayment.dateUpdated(),
-					this.accountsMapper.toPostgresObject(aPayment.accounts()));
+		return new com.srkr.accounts.domain.model.postgres.Payment(aPayment.id(), aPayment.billNUmber(), null,
+				aPayment.amount(), aPayment.paymentDate(), aPayment.getIsActive(), aPayment.dateUpdated(),
+				this.accountsMapper.toPostgresObject(aPayment.accounts()), aPayment.organisation().name(),
+				aPayment.organisation().code());
 	}
 
 	public Payment toDomainObject(com.srkr.accounts.domain.model.postgres.Payment pgPayment) {
 		return new Payment(pgPayment.getId(), pgPayment.getBillNumber(), pgPayment.getAmount(),
 				pgPayment.getPaymentDate(), pgPayment.getIsActive(), pgPayment.getDateUpdated(),
-				this.accountsMapper.toDomainObject(pgPayment.getAccounts()), false);
+				this.accountsMapper.toDomainObject(pgPayment.getAccounts()), false,
+				new Organisation(pgPayment.getOrgName(), pgPayment.getOrgCode()));
 
 	}
 

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.srkr.accounts.domain.model.Organisation;
 import com.srkr.accounts.domain.model.Products;
 import com.srkr.accounts.usecases.FindAndSaveProducts;
 
@@ -30,7 +31,7 @@ public class FindAndSaveProductsTest {
 		Random rand = new Random();
 		this.productsList = new ArrayList<>();
 		id = rand.nextLong();
-		Products products = new Products(id, "Oatnut");
+		Products products = new Products(id, "Oatnut", new Organisation("DEFAULT", "DEFAULT"));
 		productsList.add(products);
 	}
 	

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.srkr.accounts.domain.model.Bill;
+import com.srkr.accounts.domain.model.Organisation;
 
 @Component
 public class BillMapper {
@@ -17,14 +18,16 @@ public class BillMapper {
 	public com.srkr.accounts.domain.model.postgres.Bill toPostgresObject(Bill aBill) {
 		return new com.srkr.accounts.domain.model.postgres.Bill(aBill.id(), aBill.transaction_number(), null,
 				aBill.billNumber(), aBill.amount(), aBill.bill_issued_date(), aBill.bill_payment_date(),
-				this.paymentsMapper.toListPostgresObject(aBill.payments()));
+				this.paymentsMapper.toListPostgresObject(aBill.payments()), aBill.organisation().name(),
+				aBill.organisation().code());
 
 	}
 
 	public Bill toDomainObject(com.srkr.accounts.domain.model.postgres.Bill pgBill) {
 		return new Bill(pgBill.getId(), pgBill.getTransaction_number(), pgBill.getBillNumber(), pgBill.getAmount(),
 				pgBill.getBill_issued_date(), pgBill.getBill_payment_date(),
-				this.paymentsMapper.toListDomainObject(pgBill.getPayments()));
+				this.paymentsMapper.toListDomainObject(pgBill.getPayments()),
+				new Organisation(pgBill.getOrgName(), pgBill.getOrgCode()));
 
 	}
 

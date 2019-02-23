@@ -13,8 +13,8 @@ public class Products extends AssertionConcern implements Serializable {
 	private static final long serialVersionUID = -3651997606636911234L;
 
 	private Long id;
-
 	private String name;
+	private Organisation organisation;
 
 	public Products(String name) {
 		super();
@@ -22,10 +22,12 @@ public class Products extends AssertionConcern implements Serializable {
 	}
 
 	@JsonCreator
-	public Products(@JsonProperty("id") Long id, @JsonProperty("name") String name) {
+	public Products(@JsonProperty("id") Long id, @JsonProperty("name") String name,
+			@JsonProperty("organisation") Organisation organisation) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.organisation = organisation;
 	}
 
 	public Long getId() {
@@ -42,6 +44,10 @@ public class Products extends AssertionConcern implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Organisation organisation() {
+		return this.organisation;
 	}
 
 }

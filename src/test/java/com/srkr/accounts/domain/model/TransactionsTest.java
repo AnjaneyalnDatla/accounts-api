@@ -19,13 +19,16 @@ public class TransactionsTest {
 		Set<Document> documents = new HashSet<Document>();
 		Contacts contacts = new Contacts(new Long(123));
 		TransactionTypes transactionTypes = new TransactionTypes("Test", "Description");
-		TransactionStatus transactionStatus  = new TransactionStatus(new Long(1234), "Yes");
-		
-		Transactions transactions = new Transactions(new Long(6789), 345, 980.98, 678.00, contacts, 
-										transactionTypes, transactionStatus, 19780.00 , 456.00, 956.00, 6521, "tester", 
-										4567, "Electronics", new Date((new GregorianCalendar(2019,2,1)).getTimeInMillis()), lineItems, new Date((new GregorianCalendar(2019,2,2)).getTimeInMillis()), 
-										new Date((new GregorianCalendar(2019,2,10)).getTimeInMillis()), new Date((new GregorianCalendar(2019,2,3)).getTimeInMillis()), bills, documents);
-		
+		TransactionStatus transactionStatus = new TransactionStatus(new Long(1234), "Yes");
+
+		Transactions transactions = new Transactions(new Long(6789), 345, 980.98, 678.00, contacts, transactionTypes,
+				transactionStatus, 19780.00, 456.00, 956.00, 6521, "tester", 4567, "Electronics",
+				new Date((new GregorianCalendar(2019, 2, 1)).getTimeInMillis()), lineItems,
+				new Date((new GregorianCalendar(2019, 2, 2)).getTimeInMillis()),
+				new Date((new GregorianCalendar(2019, 2, 10)).getTimeInMillis()),
+				new Date((new GregorianCalendar(2019, 2, 3)).getTimeInMillis()), bills, documents,
+				new Organisation("DEFAULT", "DEFAULT"));
+
 		assertNotNull(transactions);
 		assertNotNull(transactions.lineItems());
 		assertNotNull(transactions.bills());
@@ -49,20 +52,21 @@ public class TransactionsTest {
 		assertEquals(new Integer(4567), transactions.departmentId());
 		assertEquals("Electronics", transactions.departmentName());
 		assertEquals(lineItems, transactions.lineItems());
-		assertEquals(new Date((new GregorianCalendar(2019,2,2)).getTimeInMillis()), transactions.creationdate());
-		assertEquals(new Date((new GregorianCalendar(2019,2,10)).getTimeInMillis()), transactions.dueDate());
-		assertEquals(new Date((new GregorianCalendar(2019,2,3)).getTimeInMillis()), transactions.deliveryDate());
+		assertEquals(new Date((new GregorianCalendar(2019, 2, 2)).getTimeInMillis()), transactions.creationdate());
+		assertEquals(new Date((new GregorianCalendar(2019, 2, 10)).getTimeInMillis()), transactions.dueDate());
+		assertEquals(new Date((new GregorianCalendar(2019, 2, 3)).getTimeInMillis()), transactions.deliveryDate());
 		assertEquals(bills, transactions.bills());
 		assertEquals(documents, transactions.documents());
 	}
-	
+
 	@Test
 	public void TestTransaction() {
 		Set<LineItem> lineItems = new HashSet<LineItem>();
 		TransactionTypes transactionTypes = new TransactionTypes("Test", "Description");
-		
-		Transactions transactions = new Transactions(6789, 4567, "Sridhar", transactionTypes, lineItems, 456, "Chemistry");
-	
+
+		Transactions transactions = new Transactions(6789, 4567, "Sridhar", transactionTypes, lineItems, 456,
+				"Chemistry");
+
 		assertNotNull(transactions);
 		assertNotNull(transactions.lineItems());
 		assertNotNull(transactions.transactionType());
@@ -73,6 +77,6 @@ public class TransactionsTest {
 		assertEquals(lineItems, transactions.lineItems());
 		assertEquals(new Integer(456), transactions.departmentId());
 		assertEquals("Chemistry", transactions.departmentName());
-		
+
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.srkr.accounts.domain.model.Organisation;
 import com.srkr.accounts.domain.model.postgres.Contacts;
 
 @Component
@@ -36,8 +37,10 @@ public class ContactsMapper {
 		pgContacts.setIdnumber(contacts.idNumber());
 		pgContacts.setDesignation(contacts.designation());
 		pgContacts.setCurrent_balance(null != contacts.current_balance() ? contacts.current_balance() : 0.0d);
-		pgContacts.setBalance_updated_date(null != contacts.balance_updated_date() ? contacts.balance_updated_date() : null);
-
+		pgContacts.setBalance_updated_date(
+				null != contacts.balance_updated_date() ? contacts.balance_updated_date() : null);
+		pgContacts.setOrgName(contacts.organisation().name());
+		pgContacts.setOrgCode(contacts.organisation().code());
 		return pgContacts;
 
 	}
@@ -51,7 +54,8 @@ public class ContactsMapper {
 				pgContacts.getStreetaddress(), pgContacts.getCity(), pgContacts.getState(), pgContacts.getCountry(),
 				pgContacts.getPostalcode(), pgContacts.getLandmark(), pgContacts.getAdditionalcomments(),
 				pgContacts.getIdtype(), pgContacts.getIdnumber(), pgContacts.getDesignation(),
-				pgContacts.getCurrent_balance(), pgContacts.getBalance_updated_date(),null);
+				pgContacts.getCurrent_balance(), pgContacts.getBalance_updated_date(), null,
+				new Organisation(pgContacts.getOrgName(), pgContacts.getOrgCode()));
 		return contacts;
 
 	}

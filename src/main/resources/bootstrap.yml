@@ -34,18 +34,4 @@ spring:
             connectiontimeout: 5000
             timeout: 5000
             writetimeout: 5000
-# Keycloak Json properties
-keycloak:
-  realm: AFS
-  auth-server-url: https://68.183.156.146:8443/auth
-  ssl-required: external
-  resource: afs-accounts
-  bearer-only: true
-  credentials:
-    secret: 321fa720-43a6-47e9-b624-25e50061e6b4
-  cors: true
-  securityConstraints:  
-  - authRoles: user
-    securityCollections:
-    - patterns: /accounts/*
-  principal-attribute: preferred_username
+

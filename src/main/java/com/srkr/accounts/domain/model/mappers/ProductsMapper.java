@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.srkr.accounts.domain.model.Organisation;
 import com.srkr.accounts.domain.model.postgres.Products;
 
 @Component
@@ -14,12 +15,15 @@ public class ProductsMapper {
 		Products pgProducts = new Products();
 		pgProducts.setId(products.getId());
 		pgProducts.setName(products.getName());
+		pgProducts.setOrgCode(products.organisation().code());
+		pgProducts.setOrgName(products.organisation().name());
 		return pgProducts;
 	}
 
 	public com.srkr.accounts.domain.model.Products toDomainObject(Products pgProducts) {
 		if (null != pgProducts)
-			return new com.srkr.accounts.domain.model.Products(pgProducts.getId(), pgProducts.getName());
+			return new com.srkr.accounts.domain.model.Products(pgProducts.getId(), pgProducts.getName(),
+					new Organisation(pgProducts.getOrgName(), pgProducts.getOrgCode()));
 		return null;
 	}
 
