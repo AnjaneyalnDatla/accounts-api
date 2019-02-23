@@ -87,7 +87,7 @@ public class Accounts implements java.io.Serializable {
 		this.description = description;
 	}
 	
-	@Column(name = "orgName")
+	@Column(name = "orgname")
 	public String getOrgName() {
 		return this.orgName;
 	}
@@ -96,7 +96,7 @@ public class Accounts implements java.io.Serializable {
 		this.orgName = orgName;
 	}
 
-	@Column(name = "orgCode")
+	@Column(name = "orgcode")
 	public String getOrgCode() {
 		return this.orgCode;
 	}

@@ -96,6 +96,16 @@ public class Payment implements Serializable {
 		return accounts;
 	}
 
+	@Column(name = "orgname")
+	public String getOrgName() {
+		return this.orgName;
+	}
+
+	@Column(name = "orgcode")
+	public String getOrgCode() {
+		return this.orgCode;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -126,16 +136,6 @@ public class Payment implements Serializable {
 
 	public void setAccounts(Accounts accounts) {
 		this.accounts = accounts;
-	}
-
-	@Column(name = "orgName")
-	public String getOrgName() {
-		return this.orgName;
-	}
-
-	@Column(name = "orgCode")
-	public String getOrgCode() {
-		return this.orgCode;
 	}
 
 	public void setOrgName(String orgName) {

@@ -272,12 +272,12 @@ public class Transactions implements java.io.Serializable {
 		this.bills = bills;
 	}
 	
-	@Column(name = "orgName")
+	@Column(name = "orgname")
 	public String getOrgName() {
 		return this.orgName;
 	}
 
-	@Column(name = "orgCode")
+	@Column(name = "orgcode")
 	public String getOrgCode() {
 		return this.orgCode;
 	}

@@ -338,12 +338,12 @@ public class Contacts implements java.io.Serializable {
 		this.balance_updated_date = balance_updated_date;
 	}
 
-	@Column(name = "orgName")
+	@Column(name = "orgname")
 	public String getOrgName() {
 		return this.orgName;
 	}
 
-	@Column(name = "orgCode")
+	@Column(name = "orgcode")
 	public String getOrgCode() {
 		return this.orgCode;
 	}
