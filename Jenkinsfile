@@ -11,6 +11,7 @@ pipeline{
 	
 		stage("IMAGE"){
 			steps{
+                    sh './gradlew bootJar -x test'
 					sh 'docker stop accounts-api || true && docker rm accounts-api || true docker rmi $(docker images |grep accounts-api) || true'				
 					sh 'docker build -t accounts-api:${BUILD_NUMBER} .'
 					
