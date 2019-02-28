@@ -1,0 +1,23 @@
+== Accounts API 
+
+=== Resources
+
+
+==== Transaction
+
+===== Fetch
+
+curl request
+include::{snippets}/givenValidOrgcode_thenReturnHttp200/curl-request.adoc[]
+
+httpie request
+include::{snippets}/givenValidOrgcode_thenReturnHttp200/httpie-request.adoc[]
+
+http request
+include::{snippets}/givenValidOrgcode_thenReturnHttp200/http-request.adoc[]
+
+http response
+include::{snippets}/givenValidOrgcode_thenReturnHttp200/http-response.adoc[]
+
+response
+include::{snippets}/givenValidOrgcode_thenReturnHttp200/response-body.adoc[]

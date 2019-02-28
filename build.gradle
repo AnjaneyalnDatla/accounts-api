@@ -1,13 +1,19 @@
 buildscript {
 	ext {
 		springBootVersion = '2.0.5.RELEASE'
+        asciidoctorPluginVersion = '1.5.3'
 	}
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
+        classpath("org.asciidoctor:asciidoctor-gradle-plugin:${asciidoctorPluginVersion}")
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
+}
+
+plugins {
+	id "org.asciidoctor.convert" version "1.5.3"
 }
 
 apply plugin: 'java'
@@ -27,8 +33,19 @@ repositories {
 	mavenCentral()
 }
 
+
+ext {
+	snippetsDir = file('build/generated-snippets')
+	htmlsDir = file('build/asciidoc/html5')
+	asciiDocOutputDir = file('build/swagger/generated')
+}
+
+
 dependencies {
+
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.1.RELEASE'
 	compile(
+
 	// Spring Data
 	'org.springframework.boot:spring-boot-starter-data-jpa',
 	'org.springframework.boot:spring-boot-starter-data-rest',
@@ -48,7 +65,9 @@ dependencies {
 	)
 	
 	runtime('org.postgresql:postgresql')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.springframework.boot:spring-boot-starter-test',
+    'io.rest-assured:rest-assured:3.1.0',
+    'org.springframework.restdocs:spring-restdocs-restassured')
 }
 
 dependencyManagement {
@@ -61,11 +80,40 @@ bootJar {
     version =  '1.0.0'
 }
 
+test {
+	outputs.dir snippetsDir
+}
+
+
+// Integration Test Task
+task integrationTest(type: Test) {
+	include '**/*ControllerTest.class'
+	testLogging { events "passed", "skipped", "failed" }
+}
+
 jar {
 	enabled =true
 	manifest {
-    	attributes 'Main-Class': 'com.srkr.identity.AccountsApiApplication'
+    	attributes 'Main-Class': 'com.a2nine.accounts.AccountsApiApplication'
     	}
+}
+
+// Documentation
+asciidoctor {
+	attributes 'snippets': snippetsDir
+	inputs.dir snippetsDir
+	dependsOn test
+	backends = ['html5']
+	attributes = [
+		doctype: 'book',
+		toc: 'left',
+		toclevels: '3',
+		numbered: '',
+		sectlinks: '',
+		sectanchors: '',
+		hardbreaks: '',
+		generated: asciiDocOutputDir
+	]
 }
 
 // Upload to Nexus
