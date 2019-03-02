@@ -61,7 +61,9 @@ dependencies {
 	'org.springframework.boot:spring-boot-starter-mail',
 	// Spring Boot Facilitators
 	'org.springframework.boot:spring-boot-devtools',
-	'org.springframework.boot:spring-boot-starter-actuator'
+	'org.springframework.boot:spring-boot-starter-actuator',
+    'org.apache.commons:commons-lang3:3.8.1'
+
 	)
 	
 	runtime('org.postgresql:postgresql')

@@ -1,10 +1,9 @@
 package com.a2nine.accounts.domain.model.mappers;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import com.a2nine.accounts.domain.model.Organisation;
 import com.a2nine.accounts.domain.model.postgres.Contacts;
 
@@ -39,8 +38,8 @@ public class ContactsMapper {
 		pgContacts.setCurrent_balance(null != contacts.current_balance() ? contacts.current_balance() : 0.0d);
 		pgContacts.setBalance_updated_date(
 				null != contacts.balance_updated_date() ? contacts.balance_updated_date() : null);
-		pgContacts.setOrgName(contacts.organisation().name());
-		pgContacts.setOrgcode(contacts.organisation().code());
+		pgContacts.setOrgName(null == contacts.organisation() ? null : contacts.organisation().name());
+		pgContacts.setOrgcode(null == contacts.organisation() ? null : contacts.organisation().code());
 		return pgContacts;
 
 	}
