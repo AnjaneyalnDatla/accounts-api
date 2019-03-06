@@ -32,6 +32,7 @@ public class PostgresContactsRepositoryTest {
 		this.contactsList = new ArrayList<>();
 
 		Contacts pgContacts = new Contacts();
+		pgContacts.setId(120789l);
 		pgContacts.setSupplementalid("supplemId");
 		pgContacts.setIscompany(true);
 		pgContacts.setCompanyname("AFS system");
@@ -55,6 +56,8 @@ public class PostgresContactsRepositoryTest {
 		pgContacts.setDesignation("Engineer");
 		pgContacts.setCurrent_balance(2000.00);
 		pgContacts.setBalance_updated_date(new Date());
+		pgContacts.setOrgcode("DEFAULT");
+		pgContacts.setOrgName("DEFAULT");
 
 		contactsList.add(pgContacts);
 	}
