@@ -37,6 +37,7 @@ public class PostgresDocumentRepositoryTest {
 		pgDocument.setDocumentReferencerNumber(new Long(143235));
 		pgDocument.setDocumentUploadedDate(new Date());
 		
+		documentsList.add(pgDocument);
 	}
 	
 	@Test

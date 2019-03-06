@@ -83,6 +83,8 @@ public class PostgresTransactionsRepositoryTest {
 		this.transactions.setDueDate(new Date());
 		this.transactions.setCreationdate(new Date());
 		this.transactions.setDeliveryDate(new Date());
+		this.transactions.setOrgcode("DEFAULT");
+		this.transactions.setOrgName("DEFAULT");
 	}
 
 	@Test

@@ -34,45 +34,57 @@ public class PostgresLineItemsRepositoryTest {
 
 	private List<LineItem> lineItemsList;
 	private List<LineItem> lineItemsDeleteList;
+	private int id;
 
 	@Before
 	public void setUp() {
 		this.lineItemsList = new ArrayList<>();
 		Random rand = new Random();
 		LineItem pgLineItem = new LineItem();
+		pgLineItem.setId(rand.nextLong());
 		Products products = new Products(rand.nextLong(), "new Product", new Date(),
 				"DEFAULT", "DEFAULT");
 		Transactions transactions = new Transactions();
-
-		transactions.setTransactionType(new TransactionTypes(1l, "INVOICE"));
+		transactions.setId(rand.nextLong());
+		transactions.setTransactionNumber(2);
+		
+		transactions.setOriginalAmount(rand.nextDouble());
+		transactions.setPendingAmount(rand.nextDouble());
+		transactions.setContact(new Contacts(rand.nextLong(),"First Name","last name", "streeet","city","WI","USA","53562","Id type","34567","designation",
+				6789.00,new Date(),"DEFAULT","DEFAULT"));
+		transactions.setContactName("New contact");
+		transactions.setTransactionType(new TransactionTypes(1l, "INVOICE","Description",new Date()));
+		transactions.setTransactionTypeName("Trans Type Name");
 		transactions.setTransactionStatus(new TransactionStatus(1l, "COMPLETE"));
-		transactions.setContact(new Contacts(rand.nextLong()));
-		transactions.setUserId(rand.nextInt());
+		transactions.setTransactionStatusName("Transaction status name");
+		
+		transactions.setUserId(12);
 		transactions.setUserName("admin@admin.com");
-		transactions.setDepartmentId(rand.nextInt());
+		transactions.setDepartmentId(1);
 		transactions.setDepartmentName("civil");
 		transactions.setDueDate(new Date());
+		transactions.setDateupdated(new Date());
 		transactions.setCreationdate(new Date());
 		transactions.setDeliveryDate(new Date());
-
+		transactions.setOrgcode("DEFAULT");
+		transactions.setOrgName("DEFAULT");
+		
 		pgLineItem.setAmount(rand.nextDouble());
 		pgLineItem.setDateupdated(new Date());
-		pgLineItem.setLine_item_number(rand.nextInt());
+		pgLineItem.setLine_item_number(1);
 		pgLineItem.setName("New Line Item");
 		pgLineItem.setPrice(rand.nextDouble());
 		pgLineItem.setProducts(products);
-		pgLineItem.setQuantity(rand.nextInt());
-		pgLineItem.setTransactionNumber(rand.nextInt());
+		pgLineItem.setQuantity(1);
+		pgLineItem.setTransactionNumber(2);
 		pgLineItem.setTransactions(transactions);
 
 		lineItemsList.add(pgLineItem);
+		
+
 	}
 
-	@Test
-	public void findByTransactionNumber() {
-		Set<LineItem> lineItem = lineItemsRepository.findByTransactionNumber(1);
-		assertNotNull(lineItem);
-	}
+	
 
 	@Test
 	public void save() {
@@ -80,12 +92,18 @@ public class PostgresLineItemsRepositoryTest {
 			lineItemsDeleteList.add(this.lineItemsRepository.save(lineItem));
 		});
 		assertTrue(lineItemsDeleteList.size() > 0);
+		id = lineItemsDeleteList.get(0).getTransactions().getTransactionNumber();
 	}
 
-	@After
+	@Test
+	public void findByTransactionNumber() {
+		Set<LineItem> lineItem = lineItemsRepository.findByTransactionNumber(id);
+		assertNotNull(lineItem);
+	}
+	/*@After
 	public void after() {
 		lineItemsDeleteList.forEach(lineItem -> {
 			this.lineItemsRepository.delete(lineItem);
 		});
-	}
+	}*/
 }

@@ -24,7 +24,7 @@ public class PostgresProductsRepositoryTest {
 	@Autowired
 	PostgresProductsRepository productsRepository;
 
-	private List<Products> productsList;
+	private List<Products> productsList = new ArrayList<>();
 	private List<Products> productsDeleteList = new ArrayList<>();
 
 	@Before
@@ -32,8 +32,18 @@ public class PostgresProductsRepositoryTest {
 		Products products = new Products();
 		products.setDateupdated(new Date());
 		products.setName("New Product");
+		products.setOrgcode("DEFAULT");
+		products.setOrgName("DEFAULT");
 
 		productsList.add(products);
+	}
+	
+	@Test
+	public void save() {
+		productsList.forEach((product) -> {
+			productsDeleteList.add(this.productsRepository.save(product));
+		});
+		assertTrue(productsDeleteList.size() > 0);
 	}
 
 	@Test
@@ -42,13 +52,6 @@ public class PostgresProductsRepositoryTest {
 		assertNotNull(products);
 	}
 
-	@Test
-	public void save() {
-		productsList.forEach((product) -> {
-			productsDeleteList.add(this.productsRepository.save(product));
-		});
-		assertTrue(productsDeleteList.size() > 0);
-	}
 	/*
 	 * @After public void delete() { productsDeleteList.forEach(product -> {
 	 * this.productsRepository.delete(product); }); }
