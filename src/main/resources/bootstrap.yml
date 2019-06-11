@@ -1,15 +1,16 @@
 server:
   port: 8082
 spring:
-  application:    name: accounts-api
+  application:
+    name: accounts-api
   cloud:
     config:
       name: bootstrap.yml
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://68.183.156.146:5432/accounts
-    username: postgres
-    password: postgres
+    username: XXX
+    password: XXX
     hikari:
       connection-timeout: 30000
       idle-timeout: 180000
@@ -23,8 +24,8 @@ spring:
   mail:
     host: smtp.mailtrap.io
     port: 2525
-    username: a501c40aa9cc3d
-    password: 86c07dae49dd90
+    username: XXX
+    password: XXX
     properties:
       mail:
         smtp:
